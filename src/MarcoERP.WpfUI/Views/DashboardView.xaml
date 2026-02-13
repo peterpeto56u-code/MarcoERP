@@ -1,0 +1,323 @@
+<UserControl x:Class="MarcoERP.WpfUI.Views.DashboardView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             FlowDirection="RightToLeft">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="16">
+        <StackPanel>
+
+            <!-- ═══ Header ═══ -->
+            <DockPanel Margin="0,0,0,16">
+                <TextBlock Text="لوحة التحكم" Style="{StaticResource PageTitle}" />
+                <Button DockPanel.Dock="Left" Style="{StaticResource MaterialDesignFlatButton}"
+                        Command="{Binding RefreshCommand}" HorizontalAlignment="Left"
+                        ToolTip="تحديث البيانات">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Refresh" Width="20" Height="20" VerticalAlignment="Center" />
+                        <TextBlock Text="تحديث" Margin="6,0,0,0" VerticalAlignment="Center" />
+                    </StackPanel>
+                </Button>
+            </DockPanel>
+
+            <!-- ═══ Shortcuts ═══ -->
+            <DockPanel Margin="0,0,0,8">
+                <TextBlock Text="الاختصارات" Style="{StaticResource SectionTitle}" VerticalAlignment="Center" />
+                <Button DockPanel.Dock="Left" HorizontalAlignment="Left"
+                        Style="{StaticResource MaterialDesignIconButton}"
+                        Command="{Binding ConfigureShortcutsCommand}"
+                        ToolTip="تخصيص الاختصارات" Width="28" Height="28" Padding="0">
+                    <materialDesign:PackIcon Kind="Cog" Width="16" Height="16" />
+                </Button>
+            </DockPanel>
+
+            <ItemsControl ItemsSource="{Binding Shortcuts}" Margin="0,0,0,16">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Columns="6" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Style="{StaticResource CardPanel}" Margin="4" Padding="14"
+                                Cursor="Hand"
+                                Background="{DynamicResource MaterialDesignCardBackground}">
+                            <Border.InputBindings>
+                                <MouseBinding Gesture="LeftClick" Command="{Binding NavigateCommand}" />
+                            </Border.InputBindings>
+                            <Border.Triggers>
+                                <EventTrigger RoutedEvent="MouseEnter">
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
+                                                             To="1.04" Duration="0:0:0.15" />
+                                            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
+                                                             To="1.04" Duration="0:0:0.15" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger>
+                                <EventTrigger RoutedEvent="MouseLeave">
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
+                                                             To="1.0" Duration="0:0:0.15" />
+                                            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
+                                                             To="1.0" Duration="0:0:0.15" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger>
+                            </Border.Triggers>
+                            <Border.RenderTransform>
+                                <ScaleTransform ScaleX="1" ScaleY="1" />
+                            </Border.RenderTransform>
+                            <Border.RenderTransformOrigin>
+                                <Point X="0.5" Y="0.5" />
+                            </Border.RenderTransformOrigin>
+                            <StackPanel HorizontalAlignment="Center">
+                                <materialDesign:PackIcon Kind="{Binding IconKind}" Width="32" Height="32"
+                                                         Foreground="{Binding IconBrush}"
+                                                         HorizontalAlignment="Center" Margin="0,0,0,6" />
+                                <TextBlock Text="{Binding Title}" FontSize="12" FontWeight="SemiBold"
+                                           HorizontalAlignment="Center" TextAlignment="Center" />
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+            <!-- ═══ Today's Metrics ═══ -->
+            <TextBlock Text="اليوم" Style="{StaticResource SectionTitle}" Margin="0,0,0,8" />
+            <UniformGrid Columns="4" Margin="0,0,0,16">
+
+                <!-- Today Sales -->
+                <Border Style="{StaticResource CardPanel}" Margin="4" Padding="16">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                            <materialDesign:PackIcon Kind="CashRegister" Width="28" Height="28"
+                                                     Foreground="{StaticResource SuccessBrush}" />
+                            <TextBlock Text="المبيعات" FontSize="14" FontWeight="SemiBold"
+                                       Margin="8,0,0,0" VerticalAlignment="Center" />
+                        </StackPanel>
+                        <TextBlock Text="{Binding TodaySales, StringFormat=N2}" FontSize="22"
+                                   FontWeight="Bold" Foreground="{StaticResource SuccessBrush}" />
+                        <TextBlock Foreground="{StaticResource SubtitleBrush}" FontSize="12" Margin="0,4,0,0">
+                            <Run Text="{Binding TodaySalesCount, Mode=OneWay}" />
+                            <Run Text=" فاتورة" />
+                        </TextBlock>
+                    </StackPanel>
+                </Border>
+
+                <!-- Today Purchases -->
+                <Border Style="{StaticResource CardPanel}" Margin="4" Padding="16">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                            <materialDesign:PackIcon Kind="CartOutline" Width="28" Height="28"
+                                                     Foreground="{StaticResource WarningBrush}" />
+                            <TextBlock Text="المشتريات" FontSize="14" FontWeight="SemiBold"
+                                       Margin="8,0,0,0" VerticalAlignment="Center" />
+                        </StackPanel>
+                        <TextBlock Text="{Binding TodayPurchases, StringFormat=N2}" FontSize="22"
+                                   FontWeight="Bold" Foreground="{StaticResource WarningBrush}" />
+                        <TextBlock Foreground="{StaticResource SubtitleBrush}" FontSize="12" Margin="0,4,0,0">
+                            <Run Text="{Binding TodayPurchasesCount, Mode=OneWay}" />
+                            <Run Text=" فاتورة" />
+                        </TextBlock>
+                    </StackPanel>
+                </Border>
+
+                <!-- Today Cash In -->
+                <Border Style="{StaticResource CardPanel}" Margin="4" Padding="16">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                            <materialDesign:PackIcon Kind="CashPlus" Width="28" Height="28"
+                                                     Foreground="{StaticResource InfoBrush}" />
+                            <TextBlock Text="المقبوضات" FontSize="14" FontWeight="SemiBold"
+                                       Margin="8,0,0,0" VerticalAlignment="Center" />
+                        </StackPanel>
+                        <TextBlock Text="{Binding TodayReceipts, StringFormat=N2}" FontSize="22"
+                                   FontWeight="Bold" Foreground="{StaticResource InfoBrush}" />
+                    </StackPanel>
+                </Border>
+
+                <!-- Today Cash Out -->
+                <Border Style="{StaticResource CardPanel}" Margin="4" Padding="16">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                            <materialDesign:PackIcon Kind="CashMinus" Width="28" Height="28"
+                                                     Foreground="{StaticResource DangerBrush}" />
+                            <TextBlock Text="المدفوعات" FontSize="14" FontWeight="SemiBold"
+                                       Margin="8,0,0,0" VerticalAlignment="Center" />
+                        </StackPanel>
+                        <TextBlock Text="{Binding TodayPayments, StringFormat=N2}" FontSize="22"
+                                   FontWeight="Bold" Foreground="{StaticResource DangerBrush}" />
+                    </StackPanel>
+                </Border>
+            </UniformGrid>
+
+            <!-- ═══ Month Metrics ═══ -->
+            <TextBlock Text="الشهر الحالي" Style="{StaticResource SectionTitle}" Margin="0,0,0,8" />
+            <UniformGrid Columns="4" Margin="0,0,0,16">
+
+                <Border Style="{StaticResource CardPanel}" Margin="4" Padding="16">
+                    <StackPanel>
+                        <TextBlock Text="مبيعات الشهر" FontSize="12" Foreground="{StaticResource SubtitleBrush}" />
+                        <TextBlock Text="{Binding MonthSales, StringFormat=N2}" FontSize="20"
+                                   FontWeight="Bold" Foreground="{StaticResource SuccessBrush}" Margin="0,4,0,0" />
+                    </StackPanel>
+                </Border>
+
+                <Border Style="{StaticResource CardPanel}" Margin="4" Padding="16">
+                    <StackPanel>
+                        <TextBlock Text="مشتريات الشهر" FontSize="12" Foreground="{StaticResource SubtitleBrush}" />
+                        <TextBlock Text="{Binding MonthPurchases, StringFormat=N2}" FontSize="20"
+                                   FontWeight="Bold" Foreground="{StaticResource WarningBrush}" Margin="0,4,0,0" />
+                    </StackPanel>
+                </Border>
+
+                <Border Style="{StaticResource CardPanel}" Margin="4" Padding="16">
+                    <StackPanel>
+                        <TextBlock Text="مقبوضات الشهر" FontSize="12" Foreground="{StaticResource SubtitleBrush}" />
+                        <TextBlock Text="{Binding MonthReceipts, StringFormat=N2}" FontSize="20"
+                                   FontWeight="Bold" Foreground="{StaticResource InfoBrush}" Margin="0,4,0,0" />
+                    </StackPanel>
+                </Border>
+
+                <Border Style="{StaticResource CardPanel}" Margin="4" Padding="16">
+                    <StackPanel>
+                        <TextBlock Text="مدفوعات الشهر" FontSize="12" Foreground="{StaticResource SubtitleBrush}" />
+                        <TextBlock Text="{Binding MonthPayments, StringFormat=N2}" FontSize="20"
+                                   FontWeight="Bold" Foreground="{StaticResource DangerBrush}" Margin="0,4,0,0" />
+                    </StackPanel>
+                </Border>
+            </UniformGrid>
+
+            <!-- ═══ Running Balances ═══ -->
+            <TextBlock Text="الأرصدة الجارية" Style="{StaticResource SectionTitle}" Margin="0,0,0,8" />
+            <UniformGrid Columns="4" Margin="0,0,0,16">
+
+                <!-- Cash Balance -->
+                <Border Style="{StaticResource CardPanel}" Margin="4" Padding="16">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                            <materialDesign:PackIcon Kind="Safe" Width="28" Height="28"
+                                                     Foreground="{StaticResource SuccessBrush}" />
+                            <TextBlock Text="رصيد الصندوق" FontSize="14" FontWeight="SemiBold"
+                                       Margin="8,0,0,0" VerticalAlignment="Center" />
+                        </StackPanel>
+                        <TextBlock Text="{Binding CashBalance, StringFormat=N2}" FontSize="22"
+                                   FontWeight="Bold" Foreground="{StaticResource SuccessBrush}" />
+                    </StackPanel>
+                </Border>
+
+                <!-- Customer AR -->
+                <Border Style="{StaticResource CardPanel}" Margin="4" Padding="16">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                            <materialDesign:PackIcon Kind="AccountGroupOutline" Width="28" Height="28"
+                                                     Foreground="{StaticResource InfoBrush}" />
+                            <TextBlock Text="ذمم العملاء" FontSize="14" FontWeight="SemiBold"
+                                       Margin="8,0,0,0" VerticalAlignment="Center" />
+                        </StackPanel>
+                        <TextBlock Text="{Binding TotalCustomerBalance, StringFormat=N2}" FontSize="22"
+                                   FontWeight="Bold" Foreground="{StaticResource InfoBrush}" />
+                    </StackPanel>
+                </Border>
+
+                <!-- Supplier AP -->
+                <Border Style="{StaticResource CardPanel}" Margin="4" Padding="16">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                            <materialDesign:PackIcon Kind="TruckDeliveryOutline" Width="28" Height="28"
+                                                     Foreground="{StaticResource WarningBrush}" />
+                            <TextBlock Text="ذمم الموردين" FontSize="14" FontWeight="SemiBold"
+                                       Margin="8,0,0,0" VerticalAlignment="Center" />
+                        </StackPanel>
+                        <TextBlock Text="{Binding TotalSupplierBalance, StringFormat=N2}" FontSize="22"
+                                   FontWeight="Bold" Foreground="{StaticResource WarningBrush}" />
+                    </StackPanel>
+                </Border>
+
+                <!-- Month Gross Profit -->
+                <Border Style="{StaticResource CardPanel}" Margin="4" Padding="16">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                            <materialDesign:PackIcon Kind="ChartLineVariant" Width="28" Height="28"
+                                                     Foreground="{StaticResource SuccessBrush}" />
+                            <TextBlock Text="مجمل ربح الشهر" FontSize="14" FontWeight="SemiBold"
+                                       Margin="8,0,0,0" VerticalAlignment="Center" />
+                        </StackPanel>
+                        <TextBlock Text="{Binding MonthGrossProfit, StringFormat=N2}" FontSize="22"
+                                   FontWeight="Bold" Foreground="{StaticResource SuccessBrush}" />
+                    </StackPanel>
+                </Border>
+            </UniformGrid>
+
+            <!-- ═══ Alerts ═══ -->
+            <TextBlock Text="تنبيهات" Style="{StaticResource SectionTitle}" Margin="0,0,0,8" />
+            <UniformGrid Columns="3" Margin="0,0,0,16">
+
+                <!-- Low Stock -->
+                <Border Style="{StaticResource CardPanel}" Margin="4" Padding="16">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                            <materialDesign:PackIcon Kind="AlertCircleOutline" Width="24" Height="24"
+                                                     Foreground="{StaticResource DangerBrush}" />
+                            <TextBlock Text="أصناف تحت الحد الأدنى" FontSize="12" FontWeight="SemiBold"
+                                       Margin="8,0,0,0" VerticalAlignment="Center" />
+                        </StackPanel>
+                        <TextBlock FontSize="24" FontWeight="Bold">
+                            <Run Text="{Binding LowStockCount, Mode=OneWay}"
+                                 Foreground="{StaticResource DangerBrush}" />
+                            <Run Text=" / " Foreground="{StaticResource SecondaryTextBrush}" />
+                            <Run Text="{Binding TotalProducts, Mode=OneWay}" Foreground="{StaticResource SubtitleBrush}" />
+                        </TextBlock>
+                    </StackPanel>
+                </Border>
+
+                <!-- Pending Sales -->
+                <Border Style="{StaticResource CardPanel}" Margin="4" Padding="16">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                            <materialDesign:PackIcon Kind="FileDocumentEditOutline" Width="24" Height="24"
+                                                     Foreground="{StaticResource WarningBrush}" />
+                            <TextBlock Text="مسودات معلّقة" FontSize="12" FontWeight="SemiBold"
+                                       Margin="8,0,0,0" VerticalAlignment="Center" />
+                        </StackPanel>
+                        <StackPanel>
+                            <TextBlock FontSize="12" Margin="0,2">
+                                <Run Text="فواتير بيع: " />
+                                <Run Text="{Binding PendingSalesInvoices, Mode=OneWay}" FontWeight="Bold" />
+                            </TextBlock>
+                            <TextBlock FontSize="12" Margin="0,2">
+                                <Run Text="فواتير شراء: " />
+                                <Run Text="{Binding PendingPurchaseInvoices, Mode=OneWay}" FontWeight="Bold" />
+                            </TextBlock>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+                <!-- Pending Journals -->
+                <Border Style="{StaticResource CardPanel}" Margin="4" Padding="16">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                            <materialDesign:PackIcon Kind="BookOpenPageVariant" Width="24" Height="24"
+                                                     Foreground="{StaticResource WarningBrush}" />
+                            <TextBlock Text="قيود مسودة" FontSize="12" FontWeight="SemiBold"
+                                       Margin="8,0,0,0" VerticalAlignment="Center" />
+                        </StackPanel>
+                        <TextBlock Text="{Binding PendingJournalEntries}" FontSize="24"
+                                   FontWeight="Bold" Foreground="{StaticResource WarningBrush}" />
+                    </StackPanel>
+                </Border>
+            </UniformGrid>
+
+            <!-- Error message -->
+            <Border Background="{StaticResource ErrorBackgroundBrush}" CornerRadius="4" Padding="12" Margin="0,8"
+                    Visibility="{Binding HasError, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <TextBlock Text="{Binding ErrorMessage}" Foreground="{StaticResource DangerBrush}"
+                           FontSize="12" TextWrapping="Wrap" />
+            </Border>
+
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

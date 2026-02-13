@@ -1,0 +1,638 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "E:\\Smart erp\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{DE569886-23B5-4063-B042-D150C4FDACEB}|src\\MarcoERP.WpfUI\\MarcoERP.WpfUI.csproj|e:\\smart erp\\src\\marcoerp.wpfui\\views\\dashboardview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{DE569886-23B5-4063-B042-D150C4FDACEB}|src\\MarcoERP.WpfUI\\MarcoERP.WpfUI.csproj|solutionrelative:src\\marcoerp.wpfui\\views\\dashboardview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE569886-23B5-4063-B042-D150C4FDACEB}|src\\MarcoERP.WpfUI\\MarcoERP.WpfUI.csproj|e:\\smart erp\\src\\marcoerp.wpfui\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{DE569886-23B5-4063-B042-D150C4FDACEB}|src\\MarcoERP.WpfUI\\MarcoERP.WpfUI.csproj|solutionrelative:src\\marcoerp.wpfui\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE569886-23B5-4063-B042-D150C4FDACEB}|src\\MarcoERP.WpfUI\\MarcoERP.WpfUI.csproj|e:\\smart erp\\src\\marcoerp.wpfui\\views\\shell\\shortcutconfigdialog.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{DE569886-23B5-4063-B042-D150C4FDACEB}|src\\MarcoERP.WpfUI\\MarcoERP.WpfUI.csproj|solutionrelative:src\\marcoerp.wpfui\\views\\shell\\shortcutconfigdialog.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE569886-23B5-4063-B042-D150C4FDACEB}|src\\MarcoERP.WpfUI\\MarcoERP.WpfUI.csproj|e:\\smart erp\\src\\marcoerp.wpfui\\views\\shell\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{DE569886-23B5-4063-B042-D150C4FDACEB}|src\\MarcoERP.WpfUI\\MarcoERP.WpfUI.csproj|solutionrelative:src\\marcoerp.wpfui\\views\\shell\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE569886-23B5-4063-B042-D150C4FDACEB}|src\\MarcoERP.WpfUI\\MarcoERP.WpfUI.csproj|e:\\smart erp\\src\\marcoerp.wpfui\\views\\shell\\loginwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{DE569886-23B5-4063-B042-D150C4FDACEB}|src\\MarcoERP.WpfUI\\MarcoERP.WpfUI.csproj|solutionrelative:src\\marcoerp.wpfui\\views\\shell\\loginwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE569886-23B5-4063-B042-D150C4FDACEB}|src\\MarcoERP.WpfUI\\MarcoERP.WpfUI.csproj|e:\\smart erp\\src\\marcoerp.wpfui\\views\\reports\\agingreportview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{DE569886-23B5-4063-B042-D150C4FDACEB}|src\\MarcoERP.WpfUI\\MarcoERP.WpfUI.csproj|solutionrelative:src\\marcoerp.wpfui\\views\\reports\\agingreportview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE569886-23B5-4063-B042-D150C4FDACEB}|src\\MarcoERP.WpfUI\\MarcoERP.WpfUI.csproj|e:\\smart erp\\src\\marcoerp.wpfui\\views\\inventory\\inventoryadjustmentdetailview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{DE569886-23B5-4063-B042-D150C4FDACEB}|src\\MarcoERP.WpfUI\\MarcoERP.WpfUI.csproj|solutionrelative:src\\marcoerp.wpfui\\views\\inventory\\inventoryadjustmentdetailview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE569886-23B5-4063-B042-D150C4FDACEB}|src\\MarcoERP.WpfUI\\MarcoERP.WpfUI.csproj|e:\\smart erp\\src\\marcoerp.wpfui\\views\\inventory\\inventoryadjustmentlistview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{DE569886-23B5-4063-B042-D150C4FDACEB}|src\\MarcoERP.WpfUI\\MarcoERP.WpfUI.csproj|solutionrelative:src\\marcoerp.wpfui\\views\\inventory\\inventoryadjustmentlistview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE569886-23B5-4063-B042-D150C4FDACEB}|src\\MarcoERP.WpfUI\\MarcoERP.WpfUI.csproj|e:\\smart erp\\src\\marcoerp.wpfui\\views\\common\\searchlookupwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{DE569886-23B5-4063-B042-D150C4FDACEB}|src\\MarcoERP.WpfUI\\MarcoERP.WpfUI.csproj|solutionrelative:src\\marcoerp.wpfui\\views\\common\\searchlookupwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE569886-23B5-4063-B042-D150C4FDACEB}|src\\MarcoERP.WpfUI\\MarcoERP.WpfUI.csproj|e:\\smart erp\\src\\marcoerp.wpfui\\views\\common\\quicktreasurydialog.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{DE569886-23B5-4063-B042-D150C4FDACEB}|src\\MarcoERP.WpfUI\\MarcoERP.WpfUI.csproj|solutionrelative:src\\marcoerp.wpfui\\views\\common\\quicktreasurydialog.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE569886-23B5-4063-B042-D150C4FDACEB}|src\\MarcoERP.WpfUI\\MarcoERP.WpfUI.csproj|e:\\smart erp\\src\\marcoerp.wpfui\\views\\common\\invoicepdfpreviewdialog.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{DE569886-23B5-4063-B042-D150C4FDACEB}|src\\MarcoERP.WpfUI\\MarcoERP.WpfUI.csproj|solutionrelative:src\\marcoerp.wpfui\\views\\common\\invoicepdfpreviewdialog.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE569886-23B5-4063-B042-D150C4FDACEB}|src\\MarcoERP.WpfUI\\MarcoERP.WpfUI.csproj|e:\\smart erp\\src\\marcoerp.wpfui\\views\\common\\invoiceaddlinewindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{DE569886-23B5-4063-B042-D150C4FDACEB}|src\\MarcoERP.WpfUI\\MarcoERP.WpfUI.csproj|solutionrelative:src\\marcoerp.wpfui\\views\\common\\invoiceaddlinewindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE569886-23B5-4063-B042-D150C4FDACEB}|src\\MarcoERP.WpfUI\\MarcoERP.WpfUI.csproj|e:\\smart erp\\src\\marcoerp.wpfui\\views\\accounting\\fiscalyearview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{DE569886-23B5-4063-B042-D150C4FDACEB}|src\\MarcoERP.WpfUI\\MarcoERP.WpfUI.csproj|solutionrelative:src\\marcoerp.wpfui\\views\\accounting\\fiscalyearview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE569886-23B5-4063-B042-D150C4FDACEB}|src\\MarcoERP.WpfUI\\MarcoERP.WpfUI.csproj|e:\\smart erp\\src\\marcoerp.wpfui\\views\\accounting\\fiscalperiodview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DE569886-23B5-4063-B042-D150C4FDACEB}|src\\MarcoERP.WpfUI\\MarcoERP.WpfUI.csproj|solutionrelative:src\\marcoerp.wpfui\\views\\accounting\\fiscalperiodview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE569886-23B5-4063-B042-D150C4FDACEB}|src\\MarcoERP.WpfUI\\MarcoERP.WpfUI.csproj|e:\\smart erp\\src\\marcoerp.wpfui\\views\\accounting\\fiscalperiodview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{DE569886-23B5-4063-B042-D150C4FDACEB}|src\\MarcoERP.WpfUI\\MarcoERP.WpfUI.csproj|solutionrelative:src\\marcoerp.wpfui\\views\\accounting\\fiscalperiodview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE569886-23B5-4063-B042-D150C4FDACEB}|src\\MarcoERP.WpfUI\\MarcoERP.WpfUI.csproj|e:\\smart erp\\src\\marcoerp.wpfui\\views\\accounting\\chartofaccountsview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{DE569886-23B5-4063-B042-D150C4FDACEB}|src\\MarcoERP.WpfUI\\MarcoERP.WpfUI.csproj|solutionrelative:src\\marcoerp.wpfui\\views\\accounting\\chartofaccountsview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE569886-23B5-4063-B042-D150C4FDACEB}|src\\MarcoERP.WpfUI\\MarcoERP.WpfUI.csproj|e:\\smart erp\\src\\marcoerp.wpfui\\views\\sales\\pricelistview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{DE569886-23B5-4063-B042-D150C4FDACEB}|src\\MarcoERP.WpfUI\\MarcoERP.WpfUI.csproj|solutionrelative:src\\marcoerp.wpfui\\views\\sales\\pricelistview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE569886-23B5-4063-B042-D150C4FDACEB}|src\\MarcoERP.WpfUI\\MarcoERP.WpfUI.csproj|e:\\smart erp\\src\\marcoerp.wpfui\\views\\sales\\poswindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{DE569886-23B5-4063-B042-D150C4FDACEB}|src\\MarcoERP.WpfUI\\MarcoERP.WpfUI.csproj|solutionrelative:src\\marcoerp.wpfui\\views\\sales\\poswindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE569886-23B5-4063-B042-D150C4FDACEB}|src\\MarcoERP.WpfUI\\MarcoERP.WpfUI.csproj|e:\\smart erp\\src\\marcoerp.wpfui\\views\\sales\\posopensessiondialog.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{DE569886-23B5-4063-B042-D150C4FDACEB}|src\\MarcoERP.WpfUI\\MarcoERP.WpfUI.csproj|solutionrelative:src\\marcoerp.wpfui\\views\\sales\\posopensessiondialog.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE569886-23B5-4063-B042-D150C4FDACEB}|src\\MarcoERP.WpfUI\\MarcoERP.WpfUI.csproj|e:\\smart erp\\src\\marcoerp.wpfui\\views\\sales\\posclosesessiondialog.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{DE569886-23B5-4063-B042-D150C4FDACEB}|src\\MarcoERP.WpfUI\\MarcoERP.WpfUI.csproj|solutionrelative:src\\marcoerp.wpfui\\views\\sales\\posclosesessiondialog.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE569886-23B5-4063-B042-D150C4FDACEB}|src\\MarcoERP.WpfUI\\MarcoERP.WpfUI.csproj|e:\\smart erp\\src\\marcoerp.wpfui\\views\\sales\\customerview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{DE569886-23B5-4063-B042-D150C4FDACEB}|src\\MarcoERP.WpfUI\\MarcoERP.WpfUI.csproj|solutionrelative:src\\marcoerp.wpfui\\views\\sales\\customerview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE569886-23B5-4063-B042-D150C4FDACEB}|src\\MarcoERP.WpfUI\\MarcoERP.WpfUI.csproj|e:\\smart erp\\src\\marcoerp.wpfui\\views\\sales\\salesreturnview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{DE569886-23B5-4063-B042-D150C4FDACEB}|src\\MarcoERP.WpfUI\\MarcoERP.WpfUI.csproj|solutionrelative:src\\marcoerp.wpfui\\views\\sales\\salesreturnview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE569886-23B5-4063-B042-D150C4FDACEB}|src\\MarcoERP.WpfUI\\MarcoERP.WpfUI.csproj|e:\\smart erp\\src\\marcoerp.wpfui\\views\\settings\\auditlogview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{DE569886-23B5-4063-B042-D150C4FDACEB}|src\\MarcoERP.WpfUI\\MarcoERP.WpfUI.csproj|solutionrelative:src\\marcoerp.wpfui\\views\\settings\\auditlogview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE569886-23B5-4063-B042-D150C4FDACEB}|src\\MarcoERP.WpfUI\\MarcoERP.WpfUI.csproj|e:\\smart erp\\src\\marcoerp.wpfui\\views\\settings\\backupsettingsview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{DE569886-23B5-4063-B042-D150C4FDACEB}|src\\MarcoERP.WpfUI\\MarcoERP.WpfUI.csproj|solutionrelative:src\\marcoerp.wpfui\\views\\settings\\backupsettingsview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE569886-23B5-4063-B042-D150C4FDACEB}|src\\MarcoERP.WpfUI\\MarcoERP.WpfUI.csproj|e:\\smart erp\\src\\marcoerp.wpfui\\views\\settings\\governanceconsoleview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{DE569886-23B5-4063-B042-D150C4FDACEB}|src\\MarcoERP.WpfUI\\MarcoERP.WpfUI.csproj|solutionrelative:src\\marcoerp.wpfui\\views\\settings\\governanceconsoleview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE569886-23B5-4063-B042-D150C4FDACEB}|src\\MarcoERP.WpfUI\\MarcoERP.WpfUI.csproj|e:\\smart erp\\src\\marcoerp.wpfui\\views\\settings\\governanceintegrityview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{DE569886-23B5-4063-B042-D150C4FDACEB}|src\\MarcoERP.WpfUI\\MarcoERP.WpfUI.csproj|solutionrelative:src\\marcoerp.wpfui\\views\\settings\\governanceintegrityview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE569886-23B5-4063-B042-D150C4FDACEB}|src\\MarcoERP.WpfUI\\MarcoERP.WpfUI.csproj|e:\\smart erp\\src\\marcoerp.wpfui\\views\\settings\\integritycheckview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{DE569886-23B5-4063-B042-D150C4FDACEB}|src\\MarcoERP.WpfUI\\MarcoERP.WpfUI.csproj|solutionrelative:src\\marcoerp.wpfui\\views\\settings\\integritycheckview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE569886-23B5-4063-B042-D150C4FDACEB}|src\\MarcoERP.WpfUI\\MarcoERP.WpfUI.csproj|e:\\smart erp\\src\\marcoerp.wpfui\\views\\settings\\migrationcenterview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{DE569886-23B5-4063-B042-D150C4FDACEB}|src\\MarcoERP.WpfUI\\MarcoERP.WpfUI.csproj|solutionrelative:src\\marcoerp.wpfui\\views\\settings\\migrationcenterview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE569886-23B5-4063-B042-D150C4FDACEB}|src\\MarcoERP.WpfUI\\MarcoERP.WpfUI.csproj|e:\\smart erp\\src\\marcoerp.wpfui\\views\\settings\\rolemanagementview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{DE569886-23B5-4063-B042-D150C4FDACEB}|src\\MarcoERP.WpfUI\\MarcoERP.WpfUI.csproj|solutionrelative:src\\marcoerp.wpfui\\views\\settings\\rolemanagementview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE569886-23B5-4063-B042-D150C4FDACEB}|src\\MarcoERP.WpfUI\\MarcoERP.WpfUI.csproj|e:\\smart erp\\src\\marcoerp.wpfui\\views\\settings\\superadminauthdialog.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{DE569886-23B5-4063-B042-D150C4FDACEB}|src\\MarcoERP.WpfUI\\MarcoERP.WpfUI.csproj|solutionrelative:src\\marcoerp.wpfui\\views\\settings\\superadminauthdialog.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE569886-23B5-4063-B042-D150C4FDACEB}|src\\MarcoERP.WpfUI\\MarcoERP.WpfUI.csproj|e:\\smart erp\\src\\marcoerp.wpfui\\views\\settings\\superadminauthdialog.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DE569886-23B5-4063-B042-D150C4FDACEB}|src\\MarcoERP.WpfUI\\MarcoERP.WpfUI.csproj|solutionrelative:src\\marcoerp.wpfui\\views\\settings\\superadminauthdialog.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE569886-23B5-4063-B042-D150C4FDACEB}|src\\MarcoERP.WpfUI\\MarcoERP.WpfUI.csproj|e:\\smart erp\\src\\marcoerp.wpfui\\views\\settings\\systemsettingsview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{DE569886-23B5-4063-B042-D150C4FDACEB}|src\\MarcoERP.WpfUI\\MarcoERP.WpfUI.csproj|solutionrelative:src\\marcoerp.wpfui\\views\\settings\\systemsettingsview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE569886-23B5-4063-B042-D150C4FDACEB}|src\\MarcoERP.WpfUI\\MarcoERP.WpfUI.csproj|e:\\smart erp\\src\\marcoerp.wpfui\\views\\settings\\usermanagementview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{DE569886-23B5-4063-B042-D150C4FDACEB}|src\\MarcoERP.WpfUI\\MarcoERP.WpfUI.csproj|solutionrelative:src\\marcoerp.wpfui\\views\\settings\\usermanagementview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE569886-23B5-4063-B042-D150C4FDACEB}|src\\MarcoERP.WpfUI\\MarcoERP.WpfUI.csproj|e:\\smart erp\\src\\marcoerp.wpfui\\views\\treasury\\cashtransferview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{DE569886-23B5-4063-B042-D150C4FDACEB}|src\\MarcoERP.WpfUI\\MarcoERP.WpfUI.csproj|solutionrelative:src\\marcoerp.wpfui\\views\\treasury\\cashtransferview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE569886-23B5-4063-B042-D150C4FDACEB}|src\\MarcoERP.WpfUI\\MarcoERP.WpfUI.csproj|e:\\smart erp\\src\\marcoerp.wpfui\\views\\treasury\\quickcashpaymentwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{DE569886-23B5-4063-B042-D150C4FDACEB}|src\\MarcoERP.WpfUI\\MarcoERP.WpfUI.csproj|solutionrelative:src\\marcoerp.wpfui\\views\\treasury\\quickcashpaymentwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE569886-23B5-4063-B042-D150C4FDACEB}|src\\MarcoERP.WpfUI\\MarcoERP.WpfUI.csproj|e:\\smart erp\\src\\marcoerp.wpfui\\views\\treasury\\quickcashreceiptwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{DE569886-23B5-4063-B042-D150C4FDACEB}|src\\MarcoERP.WpfUI\\MarcoERP.WpfUI.csproj|solutionrelative:src\\marcoerp.wpfui\\views\\treasury\\quickcashreceiptwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE569886-23B5-4063-B042-D150C4FDACEB}|src\\MarcoERP.WpfUI\\MarcoERP.WpfUI.csproj|e:\\smart erp\\src\\marcoerp.wpfui\\views\\sales\\salesinvoicedetailview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{DE569886-23B5-4063-B042-D150C4FDACEB}|src\\MarcoERP.WpfUI\\MarcoERP.WpfUI.csproj|solutionrelative:src\\marcoerp.wpfui\\views\\sales\\salesinvoicedetailview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE569886-23B5-4063-B042-D150C4FDACEB}|src\\MarcoERP.WpfUI\\MarcoERP.WpfUI.csproj|e:\\smart erp\\src\\marcoerp.wpfui\\views\\sales\\salesinvoicedetailview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DE569886-23B5-4063-B042-D150C4FDACEB}|src\\MarcoERP.WpfUI\\MarcoERP.WpfUI.csproj|solutionrelative:src\\marcoerp.wpfui\\views\\sales\\salesinvoicedetailview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 37,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "App.xaml",
+              "DocumentMoniker": "E:\\Smart erp\\src\\MarcoERP.WpfUI\\App.xaml",
+              "RelativeDocumentMoniker": "src\\MarcoERP.WpfUI\\App.xaml",
+              "ToolTip": "E:\\Smart erp\\src\\MarcoERP.WpfUI\\App.xaml",
+              "RelativeToolTip": "src\\MarcoERP.WpfUI\\App.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-02-13T06:21:14.773Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "AgingReportView.xaml",
+              "DocumentMoniker": "E:\\Smart erp\\src\\MarcoERP.WpfUI\\Views\\Reports\\AgingReportView.xaml",
+              "RelativeDocumentMoniker": "src\\MarcoERP.WpfUI\\Views\\Reports\\AgingReportView.xaml",
+              "ToolTip": "E:\\Smart erp\\src\\MarcoERP.WpfUI\\Views\\Reports\\AgingReportView.xaml",
+              "RelativeToolTip": "src\\MarcoERP.WpfUI\\Views\\Reports\\AgingReportView.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-02-13T06:20:00.392Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "InventoryAdjustmentListView.xaml",
+              "DocumentMoniker": "E:\\Smart erp\\src\\MarcoERP.WpfUI\\Views\\Inventory\\InventoryAdjustmentListView.xaml",
+              "RelativeDocumentMoniker": "src\\MarcoERP.WpfUI\\Views\\Inventory\\InventoryAdjustmentListView.xaml",
+              "ToolTip": "E:\\Smart erp\\src\\MarcoERP.WpfUI\\Views\\Inventory\\InventoryAdjustmentListView.xaml",
+              "RelativeToolTip": "src\\MarcoERP.WpfUI\\Views\\Inventory\\InventoryAdjustmentListView.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-02-13T06:19:47.774Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "InventoryAdjustmentDetailView.xaml",
+              "DocumentMoniker": "E:\\Smart erp\\src\\MarcoERP.WpfUI\\Views\\Inventory\\InventoryAdjustmentDetailView.xaml",
+              "RelativeDocumentMoniker": "src\\MarcoERP.WpfUI\\Views\\Inventory\\InventoryAdjustmentDetailView.xaml",
+              "ToolTip": "E:\\Smart erp\\src\\MarcoERP.WpfUI\\Views\\Inventory\\InventoryAdjustmentDetailView.xaml",
+              "RelativeToolTip": "src\\MarcoERP.WpfUI\\Views\\Inventory\\InventoryAdjustmentDetailView.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-02-13T06:19:45.808Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "SearchLookupWindow.xaml",
+              "DocumentMoniker": "E:\\Smart erp\\src\\MarcoERP.WpfUI\\Views\\Common\\SearchLookupWindow.xaml",
+              "RelativeDocumentMoniker": "src\\MarcoERP.WpfUI\\Views\\Common\\SearchLookupWindow.xaml",
+              "ToolTip": "E:\\Smart erp\\src\\MarcoERP.WpfUI\\Views\\Common\\SearchLookupWindow.xaml",
+              "RelativeToolTip": "src\\MarcoERP.WpfUI\\Views\\Common\\SearchLookupWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-02-13T06:19:35.024Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "QuickTreasuryDialog.xaml",
+              "DocumentMoniker": "E:\\Smart erp\\src\\MarcoERP.WpfUI\\Views\\Common\\QuickTreasuryDialog.xaml",
+              "RelativeDocumentMoniker": "src\\MarcoERP.WpfUI\\Views\\Common\\QuickTreasuryDialog.xaml",
+              "ToolTip": "E:\\Smart erp\\src\\MarcoERP.WpfUI\\Views\\Common\\QuickTreasuryDialog.xaml",
+              "RelativeToolTip": "src\\MarcoERP.WpfUI\\Views\\Common\\QuickTreasuryDialog.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-02-13T06:19:29.096Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "InvoicePdfPreviewDialog.xaml",
+              "DocumentMoniker": "E:\\Smart erp\\src\\MarcoERP.WpfUI\\Views\\Common\\InvoicePdfPreviewDialog.xaml",
+              "RelativeDocumentMoniker": "src\\MarcoERP.WpfUI\\Views\\Common\\InvoicePdfPreviewDialog.xaml",
+              "ToolTip": "E:\\Smart erp\\src\\MarcoERP.WpfUI\\Views\\Common\\InvoicePdfPreviewDialog.xaml",
+              "RelativeToolTip": "src\\MarcoERP.WpfUI\\Views\\Common\\InvoicePdfPreviewDialog.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-02-13T06:19:27.243Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "InvoiceAddLineWindow.xaml",
+              "DocumentMoniker": "E:\\Smart erp\\src\\MarcoERP.WpfUI\\Views\\Common\\InvoiceAddLineWindow.xaml",
+              "RelativeDocumentMoniker": "src\\MarcoERP.WpfUI\\Views\\Common\\InvoiceAddLineWindow.xaml",
+              "ToolTip": "E:\\Smart erp\\src\\MarcoERP.WpfUI\\Views\\Common\\InvoiceAddLineWindow.xaml",
+              "RelativeToolTip": "src\\MarcoERP.WpfUI\\Views\\Common\\InvoiceAddLineWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-02-13T06:19:07.33Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "FiscalYearView.xaml",
+              "DocumentMoniker": "E:\\Smart erp\\src\\MarcoERP.WpfUI\\Views\\Accounting\\FiscalYearView.xaml",
+              "RelativeDocumentMoniker": "src\\MarcoERP.WpfUI\\Views\\Accounting\\FiscalYearView.xaml",
+              "ToolTip": "E:\\Smart erp\\src\\MarcoERP.WpfUI\\Views\\Accounting\\FiscalYearView.xaml",
+              "RelativeToolTip": "src\\MarcoERP.WpfUI\\Views\\Accounting\\FiscalYearView.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-02-13T06:18:59.44Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "FiscalPeriodView.xaml.cs",
+              "DocumentMoniker": "E:\\Smart erp\\src\\MarcoERP.WpfUI\\Views\\Accounting\\FiscalPeriodView.xaml.cs",
+              "RelativeDocumentMoniker": "src\\MarcoERP.WpfUI\\Views\\Accounting\\FiscalPeriodView.xaml.cs",
+              "ToolTip": "E:\\Smart erp\\src\\MarcoERP.WpfUI\\Views\\Accounting\\FiscalPeriodView.xaml.cs",
+              "RelativeToolTip": "src\\MarcoERP.WpfUI\\Views\\Accounting\\FiscalPeriodView.xaml.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAowA0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-13T06:18:57.024Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "FiscalPeriodView.xaml",
+              "DocumentMoniker": "E:\\Smart erp\\src\\MarcoERP.WpfUI\\Views\\Accounting\\FiscalPeriodView.xaml",
+              "RelativeDocumentMoniker": "src\\MarcoERP.WpfUI\\Views\\Accounting\\FiscalPeriodView.xaml",
+              "ToolTip": "E:\\Smart erp\\src\\MarcoERP.WpfUI\\Views\\Accounting\\FiscalPeriodView.xaml",
+              "RelativeToolTip": "src\\MarcoERP.WpfUI\\Views\\Accounting\\FiscalPeriodView.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-02-13T06:18:51.392Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "ChartOfAccountsView.xaml",
+              "DocumentMoniker": "E:\\Smart erp\\src\\MarcoERP.WpfUI\\Views\\Accounting\\ChartOfAccountsView.xaml",
+              "RelativeDocumentMoniker": "src\\MarcoERP.WpfUI\\Views\\Accounting\\ChartOfAccountsView.xaml",
+              "ToolTip": "E:\\Smart erp\\src\\MarcoERP.WpfUI\\Views\\Accounting\\ChartOfAccountsView.xaml",
+              "RelativeToolTip": "src\\MarcoERP.WpfUI\\Views\\Accounting\\ChartOfAccountsView.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-02-13T06:18:42.151Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "PriceListView.xaml",
+              "DocumentMoniker": "E:\\Smart erp\\src\\MarcoERP.WpfUI\\Views\\Sales\\PriceListView.xaml",
+              "RelativeDocumentMoniker": "src\\MarcoERP.WpfUI\\Views\\Sales\\PriceListView.xaml",
+              "ToolTip": "E:\\Smart erp\\src\\MarcoERP.WpfUI\\Views\\Sales\\PriceListView.xaml",
+              "RelativeToolTip": "src\\MarcoERP.WpfUI\\Views\\Sales\\PriceListView.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-02-13T06:18:03.28Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "PosWindow.xaml",
+              "DocumentMoniker": "E:\\Smart erp\\src\\MarcoERP.WpfUI\\Views\\Sales\\PosWindow.xaml",
+              "RelativeDocumentMoniker": "src\\MarcoERP.WpfUI\\Views\\Sales\\PosWindow.xaml",
+              "ToolTip": "E:\\Smart erp\\src\\MarcoERP.WpfUI\\Views\\Sales\\PosWindow.xaml",
+              "RelativeToolTip": "src\\MarcoERP.WpfUI\\Views\\Sales\\PosWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-02-13T06:18:00.825Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "PosOpenSessionDialog.xaml",
+              "DocumentMoniker": "E:\\Smart erp\\src\\MarcoERP.WpfUI\\Views\\Sales\\PosOpenSessionDialog.xaml",
+              "RelativeDocumentMoniker": "src\\MarcoERP.WpfUI\\Views\\Sales\\PosOpenSessionDialog.xaml",
+              "ToolTip": "E:\\Smart erp\\src\\MarcoERP.WpfUI\\Views\\Sales\\PosOpenSessionDialog.xaml",
+              "RelativeToolTip": "src\\MarcoERP.WpfUI\\Views\\Sales\\PosOpenSessionDialog.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-02-13T06:17:59.609Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "PosCloseSessionDialog.xaml",
+              "DocumentMoniker": "E:\\Smart erp\\src\\MarcoERP.WpfUI\\Views\\Sales\\PosCloseSessionDialog.xaml",
+              "RelativeDocumentMoniker": "src\\MarcoERP.WpfUI\\Views\\Sales\\PosCloseSessionDialog.xaml",
+              "ToolTip": "E:\\Smart erp\\src\\MarcoERP.WpfUI\\Views\\Sales\\PosCloseSessionDialog.xaml",
+              "RelativeToolTip": "src\\MarcoERP.WpfUI\\Views\\Sales\\PosCloseSessionDialog.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-02-13T06:17:58.281Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "CustomerView.xaml",
+              "DocumentMoniker": "E:\\Smart erp\\src\\MarcoERP.WpfUI\\Views\\Sales\\CustomerView.xaml",
+              "RelativeDocumentMoniker": "src\\MarcoERP.WpfUI\\Views\\Sales\\CustomerView.xaml",
+              "ToolTip": "E:\\Smart erp\\src\\MarcoERP.WpfUI\\Views\\Sales\\CustomerView.xaml",
+              "RelativeToolTip": "src\\MarcoERP.WpfUI\\Views\\Sales\\CustomerView.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-02-13T06:17:56.965Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "SalesReturnView.xaml",
+              "DocumentMoniker": "E:\\Smart erp\\src\\MarcoERP.WpfUI\\Views\\Sales\\SalesReturnView.xaml",
+              "RelativeDocumentMoniker": "src\\MarcoERP.WpfUI\\Views\\Sales\\SalesReturnView.xaml",
+              "ToolTip": "E:\\Smart erp\\src\\MarcoERP.WpfUI\\Views\\Sales\\SalesReturnView.xaml",
+              "RelativeToolTip": "src\\MarcoERP.WpfUI\\Views\\Sales\\SalesReturnView.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-02-13T06:17:47.591Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "AuditLogView.xaml",
+              "DocumentMoniker": "E:\\Smart erp\\src\\MarcoERP.WpfUI\\Views\\Settings\\AuditLogView.xaml",
+              "RelativeDocumentMoniker": "src\\MarcoERP.WpfUI\\Views\\Settings\\AuditLogView.xaml",
+              "ToolTip": "E:\\Smart erp\\src\\MarcoERP.WpfUI\\Views\\Settings\\AuditLogView.xaml",
+              "RelativeToolTip": "src\\MarcoERP.WpfUI\\Views\\Settings\\AuditLogView.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-02-13T06:17:44.717Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "BackupSettingsView.xaml",
+              "DocumentMoniker": "E:\\Smart erp\\src\\MarcoERP.WpfUI\\Views\\Settings\\BackupSettingsView.xaml",
+              "RelativeDocumentMoniker": "src\\MarcoERP.WpfUI\\Views\\Settings\\BackupSettingsView.xaml",
+              "ToolTip": "E:\\Smart erp\\src\\MarcoERP.WpfUI\\Views\\Settings\\BackupSettingsView.xaml",
+              "RelativeToolTip": "src\\MarcoERP.WpfUI\\Views\\Settings\\BackupSettingsView.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-02-13T06:17:42.878Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "GovernanceConsoleView.xaml",
+              "DocumentMoniker": "E:\\Smart erp\\src\\MarcoERP.WpfUI\\Views\\Settings\\GovernanceConsoleView.xaml",
+              "RelativeDocumentMoniker": "src\\MarcoERP.WpfUI\\Views\\Settings\\GovernanceConsoleView.xaml",
+              "ToolTip": "E:\\Smart erp\\src\\MarcoERP.WpfUI\\Views\\Settings\\GovernanceConsoleView.xaml",
+              "RelativeToolTip": "src\\MarcoERP.WpfUI\\Views\\Settings\\GovernanceConsoleView.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-02-13T06:17:40.555Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "GovernanceIntegrityView.xaml",
+              "DocumentMoniker": "E:\\Smart erp\\src\\MarcoERP.WpfUI\\Views\\Settings\\GovernanceIntegrityView.xaml",
+              "RelativeDocumentMoniker": "src\\MarcoERP.WpfUI\\Views\\Settings\\GovernanceIntegrityView.xaml",
+              "ToolTip": "E:\\Smart erp\\src\\MarcoERP.WpfUI\\Views\\Settings\\GovernanceIntegrityView.xaml",
+              "RelativeToolTip": "src\\MarcoERP.WpfUI\\Views\\Settings\\GovernanceIntegrityView.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-02-13T06:17:37.297Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "IntegrityCheckView.xaml",
+              "DocumentMoniker": "E:\\Smart erp\\src\\MarcoERP.WpfUI\\Views\\Settings\\IntegrityCheckView.xaml",
+              "RelativeDocumentMoniker": "src\\MarcoERP.WpfUI\\Views\\Settings\\IntegrityCheckView.xaml",
+              "ToolTip": "E:\\Smart erp\\src\\MarcoERP.WpfUI\\Views\\Settings\\IntegrityCheckView.xaml",
+              "RelativeToolTip": "src\\MarcoERP.WpfUI\\Views\\Settings\\IntegrityCheckView.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-02-13T06:17:30.894Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "MigrationCenterView.xaml",
+              "DocumentMoniker": "E:\\Smart erp\\src\\MarcoERP.WpfUI\\Views\\Settings\\MigrationCenterView.xaml",
+              "RelativeDocumentMoniker": "src\\MarcoERP.WpfUI\\Views\\Settings\\MigrationCenterView.xaml",
+              "ToolTip": "E:\\Smart erp\\src\\MarcoERP.WpfUI\\Views\\Settings\\MigrationCenterView.xaml",
+              "RelativeToolTip": "src\\MarcoERP.WpfUI\\Views\\Settings\\MigrationCenterView.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-02-13T06:17:27.663Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "RoleManagementView.xaml",
+              "DocumentMoniker": "E:\\Smart erp\\src\\MarcoERP.WpfUI\\Views\\Settings\\RoleManagementView.xaml",
+              "RelativeDocumentMoniker": "src\\MarcoERP.WpfUI\\Views\\Settings\\RoleManagementView.xaml",
+              "ToolTip": "E:\\Smart erp\\src\\MarcoERP.WpfUI\\Views\\Settings\\RoleManagementView.xaml",
+              "RelativeToolTip": "src\\MarcoERP.WpfUI\\Views\\Settings\\RoleManagementView.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-02-13T06:17:20.591Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "SuperAdminAuthDialog.xaml.cs",
+              "DocumentMoniker": "E:\\Smart erp\\src\\MarcoERP.WpfUI\\Views\\Settings\\SuperAdminAuthDialog.xaml.cs",
+              "RelativeDocumentMoniker": "src\\MarcoERP.WpfUI\\Views\\Settings\\SuperAdminAuthDialog.xaml.cs",
+              "ToolTip": "E:\\Smart erp\\src\\MarcoERP.WpfUI\\Views\\Settings\\SuperAdminAuthDialog.xaml.cs",
+              "RelativeToolTip": "src\\MarcoERP.WpfUI\\Views\\Settings\\SuperAdminAuthDialog.xaml.cs",
+              "ViewState": "AgIAAB0AAAAAAAAAAAAhwCMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-13T06:15:48.196Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "SuperAdminAuthDialog.xaml",
+              "DocumentMoniker": "E:\\Smart erp\\src\\MarcoERP.WpfUI\\Views\\Settings\\SuperAdminAuthDialog.xaml",
+              "RelativeDocumentMoniker": "src\\MarcoERP.WpfUI\\Views\\Settings\\SuperAdminAuthDialog.xaml",
+              "ToolTip": "E:\\Smart erp\\src\\MarcoERP.WpfUI\\Views\\Settings\\SuperAdminAuthDialog.xaml",
+              "RelativeToolTip": "src\\MarcoERP.WpfUI\\Views\\Settings\\SuperAdminAuthDialog.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-02-13T06:15:35.582Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 31,
+              "Title": "SystemSettingsView.xaml",
+              "DocumentMoniker": "E:\\Smart erp\\src\\MarcoERP.WpfUI\\Views\\Settings\\SystemSettingsView.xaml",
+              "RelativeDocumentMoniker": "src\\MarcoERP.WpfUI\\Views\\Settings\\SystemSettingsView.xaml",
+              "ToolTip": "E:\\Smart erp\\src\\MarcoERP.WpfUI\\Views\\Settings\\SystemSettingsView.xaml",
+              "RelativeToolTip": "src\\MarcoERP.WpfUI\\Views\\Settings\\SystemSettingsView.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-02-13T06:15:33.622Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 32,
+              "Title": "UserManagementView.xaml",
+              "DocumentMoniker": "E:\\Smart erp\\src\\MarcoERP.WpfUI\\Views\\Settings\\UserManagementView.xaml",
+              "RelativeDocumentMoniker": "src\\MarcoERP.WpfUI\\Views\\Settings\\UserManagementView.xaml",
+              "ToolTip": "E:\\Smart erp\\src\\MarcoERP.WpfUI\\Views\\Settings\\UserManagementView.xaml",
+              "RelativeToolTip": "src\\MarcoERP.WpfUI\\Views\\Settings\\UserManagementView.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-02-13T06:15:31.152Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "LoginWindow.xaml",
+              "DocumentMoniker": "E:\\Smart erp\\src\\MarcoERP.WpfUI\\Views\\Shell\\LoginWindow.xaml",
+              "RelativeDocumentMoniker": "src\\MarcoERP.WpfUI\\Views\\Shell\\LoginWindow.xaml",
+              "ToolTip": "E:\\Smart erp\\src\\MarcoERP.WpfUI\\Views\\Shell\\LoginWindow.xaml",
+              "RelativeToolTip": "src\\MarcoERP.WpfUI\\Views\\Shell\\LoginWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-02-13T06:15:24.663Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "MainWindow.xaml",
+              "DocumentMoniker": "E:\\Smart erp\\src\\MarcoERP.WpfUI\\Views\\Shell\\MainWindow.xaml",
+              "RelativeDocumentMoniker": "src\\MarcoERP.WpfUI\\Views\\Shell\\MainWindow.xaml",
+              "ToolTip": "E:\\Smart erp\\src\\MarcoERP.WpfUI\\Views\\Shell\\MainWindow.xaml",
+              "RelativeToolTip": "src\\MarcoERP.WpfUI\\Views\\Shell\\MainWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-02-13T06:14:38.768Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ShortcutConfigDialog.xaml",
+              "DocumentMoniker": "E:\\Smart erp\\src\\MarcoERP.WpfUI\\Views\\Shell\\ShortcutConfigDialog.xaml",
+              "RelativeDocumentMoniker": "src\\MarcoERP.WpfUI\\Views\\Shell\\ShortcutConfigDialog.xaml",
+              "ToolTip": "E:\\Smart erp\\src\\MarcoERP.WpfUI\\Views\\Shell\\ShortcutConfigDialog.xaml",
+              "RelativeToolTip": "src\\MarcoERP.WpfUI\\Views\\Shell\\ShortcutConfigDialog.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-02-13T06:14:36.205Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 33,
+              "Title": "CashTransferView.xaml",
+              "DocumentMoniker": "E:\\Smart erp\\src\\MarcoERP.WpfUI\\Views\\Treasury\\CashTransferView.xaml",
+              "RelativeDocumentMoniker": "src\\MarcoERP.WpfUI\\Views\\Treasury\\CashTransferView.xaml",
+              "ToolTip": "E:\\Smart erp\\src\\MarcoERP.WpfUI\\Views\\Treasury\\CashTransferView.xaml",
+              "RelativeToolTip": "src\\MarcoERP.WpfUI\\Views\\Treasury\\CashTransferView.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-02-13T06:14:34.133Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 34,
+              "Title": "QuickCashPaymentWindow.xaml",
+              "DocumentMoniker": "E:\\Smart erp\\src\\MarcoERP.WpfUI\\Views\\Treasury\\QuickCashPaymentWindow.xaml",
+              "RelativeDocumentMoniker": "src\\MarcoERP.WpfUI\\Views\\Treasury\\QuickCashPaymentWindow.xaml",
+              "ToolTip": "E:\\Smart erp\\src\\MarcoERP.WpfUI\\Views\\Treasury\\QuickCashPaymentWindow.xaml",
+              "RelativeToolTip": "src\\MarcoERP.WpfUI\\Views\\Treasury\\QuickCashPaymentWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-02-13T06:14:32.806Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 35,
+              "Title": "QuickCashReceiptWindow.xaml",
+              "DocumentMoniker": "E:\\Smart erp\\src\\MarcoERP.WpfUI\\Views\\Treasury\\QuickCashReceiptWindow.xaml",
+              "RelativeDocumentMoniker": "src\\MarcoERP.WpfUI\\Views\\Treasury\\QuickCashReceiptWindow.xaml",
+              "ToolTip": "E:\\Smart erp\\src\\MarcoERP.WpfUI\\Views\\Treasury\\QuickCashReceiptWindow.xaml",
+              "RelativeToolTip": "src\\MarcoERP.WpfUI\\Views\\Treasury\\QuickCashReceiptWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-02-13T06:14:31.054Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "DashboardView.xaml",
+              "DocumentMoniker": "E:\\Smart erp\\src\\MarcoERP.WpfUI\\Views\\DashboardView.xaml",
+              "RelativeDocumentMoniker": "src\\MarcoERP.WpfUI\\Views\\DashboardView.xaml",
+              "ToolTip": "E:\\Smart erp\\src\\MarcoERP.WpfUI\\Views\\DashboardView.xaml",
+              "RelativeToolTip": "src\\MarcoERP.WpfUI\\Views\\DashboardView.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-02-13T06:14:27.444Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 37,
+              "Title": "SalesInvoiceDetailView.xaml.cs",
+              "DocumentMoniker": "E:\\Smart erp\\src\\MarcoERP.WpfUI\\Views\\Sales\\SalesInvoiceDetailView.xaml.cs",
+              "RelativeDocumentMoniker": "src\\MarcoERP.WpfUI\\Views\\Sales\\SalesInvoiceDetailView.xaml.cs",
+              "ToolTip": "E:\\Smart erp\\src\\MarcoERP.WpfUI\\Views\\Sales\\SalesInvoiceDetailView.xaml.cs",
+              "RelativeToolTip": "src\\MarcoERP.WpfUI\\Views\\Sales\\SalesInvoiceDetailView.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-11T18:05:02.444Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 36,
+              "Title": "SalesInvoiceDetailView.xaml",
+              "DocumentMoniker": "E:\\Smart erp\\src\\MarcoERP.WpfUI\\Views\\Sales\\SalesInvoiceDetailView.xaml",
+              "RelativeDocumentMoniker": "src\\MarcoERP.WpfUI\\Views\\Sales\\SalesInvoiceDetailView.xaml",
+              "ToolTip": "E:\\Smart erp\\src\\MarcoERP.WpfUI\\Views\\Sales\\SalesInvoiceDetailView.xaml",
+              "RelativeToolTip": "src\\MarcoERP.WpfUI\\Views\\Sales\\SalesInvoiceDetailView.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-02-11T18:03:25.815Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

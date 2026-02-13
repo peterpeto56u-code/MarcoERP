@@ -1,0 +1,2620 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MarcoERP.Application</name>
+    </assembly>
+    <members>
+        <member name="T:MarcoERP.Application.AssemblyMarker">
+            <summary>
+            Marker class for the Application layer assembly.
+            This layer contains use cases, DTOs, validators, and service orchestration.
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.Common.AuthorizationGuard">
+            <summary>
+            Centralized authorization guard methods.
+            AUTHZ-01: All authorization checks happen at the Application layer.
+            Admin (RoleId == 1) bypasses all permission checks via ICurrentUserService.HasPermission.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Common.AuthorizationGuard.Check``1(MarcoERP.Application.Interfaces.ICurrentUserService,System.String)">
+            <summary>
+            Ensures the user is authenticated and has the required permission.
+            Returns a failed ServiceResult if unauthorized; null if authorized.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Common.AuthorizationGuard.Check(MarcoERP.Application.Interfaces.ICurrentUserService,System.String)">
+            <summary>
+            Ensures the user is authenticated and has the required permission.
+            Returns a failed ServiceResult if unauthorized; null if authorized.
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.Common.PermissionKeys">
+            <summary>
+            Centralized permission key constants.
+            Matches the 29 permission keys seeded in SecuritySeed.
+            AUTHZ-01: Authorization checked at Application layer.
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.Common.ServiceResult">
+            <summary>
+            Represents the result of an application-layer operation.
+            Encapsulates success/failure state, error messages, and optional payload.
+            </summary>
+        </member>
+        <member name="P:MarcoERP.Application.Common.ServiceResult.IsSuccess">
+            <summary>True if the operation succeeded.</summary>
+        </member>
+        <member name="P:MarcoERP.Application.Common.ServiceResult.IsFailure">
+            <summary>True if the operation failed.</summary>
+        </member>
+        <member name="P:MarcoERP.Application.Common.ServiceResult.Errors">
+            <summary>Validation or domain error messages.</summary>
+        </member>
+        <member name="P:MarcoERP.Application.Common.ServiceResult.ErrorMessage">
+            <summary>Combined error message string (pipe-separated).</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Common.ServiceResult.Success">
+            <summary>Creates a successful result.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Common.ServiceResult.Failure(System.String)">
+            <summary>Creates a failed result with one error.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Common.ServiceResult.Failure(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>Creates a failed result with multiple errors.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.Common.ServiceResult`1">
+            <summary>
+            Represents the result of an application-layer operation that returns data.
+            </summary>
+        </member>
+        <member name="P:MarcoERP.Application.Common.ServiceResult`1.IsSuccess">
+            <summary>True if the operation succeeded.</summary>
+        </member>
+        <member name="P:MarcoERP.Application.Common.ServiceResult`1.IsFailure">
+            <summary>True if the operation failed.</summary>
+        </member>
+        <member name="P:MarcoERP.Application.Common.ServiceResult`1.Data">
+            <summary>The data payload (default when failed).</summary>
+        </member>
+        <member name="P:MarcoERP.Application.Common.ServiceResult`1.Errors">
+            <summary>Validation or domain error messages.</summary>
+        </member>
+        <member name="P:MarcoERP.Application.Common.ServiceResult`1.ErrorMessage">
+            <summary>Combined error message string (pipe-separated).</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Common.ServiceResult`1.Success(`0)">
+            <summary>Creates a successful result with data.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Common.ServiceResult`1.Failure(System.String)">
+            <summary>Creates a failed result with one error.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Common.ServiceResult`1.Failure(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>Creates a failed result with multiple errors.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Accounting.AccountDto">
+            <summary>
+            Read-only DTO representing an account in the Chart of Accounts.
+            Used for display, listing, and lookups.
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Accounting.AccountTreeNodeDto">
+            <summary>
+            Hierarchical tree node DTO for displaying the Chart of Accounts as a tree.
+            Each node can have children.
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Accounting.CreateAccountDto">
+            <summary>
+            DTO for creating a new account.
+            Validated via <see cref="T:MarcoERP.Application.Validators.Accounting.CreateAccountDtoValidator"/>.
+            </summary>
+        </member>
+        <member name="P:MarcoERP.Application.DTOs.Accounting.CreateAccountDto.AccountCode">
+            <summary>4-digit numeric account code (e.g., "1111").</summary>
+        </member>
+        <member name="P:MarcoERP.Application.DTOs.Accounting.CreateAccountDto.AccountNameAr">
+            <summary>Arabic account name (required).</summary>
+        </member>
+        <member name="P:MarcoERP.Application.DTOs.Accounting.CreateAccountDto.AccountNameEn">
+            <summary>English account name (optional).</summary>
+        </member>
+        <member name="P:MarcoERP.Application.DTOs.Accounting.CreateAccountDto.AccountType">
+            <summary>Account classification.</summary>
+        </member>
+        <member name="P:MarcoERP.Application.DTOs.Accounting.CreateAccountDto.ParentAccountId">
+            <summary>Parent account ID (null for Level 1 root accounts).</summary>
+        </member>
+        <member name="P:MarcoERP.Application.DTOs.Accounting.CreateAccountDto.Level">
+            <summary>Hierarchy level 1–4.</summary>
+        </member>
+        <member name="P:MarcoERP.Application.DTOs.Accounting.CreateAccountDto.IsSystemAccount">
+            <summary>Whether this is a system-protected account.</summary>
+        </member>
+        <member name="P:MarcoERP.Application.DTOs.Accounting.CreateAccountDto.CurrencyCode">
+            <summary>ISO 4217 currency code (e.g., "EGP").</summary>
+        </member>
+        <member name="P:MarcoERP.Application.DTOs.Accounting.CreateAccountDto.Description">
+            <summary>Optional description.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Accounting.CreateFiscalYearDto">
+            <summary>
+            DTO for creating a new fiscal year.
+            The system auto-creates 12 periods and sets Start/End dates.
+            </summary>
+        </member>
+        <member name="P:MarcoERP.Application.DTOs.Accounting.CreateFiscalYearDto.Year">
+            <summary>Calendar year (e.g., 2026). Must be unique and between 2000–2100.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Accounting.CreateJournalEntryDto">
+            <summary>
+            DTO for creating a new journal entry (draft).
+            All lines are provided upfront.
+            Validated via <see cref="T:MarcoERP.Application.Validators.Accounting.CreateJournalEntryDtoValidator"/>.
+            </summary>
+        </member>
+        <member name="P:MarcoERP.Application.DTOs.Accounting.CreateJournalEntryDto.JournalDate">
+            <summary>Transaction date (must fall within open fiscal period).</summary>
+        </member>
+        <member name="P:MarcoERP.Application.DTOs.Accounting.CreateJournalEntryDto.Description">
+            <summary>Narrative (mandatory per JE-INV-13).</summary>
+        </member>
+        <member name="P:MarcoERP.Application.DTOs.Accounting.CreateJournalEntryDto.SourceType">
+            <summary>Source type (Manual for user-created entries).</summary>
+        </member>
+        <member name="P:MarcoERP.Application.DTOs.Accounting.CreateJournalEntryDto.ReferenceNumber">
+            <summary>External reference number (optional).</summary>
+        </member>
+        <member name="P:MarcoERP.Application.DTOs.Accounting.CreateJournalEntryDto.CostCenterId">
+            <summary>Cost center for the whole entry (optional).</summary>
+        </member>
+        <member name="P:MarcoERP.Application.DTOs.Accounting.CreateJournalEntryDto.Lines">
+            <summary>Journal entry lines (minimum 2).</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Accounting.CreateJournalEntryLineDto">
+            <summary>
+            DTO for a single line in a new journal entry creation request.
+            Validated via <see cref="T:MarcoERP.Application.Validators.Accounting.CreateJournalEntryDtoValidator"/>.
+            </summary>
+        </member>
+        <member name="P:MarcoERP.Application.DTOs.Accounting.CreateJournalEntryLineDto.AccountId">
+            <summary>Account ID (must be postable).</summary>
+        </member>
+        <member name="P:MarcoERP.Application.DTOs.Accounting.CreateJournalEntryLineDto.DebitAmount">
+            <summary>Debit amount (0 if credit). Non-negative.</summary>
+        </member>
+        <member name="P:MarcoERP.Application.DTOs.Accounting.CreateJournalEntryLineDto.CreditAmount">
+            <summary>Credit amount (0 if debit). Non-negative.</summary>
+        </member>
+        <member name="P:MarcoERP.Application.DTOs.Accounting.CreateJournalEntryLineDto.Description">
+            <summary>Line-level description (optional).</summary>
+        </member>
+        <member name="P:MarcoERP.Application.DTOs.Accounting.CreateJournalEntryLineDto.CostCenterId">
+            <summary>Cost center (optional, overrides header).</summary>
+        </member>
+        <member name="P:MarcoERP.Application.DTOs.Accounting.CreateJournalEntryLineDto.WarehouseId">
+            <summary>Warehouse (optional, for inventory-related).</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Accounting.FiscalPeriodDto">
+            <summary>
+            Read-only DTO for a fiscal period within a fiscal year.
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Accounting.FiscalYearDto">
+            <summary>
+            Read-only DTO for a fiscal year with its 12 periods.
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Accounting.JournalEntryDto">
+            <summary>
+            Read-only DTO representing a full journal entry with lines.
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Accounting.JournalEntryLineDto">
+            <summary>
+            DTO for a single journal entry line (read-only display).
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Accounting.PostJournalResultDto">
+            <summary>
+            Result DTO returned after a journal entry is successfully posted.
+            </summary>
+        </member>
+        <member name="P:MarcoERP.Application.DTOs.Accounting.PostJournalResultDto.JournalEntryId">
+            <summary>The journal entry ID.</summary>
+        </member>
+        <member name="P:MarcoERP.Application.DTOs.Accounting.PostJournalResultDto.JournalNumber">
+            <summary>The assigned final journal number (e.g., "JV-2026-00001").</summary>
+        </member>
+        <member name="P:MarcoERP.Application.DTOs.Accounting.PostJournalResultDto.PostingDate">
+            <summary>UTC timestamp of posting.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Accounting.ReverseJournalEntryDto">
+            <summary>
+            DTO for requesting a journal entry reversal.
+            </summary>
+        </member>
+        <member name="P:MarcoERP.Application.DTOs.Accounting.ReverseJournalEntryDto.JournalEntryId">
+            <summary>ID of the posted journal entry to reverse.</summary>
+        </member>
+        <member name="P:MarcoERP.Application.DTOs.Accounting.ReverseJournalEntryDto.ReversalReason">
+            <summary>Mandatory reason for the reversal.</summary>
+        </member>
+        <member name="P:MarcoERP.Application.DTOs.Accounting.ReverseJournalEntryDto.ReversalDate">
+            <summary>Date for the reversal entry.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Accounting.UpdateAccountDto">
+            <summary>
+            DTO for updating an existing account.
+            Only mutable fields are exposed. AccountCode, Level, AccountType (if posted) are immutable.
+            </summary>
+        </member>
+        <member name="P:MarcoERP.Application.DTOs.Accounting.UpdateAccountDto.Id">
+            <summary>Account ID to update.</summary>
+        </member>
+        <member name="P:MarcoERP.Application.DTOs.Accounting.UpdateAccountDto.AccountNameAr">
+            <summary>Updated Arabic name.</summary>
+        </member>
+        <member name="P:MarcoERP.Application.DTOs.Accounting.UpdateAccountDto.AccountNameEn">
+            <summary>Updated English name.</summary>
+        </member>
+        <member name="P:MarcoERP.Application.DTOs.Accounting.UpdateAccountDto.Description">
+            <summary>Updated description.</summary>
+        </member>
+        <member name="P:MarcoERP.Application.DTOs.Accounting.UpdateAccountDto.IsActive">
+            <summary>Activate or deactivate.</summary>
+        </member>
+        <member name="P:MarcoERP.Application.DTOs.Accounting.UpdateAccountDto.RowVersion">
+            <summary>Optimistic concurrency token (original from load).</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Common.LineCalculationRequest">
+            <summary>
+            Input data for line total calculations.
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Common.LineCalculationResult">
+            <summary>
+            Output values for a calculated line.
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Common.InvoiceTotalsResult">
+            <summary>
+            Output values for invoice totals.
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Inventory.BulkPriceUpdateRequestDto">
+            <summary>
+            Request DTO for bulk price update operation.
+            </summary>
+        </member>
+        <member name="P:MarcoERP.Application.DTOs.Inventory.BulkPriceUpdateRequestDto.ProductIds">
+            <summary>Product IDs to update.</summary>
+        </member>
+        <member name="P:MarcoERP.Application.DTOs.Inventory.BulkPriceUpdateRequestDto.Mode">
+            <summary>
+            Update mode: "Percentage" for percentage change, "Direct" for direct price.
+            </summary>
+        </member>
+        <member name="P:MarcoERP.Application.DTOs.Inventory.BulkPriceUpdateRequestDto.PercentageChange">
+            <summary>
+            Percentage change (positive = increase, negative = decrease).
+            Used when Mode = "Percentage".
+            </summary>
+        </member>
+        <member name="P:MarcoERP.Application.DTOs.Inventory.BulkPriceUpdateRequestDto.DirectPrice">
+            <summary>
+            Direct new price. Used when Mode = "Direct".
+            </summary>
+        </member>
+        <member name="P:MarcoERP.Application.DTOs.Inventory.BulkPriceUpdateRequestDto.PriceTarget">
+            <summary>
+            Which price to update: "SalePrice" or "CostPrice".
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Inventory.BulkPricePreviewItemDto">
+            <summary>
+            Preview item showing what will change before confirming.
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Inventory.BulkPriceUpdateResultDto">
+            <summary>
+            Result of a bulk price update operation.
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Inventory.InventoryAdjustmentListDto">
+            <summary>DTO for InventoryAdjustment listing.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Inventory.InventoryAdjustmentDto">
+            <summary>Full InventoryAdjustment DTO with lines.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Inventory.InventoryAdjustmentLineDto">
+            <summary>DTO for a single adjustment line.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Inventory.CreateInventoryAdjustmentDto">
+            <summary>DTO for creating an InventoryAdjustment.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Inventory.CreateInventoryAdjustmentLineDto">
+            <summary>DTO for creating an adjustment line.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Inventory.UpdateInventoryAdjustmentDto">
+            <summary>DTO for updating an InventoryAdjustment.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Inventory.ProductSearchResultDto">
+            <summary>Lightweight DTO for product popup search results.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Inventory.StockBalanceDto">
+            <summary>Stock balance for a product in a warehouse.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Purchases.PurchaseInvoiceDto">
+            <summary>Read-only DTO for purchase invoice display.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Purchases.PurchaseInvoiceLineDto">
+            <summary>Read-only DTO for a purchase invoice line.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Purchases.CreatePurchaseInvoiceDto">
+            <summary>DTO for creating a new purchase invoice (header + lines).</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Purchases.CreatePurchaseInvoiceLineDto">
+            <summary>DTO for creating a purchase invoice line.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Purchases.UpdatePurchaseInvoiceDto">
+            <summary>DTO for updating a draft purchase invoice.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Purchases.PurchaseInvoiceListDto">
+            <summary>Lightweight DTO for invoice list display.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Purchases.PurchaseQuotationDto">
+            <summary>Read-only DTO for purchase quotation display.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Purchases.PurchaseQuotationLineDto">
+            <summary>Read-only DTO for a purchase quotation line.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Purchases.CreatePurchaseQuotationDto">
+            <summary>DTO for creating a new purchase quotation.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Purchases.CreatePurchaseQuotationLineDto">
+            <summary>DTO for creating a purchase quotation line.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Purchases.UpdatePurchaseQuotationDto">
+            <summary>DTO for updating a draft purchase quotation.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Purchases.PurchaseQuotationListDto">
+            <summary>Lightweight DTO for quotation list display.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Purchases.PurchaseReturnDto">
+            <summary>Read-only DTO for purchase return display.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Purchases.PurchaseReturnLineDto">
+            <summary>Read-only DTO for a purchase return line.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Purchases.CreatePurchaseReturnDto">
+            <summary>DTO for creating a new purchase return.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Purchases.CreatePurchaseReturnLineDto">
+            <summary>DTO for creating a purchase return line.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Purchases.UpdatePurchaseReturnDto">
+            <summary>DTO for updating a draft purchase return.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Purchases.PurchaseReturnListDto">
+            <summary>Lightweight DTO for return list display.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Purchases.SupplierDto">
+            <summary>Read-only DTO returned to the UI / API.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Purchases.CreateSupplierDto">
+            <summary>DTO for creating a new supplier.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Purchases.UpdateSupplierDto">
+            <summary>DTO for updating an existing supplier.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Purchases.SupplierSearchResultDto">
+            <summary>Lightweight DTO for search results / dropdowns.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Reports.AccountStatementRowDto">
+            <summary>
+            DTO for a single row in the Account Statement report.
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Reports.AccountStatementReportDto">
+            <summary>
+            Wrapper DTO for the full Account Statement report including header info.
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Reports.AgingRowDto">
+            <summary>
+            DTO for a single row in the Aging Report (customers or suppliers).
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Reports.AgingReportDto">
+            <summary>
+            Full Aging Report with separate customer and supplier sections.
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Reports.BalanceSheetRowDto">
+            <summary>
+            DTO for a single row in the Balance Sheet report.
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Reports.BalanceSheetDto">
+            <summary>
+            Full Balance Sheet report with grouped sections.
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Reports.CashboxMovementRowDto">
+            <summary>
+            DTO for a single row in the Cashbox Movement report.
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Reports.CashboxMovementReportDto">
+            <summary>
+            Wrapper for the Cashbox Movement report.
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Reports.DashboardSummaryDto">
+            <summary>
+            DTO for the main Dashboard summary data.
+            Provides today's snapshot + period totals.
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Reports.IncomeStatementRowDto">
+            <summary>
+            DTO for a single row in the Income Statement (Profit and Loss).
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Reports.IncomeStatementDto">
+            <summary>
+            Full Income Statement report with grouped sections.
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Reports.InventoryReportRowDto">
+            <summary>
+            DTO for a single row in the Inventory Report (stock per warehouse per product).
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Reports.ProfitReportRowDto">
+            <summary>
+            DTO for a single row in the Profit Report (per product).
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Reports.ProfitReportDto">
+            <summary>
+            Wrapper for the full Profit Report with totals.
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Reports.PurchaseReportRowDto">
+            <summary>
+            DTO for a single row in the Purchase Report.
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Reports.PurchaseReportDto">
+            <summary>
+            Wrapper for the full Purchase Report with summary totals.
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Reports.SalesReportRowDto">
+            <summary>
+            DTO for a single row in the Sales Report.
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Reports.SalesReportDto">
+            <summary>
+            Wrapper for the full Sales Report with summary totals.
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Reports.StockCardRowDto">
+            <summary>
+            DTO for a single row in the Stock Card report (item movement history).
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Reports.StockCardReportDto">
+            <summary>
+            Wrapper for the Stock Card report with product info.
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Reports.TrialBalanceRowDto">
+            <summary>
+            DTO for a single row in the Trial Balance report.
+            Each row represents one account's aggregated debit/credit totals.
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Reports.VatReportRowDto">
+            <summary>
+            DTO for a single row in the VAT Report (per VAT rate).
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Reports.VatReportDto">
+            <summary>
+            Full VAT Report wrapper with totals.
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Sales.CustomerDto">
+            <summary>Read-only DTO returned to the UI / API.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Sales.CreateCustomerDto">
+            <summary>DTO for creating a new customer.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Sales.UpdateCustomerDto">
+            <summary>DTO for updating an existing customer.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Sales.CustomerSearchResultDto">
+            <summary>Lightweight DTO for search results / dropdowns.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Sales.OpenPosSessionDto">
+            <summary>DTO for opening a POS session.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Sales.ClosePosSessionDto">
+            <summary>DTO for closing a POS session.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Sales.PosSessionDto">
+            <summary>Read-only DTO for POS session display.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Sales.PosSessionListDto">
+            <summary>Lightweight session list item.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Sales.CompletePoseSaleDto">
+            <summary>DTO for completing a POS sale.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Sales.PosSaleLineDto">
+            <summary>DTO for a POS sale line item.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Sales.PosPaymentDto">
+            <summary>DTO for a POS payment entry.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Sales.PosProductLookupDto">
+            <summary>Lightweight product DTO for POS product cache.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Sales.PosProductUnitDto">
+            <summary>Lightweight product unit DTO for POS.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Sales.PosCartItemDto">
+            <summary>Represents a line in the POS cart for UI display.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Sales.PosDailyReportDto">
+            <summary>POS daily report DTO.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Sales.PosSessionReportDto">
+            <summary>POS session report DTO.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Sales.PosSessionSaleDto">
+            <summary>A sale within a session report.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Sales.PosProfitReportDto">
+            <summary>POS profit report DTO.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Sales.PosProfitLineDto">
+            <summary>Per-product profit line in the profit report.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Sales.CashVarianceReportDto">
+            <summary>Cash variance report DTO.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Sales.CashVarianceLineDto">
+            <summary>Per-session cash variance line.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Sales.PriceListListDto">
+            <summary>DTO for PriceList listing.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Sales.PriceListDto">
+            <summary>Full PriceList DTO with tiers.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Sales.PriceTierDto">
+            <summary>DTO for a single PriceTier.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Sales.CreatePriceListDto">
+            <summary>DTO for creating a PriceList.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Sales.CreatePriceTierDto">
+            <summary>DTO for creating a PriceTier.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Sales.UpdatePriceListDto">
+            <summary>DTO for updating a PriceList.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Sales.SalesInvoiceDto">
+            <summary>Read-only DTO for sales invoice display.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Sales.SalesInvoiceLineDto">
+            <summary>Read-only DTO for a sales invoice line.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Sales.CreateSalesInvoiceDto">
+            <summary>DTO for creating a new sales invoice (header + lines).</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Sales.CreateSalesInvoiceLineDto">
+            <summary>DTO for creating a sales invoice line.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Sales.UpdateSalesInvoiceDto">
+            <summary>DTO for updating a draft sales invoice.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Sales.SalesInvoiceListDto">
+            <summary>Lightweight DTO for invoice list display.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Sales.SalesQuotationDto">
+            <summary>Read-only DTO for sales quotation display.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Sales.SalesQuotationLineDto">
+            <summary>Read-only DTO for a sales quotation line.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Sales.CreateSalesQuotationDto">
+            <summary>DTO for creating a new sales quotation.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Sales.CreateSalesQuotationLineDto">
+            <summary>DTO for creating a sales quotation line.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Sales.UpdateSalesQuotationDto">
+            <summary>DTO for updating a draft sales quotation.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Sales.SalesQuotationListDto">
+            <summary>Lightweight DTO for quotation list display.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Sales.SalesReturnDto">
+            <summary>Read-only DTO for sales return display.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Sales.SalesReturnLineDto">
+            <summary>Read-only DTO for a sales return line.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Sales.CreateSalesReturnDto">
+            <summary>DTO for creating a new sales return.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Sales.CreateSalesReturnLineDto">
+            <summary>DTO for creating a sales return line.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Sales.UpdateSalesReturnDto">
+            <summary>DTO for updating a draft sales return.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Sales.SalesReturnListDto">
+            <summary>Lightweight DTO for return list display.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Security.LoginDto">
+            <summary>Login request DTO.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Security.LoginResultDto">
+            <summary>Login result returned on successful authentication.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Security.RoleDto">
+            <summary>Full role details with permissions.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Security.RoleListDto">
+            <summary>Lightweight role for dropdowns / lists.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Security.CreateRoleDto">
+            <summary>DTO for creating a new role.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Security.UpdateRoleDto">
+            <summary>DTO for updating an existing role.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Security.UserDto">
+            <summary>Full user details for display.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Security.UserListDto">
+            <summary>Lightweight user for list views.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Security.CreateUserDto">
+            <summary>DTO for creating a new user.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Security.UpdateUserDto">
+            <summary>DTO for updating an existing user (no password change).</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Security.ChangePasswordDto">
+            <summary>DTO for changing a user's own password.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Security.ResetPasswordDto">
+            <summary>DTO for admin resetting a user's password.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Settings.AuditLogDto">
+            <summary>
+            DTO for audit log records displayed in the Audit Log Viewer.
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Settings.BackupResultDto">
+            <summary>
+            Result returned after a successful backup operation.
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Settings.BackupHistoryDto">
+            <summary>
+            Represents a single backup history record.
+            </summary>
+        </member>
+        <member name="P:MarcoERP.Application.DTOs.Settings.BackupHistoryDto.BackupType">
+            <summary>Full or Differential.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Settings.TrialBalanceCheckResult">
+            <summary>
+            Result of the trial balance integrity check (ميزان المراجعة).
+            </summary>
+        </member>
+        <member name="P:MarcoERP.Application.DTOs.Settings.TrialBalanceCheckResult.IsBalanced">
+            <summary>True if total debits == total credits across all posted entries.</summary>
+        </member>
+        <member name="P:MarcoERP.Application.DTOs.Settings.TrialBalanceCheckResult.TotalDebits">
+            <summary>Grand total of debit amounts.</summary>
+        </member>
+        <member name="P:MarcoERP.Application.DTOs.Settings.TrialBalanceCheckResult.TotalCredits">
+            <summary>Grand total of credit amounts.</summary>
+        </member>
+        <member name="P:MarcoERP.Application.DTOs.Settings.TrialBalanceCheckResult.Difference">
+            <summary>Absolute difference (TotalDebits − TotalCredits).</summary>
+        </member>
+        <member name="P:MarcoERP.Application.DTOs.Settings.TrialBalanceCheckResult.UnbalancedAccounts">
+            <summary>Accounts where per-account DR ≠ expected balance (empty when balanced).</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Settings.UnbalancedAccountDto">
+            <summary>
+            An account whose debit/credit totals are part of the imbalance detail.
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Settings.JournalBalanceCheckResult">
+            <summary>
+            Result of the per-entry journal balance check (توازن القيود).
+            </summary>
+        </member>
+        <member name="P:MarcoERP.Application.DTOs.Settings.JournalBalanceCheckResult.AllBalanced">
+            <summary>True if every posted journal entry is balanced.</summary>
+        </member>
+        <member name="P:MarcoERP.Application.DTOs.Settings.JournalBalanceCheckResult.TotalChecked">
+            <summary>Number of posted journal entries checked.</summary>
+        </member>
+        <member name="P:MarcoERP.Application.DTOs.Settings.JournalBalanceCheckResult.UnbalancedCount">
+            <summary>Number of unbalanced entries found.</summary>
+        </member>
+        <member name="P:MarcoERP.Application.DTOs.Settings.JournalBalanceCheckResult.UnbalancedEntries">
+            <summary>Details of each unbalanced entry.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Settings.UnbalancedJournalEntryDto">
+            <summary>
+            A posted journal entry whose line debits ≠ line credits.
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Settings.InventoryCheckResult">
+            <summary>
+            Result of the inventory reconciliation check (تطابق المخزون).
+            </summary>
+        </member>
+        <member name="P:MarcoERP.Application.DTOs.Settings.InventoryCheckResult.IsConsistent">
+            <summary>True if all warehouse product quantities match movement sums.</summary>
+        </member>
+        <member name="P:MarcoERP.Application.DTOs.Settings.InventoryCheckResult.TotalProductsChecked">
+            <summary>Number of product-warehouse combinations checked.</summary>
+        </member>
+        <member name="P:MarcoERP.Application.DTOs.Settings.InventoryCheckResult.InconsistentCount">
+            <summary>Number of inconsistencies found.</summary>
+        </member>
+        <member name="P:MarcoERP.Application.DTOs.Settings.InventoryCheckResult.Inconsistencies">
+            <summary>Details of each inconsistency.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Settings.InventoryInconsistencyDto">
+            <summary>
+            A product-warehouse record whose stored quantity ≠ calculated movement sum.
+            </summary>
+        </member>
+        <member name="P:MarcoERP.Application.DTOs.Settings.InventoryInconsistencyDto.ExpectedQuantity">
+            <summary>Quantity derived from summing all inventory movements.</summary>
+        </member>
+        <member name="P:MarcoERP.Application.DTOs.Settings.InventoryInconsistencyDto.ActualQuantity">
+            <summary>Current quantity stored in WarehouseProduct record.</summary>
+        </member>
+        <member name="P:MarcoERP.Application.DTOs.Settings.InventoryInconsistencyDto.Difference">
+            <summary>ExpectedQuantity − ActualQuantity.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Settings.IntegrityReportDto">
+            <summary>
+            Combined integrity report (تقرير سلامة البيانات الشامل).
+            </summary>
+        </member>
+        <member name="P:MarcoERP.Application.DTOs.Settings.IntegrityReportDto.CheckDate">
+            <summary>Timestamp when the check was performed.</summary>
+        </member>
+        <member name="P:MarcoERP.Application.DTOs.Settings.IntegrityReportDto.TrialBalance">
+            <summary>Trial balance check result.</summary>
+        </member>
+        <member name="P:MarcoERP.Application.DTOs.Settings.IntegrityReportDto.JournalBalance">
+            <summary>Journal balance check result.</summary>
+        </member>
+        <member name="P:MarcoERP.Application.DTOs.Settings.IntegrityReportDto.Inventory">
+            <summary>Inventory reconciliation result.</summary>
+        </member>
+        <member name="P:MarcoERP.Application.DTOs.Settings.IntegrityReportDto.OverallHealthy">
+            <summary>True only if all three checks pass.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Settings.SystemSettingDto">
+            <summary>Full setting details for display/edit.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Settings.UpdateSystemSettingDto">
+            <summary>DTO for updating a setting value.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Settings.SettingGroupDto">
+            <summary>A group of settings for sectioned display.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Treasury.CashboxDto">
+            <summary>Full cashbox details.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Treasury.CreateCashboxDto">
+            <summary>DTO for creating a new cashbox.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Treasury.UpdateCashboxDto">
+            <summary>DTO for updating an existing cashbox.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Treasury.CashPaymentDto">
+            <summary>Full cash payment details.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Treasury.CreateCashPaymentDto">
+            <summary>DTO for creating a new cash payment.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Treasury.UpdateCashPaymentDto">
+            <summary>DTO for updating an existing cash payment.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Treasury.CashPaymentListDto">
+            <summary>Lightweight DTO for list views.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Treasury.CashReceiptDto">
+            <summary>Full cash receipt details.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Treasury.CreateCashReceiptDto">
+            <summary>DTO for creating a new cash receipt.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Treasury.UpdateCashReceiptDto">
+            <summary>DTO for updating an existing cash receipt.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Treasury.CashReceiptListDto">
+            <summary>Lightweight DTO for list views.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Treasury.CashTransferDto">
+            <summary>Full cash transfer details.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Treasury.CreateCashTransferDto">
+            <summary>DTO for creating a new cash transfer.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Treasury.UpdateCashTransferDto">
+            <summary>DTO for updating an existing cash transfer.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.DTOs.Treasury.CashTransferListDto">
+            <summary>Lightweight DTO for list views.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.Interfaces.Accounting.IAccountService">
+            <summary>
+            Application service for Chart of Accounts management.
+            Handles CRUD, hierarchy validation, and tree queries.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Accounting.IAccountService.GetByIdAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>Gets an account by ID.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Accounting.IAccountService.GetByCodeAsync(System.String,System.Threading.CancellationToken)">
+            <summary>Gets an account by its 4-digit code.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Accounting.IAccountService.GetAllAsync(System.Threading.CancellationToken)">
+            <summary>Gets all accounts (flat list).</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Accounting.IAccountService.GetByTypeAsync(MarcoERP.Domain.Enums.AccountType,System.Threading.CancellationToken)">
+            <summary>Gets all accounts by type.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Accounting.IAccountService.GetPostableAccountsAsync(System.Threading.CancellationToken)">
+            <summary>Gets all postable (leaf, active, AllowPosting) accounts.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Accounting.IAccountService.GetAccountTreeAsync(System.Threading.CancellationToken)">
+            <summary>Gets the Chart of Accounts as a hierarchical tree.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Accounting.IAccountService.GetChildrenAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>Gets all children of a parent account.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Accounting.IAccountService.CreateAsync(MarcoERP.Application.DTOs.Accounting.CreateAccountDto,System.Threading.CancellationToken)">
+            <summary>Creates a new account with hierarchy validation.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Accounting.IAccountService.UpdateAsync(MarcoERP.Application.DTOs.Accounting.UpdateAccountDto,System.Threading.CancellationToken)">
+            <summary>Updates an existing account's mutable fields.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Accounting.IAccountService.DeactivateAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>Deactivates an account (ACC-INV-10, ACC-INV-11).</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Accounting.IAccountService.ActivateAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>Reactivates a previously deactivated account.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Accounting.IAccountService.DeleteAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>Soft-deletes an account (ACC-INV-08, ACC-INV-10).</summary>
+        </member>
+        <member name="T:MarcoERP.Application.Interfaces.Accounting.IFiscalYearService">
+            <summary>
+            Application service for fiscal year and period management.
+            Handles year creation, activation, closure, and period lock/unlock.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Accounting.IFiscalYearService.GetByIdAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>Gets a fiscal year by ID with all 12 periods.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Accounting.IFiscalYearService.GetByYearAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>Gets a fiscal year by calendar year number.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Accounting.IFiscalYearService.GetActiveYearAsync(System.Threading.CancellationToken)">
+            <summary>Gets the currently active fiscal year.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Accounting.IFiscalYearService.GetAllAsync(System.Threading.CancellationToken)">
+            <summary>Gets all fiscal years.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Accounting.IFiscalYearService.CreateAsync(MarcoERP.Application.DTOs.Accounting.CreateFiscalYearDto,System.Threading.CancellationToken)">
+            <summary>Creates a new fiscal year with 12 monthly periods (FY-INV-04).</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Accounting.IFiscalYearService.ActivateAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Activates a fiscal year (FY-INV-03: only one active at a time).
+            Verifies no other year is currently active.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Accounting.IFiscalYearService.CloseAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Closes a fiscal year (FY-INV-06, FY-INV-07, FY-INV-08).
+            Requires all 12 periods locked, no pending drafts.
+            Closure is irreversible.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Accounting.IFiscalYearService.LockPeriodAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Locks a fiscal period (PER-01: sequential locking).
+            Requires all drafts in the period to be resolved (FP-INV-04).
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Accounting.IFiscalYearService.UnlockPeriodAsync(System.Int32,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Unlocks the most recent locked period (PER-05: admin-only).
+            Requires mandatory justification note (PER-06).
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.Interfaces.Accounting.IJournalEntryService">
+            <summary>
+            Application service for journal entry management.
+            Implements the 15-step posting workflow (Section 3.5).
+            Application-layer validates JE-INV-07 through JE-INV-10.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Accounting.IJournalEntryService.GetByIdAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>Gets a journal entry by ID with all lines.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Accounting.IJournalEntryService.GetByPeriodAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>Gets journal entries for a fiscal period.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Accounting.IJournalEntryService.GetByStatusAsync(MarcoERP.Domain.Enums.JournalEntryStatus,System.Threading.CancellationToken)">
+            <summary>Gets journal entries by status.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Accounting.IJournalEntryService.GetDraftsByYearAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>Gets draft journal entries for a fiscal year.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Accounting.IJournalEntryService.GetByDateRangeAsync(System.DateTime,System.DateTime,System.Threading.CancellationToken)">
+            <summary>Gets journal entries within a date range.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Accounting.IJournalEntryService.CreateDraftAsync(MarcoERP.Application.DTOs.Accounting.CreateJournalEntryDto,System.Threading.CancellationToken)">
+            <summary>
+            Creates a new draft journal entry.
+            Resolves fiscal year/period from JournalDate.
+            Validates all accounts are postable (JE-INV-06).
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Accounting.IJournalEntryService.PostAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Posts a draft journal entry (15-step workflow).
+            Validates JE-INV-07 through JE-INV-10 (period open, year active, date in range).
+            Generates sequential JournalNumber.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Accounting.IJournalEntryService.ReverseAsync(MarcoERP.Application.DTOs.Accounting.ReverseJournalEntryDto,System.Threading.CancellationToken)">
+            <summary>
+            Reverses a posted journal entry.
+            Creates a new reversal entry with swapped debit/credit.
+            Both entries are persisted atomically.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Accounting.IJournalEntryService.DeleteDraftAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Soft-deletes a draft journal entry.
+            Only drafts can be deleted.
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.Interfaces.IActivityTracker">
+            <summary>
+            Tracks user activity for idle detection.
+            Implementation: WPF layer (hooks mouse/keyboard input).
+            </summary>
+        </member>
+        <member name="P:MarcoERP.Application.Interfaces.IActivityTracker.LastActivityUtc">
+            <summary>UTC timestamp of the last detected user activity.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.IActivityTracker.RecordActivity">
+            <summary>Records a new activity event (call from input hooks).</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.IActivityTracker.IsIdle(System.TimeSpan)">
+            <summary>Returns true if no activity has been recorded within the given timeout.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.Interfaces.IAlertService">
+            <summary>
+            In-memory alert hub consumed by background jobs and displayed by the UI.
+            Implementation: Infrastructure layer (thread-safe list).
+            </summary>
+        </member>
+        <member name="P:MarcoERP.Application.Interfaces.IAlertService.ActiveAlerts">
+            <summary>Current list of active alerts.</summary>
+        </member>
+        <member name="E:MarcoERP.Application.Interfaces.IAlertService.AlertsChanged">
+            <summary>Raised whenever alerts are added or cleared.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.IAlertService.AddAlert(System.String,System.String,MarcoERP.Application.Interfaces.AlertSeverity)">
+            <summary>Adds a new alert.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.IAlertService.ClearAlerts(System.String)">
+            <summary>Removes all alerts for the given category.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.IAlertService.ClearAll">
+            <summary>Removes all alerts.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.Interfaces.AlertSeverity">
+            <summary>Alert severity levels.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.Interfaces.AlertItem">
+            <summary>Represents a single alert displayed to the user.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.Interfaces.IAuditLogger">
+            <summary>
+            Logs user actions to the audit trail.
+            Implementation: Infrastructure/Persistence layer.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.IAuditLogger.LogAsync(System.String,System.Int32,System.String,System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Logs an auditable action.
+            </summary>
+            <param name="entityType">Name of the entity (e.g., "JournalEntry").</param>
+            <param name="entityId">Primary key of the affected entity.</param>
+            <param name="action">Action performed (e.g., "Posted", "Created", "Reversed").</param>
+            <param name="performedBy">Username of the actor.</param>
+            <param name="details">Optional description or serialized change details.</param>
+            <param name="cancellationToken">Cancellation token.</param>
+        </member>
+        <member name="T:MarcoERP.Application.Interfaces.IBackgroundJobService">
+            <summary>
+            Manages periodic background jobs (auto-backup, session watchdog, low-stock alerts).
+            Implementation: Infrastructure layer using System.Timers.Timer.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.IBackgroundJobService.StartAll">
+            <summary>Starts all registered background jobs.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.IBackgroundJobService.StopAll">
+            <summary>Stops all running background jobs.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.Interfaces.ICodeGenerator">
+            <summary>
+            Generates sequential document codes using the CodeSequence table.
+            ACG-01: Implemented in Infrastructure/Persistence layer.
+            ACG-02: Called by Application layer during posting.
+            ACG-03: Each document type has its own sequence.
+            ACG-04: Codes are sequential and unique for posted documents.
+            ACG-05: Codes reset at the start of each fiscal year.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.ICodeGenerator.NextCode(System.String,System.Int32)">
+            <summary>
+            Returns the next sequential code for the given document type and fiscal year.
+            Must be called within a Serializable transaction (SEQ-03).
+            </summary>
+            <param name="documentType">Document type prefix (e.g., "JV", "SI", "PI", "CR", "CP", "CT", "SR", "PR").</param>
+            <param name="fiscalYearId">Fiscal year ID for sequence scoping.</param>
+            <returns>Formatted code string (e.g., "SI-2026-00001").</returns>
+        </member>
+        <member name="T:MarcoERP.Application.Interfaces.ICurrentUserService">
+            <summary>
+            Provides the identity of the currently authenticated user.
+            Implementation: Infrastructure layer (reads from auth context).
+            Extended in Phase 5C with UserId, RoleId, RoleName, Permissions, HasPermission.
+            </summary>
+        </member>
+        <member name="P:MarcoERP.Application.Interfaces.ICurrentUserService.Username">
+            <summary>Username of the currently authenticated user.</summary>
+        </member>
+        <member name="P:MarcoERP.Application.Interfaces.ICurrentUserService.IsAuthenticated">
+            <summary>True if a user is authenticated.</summary>
+        </member>
+        <member name="P:MarcoERP.Application.Interfaces.ICurrentUserService.UserId">
+            <summary>Database ID of the currently authenticated user.</summary>
+        </member>
+        <member name="P:MarcoERP.Application.Interfaces.ICurrentUserService.RoleId">
+            <summary>Role ID of the currently authenticated user.</summary>
+        </member>
+        <member name="P:MarcoERP.Application.Interfaces.ICurrentUserService.RoleNameAr">
+            <summary>Arabic name of the user's role.</summary>
+        </member>
+        <member name="P:MarcoERP.Application.Interfaces.ICurrentUserService.FullNameAr">
+            <summary>Full name of the authenticated user in Arabic.</summary>
+        </member>
+        <member name="P:MarcoERP.Application.Interfaces.ICurrentUserService.Permissions">
+            <summary>List of permission keys assigned to the user's role.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.ICurrentUserService.HasPermission(System.String)">
+            <summary>Checks if the current user has a specific permission.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.ICurrentUserService.SetUser(System.String)">
+            <summary>Sets the current user after successful authentication (legacy — use SetUser overload).</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.ICurrentUserService.SetUser(System.Int32,System.String,System.String,System.Int32,System.String,System.Collections.Generic.IReadOnlyList{System.String})">
+            <summary>Sets the current user with full identity after successful authentication.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.ICurrentUserService.ClearUser">
+            <summary>Clears the current user on logout.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.Interfaces.IDateTimeProvider">
+            <summary>
+            Abstraction for system clock — enables testability.
+            Implementation: Infrastructure layer.
+            </summary>
+        </member>
+        <member name="P:MarcoERP.Application.Interfaces.IDateTimeProvider.UtcNow">
+            <summary>Returns the current UTC date/time.</summary>
+        </member>
+        <member name="P:MarcoERP.Application.Interfaces.IDateTimeProvider.Today">
+            <summary>Returns the current local date (for journal dates).</summary>
+        </member>
+        <member name="T:MarcoERP.Application.Interfaces.ILineCalculationService">
+            <summary>
+            Provides consistent line and invoice total calculations for UI previews.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.ILineCalculationService.CalculateLine(MarcoERP.Application.DTOs.Common.LineCalculationRequest)">
+            <summary>
+            Calculates totals for a single line using domain-consistent rounding.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.ILineCalculationService.CalculateTotals(System.Collections.Generic.IEnumerable{MarcoERP.Application.DTOs.Common.LineCalculationRequest})">
+            <summary>
+            Calculates invoice totals from a list of line inputs.
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.Interfaces.Inventory.IBulkPriceUpdateService">
+            <summary>
+            Service for bulk price update operations.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Inventory.IBulkPriceUpdateService.PreviewAsync(MarcoERP.Application.DTOs.Inventory.BulkPriceUpdateRequestDto,System.Threading.CancellationToken)">
+            <summary>
+            Preview the price changes before applying.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Inventory.IBulkPriceUpdateService.ApplyAsync(MarcoERP.Application.DTOs.Inventory.BulkPriceUpdateRequestDto,System.Threading.CancellationToken)">
+            <summary>
+            Apply the bulk price update. Audits all changes.
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.Interfaces.Inventory.ICategoryService">
+            <summary>
+            Application service for Category management.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Inventory.ICategoryService.GetAllAsync(System.Threading.CancellationToken)">
+            <summary>استرجاع جميع التصنيفات — Gets all categories.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Inventory.ICategoryService.GetByIdAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>استرجاع تصنيف بالمعرّف — Gets a category by ID.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Inventory.ICategoryService.GetRootCategoriesAsync(System.Threading.CancellationToken)">
+            <summary>استرجاع التصنيفات الجذرية (المستوى الأول) — Gets root-level categories.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Inventory.ICategoryService.GetChildrenAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>استرجاع التصنيفات الفرعية — Gets child categories of a parent.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Inventory.ICategoryService.CreateAsync(MarcoERP.Application.DTOs.Inventory.CreateCategoryDto,System.Threading.CancellationToken)">
+            <summary>إنشاء تصنيف جديد — Creates a new category.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Inventory.ICategoryService.UpdateAsync(MarcoERP.Application.DTOs.Inventory.UpdateCategoryDto,System.Threading.CancellationToken)">
+            <summary>تعديل تصنيف — Updates an existing category.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Inventory.ICategoryService.ActivateAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>تفعيل تصنيف — Activates a category.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Inventory.ICategoryService.DeactivateAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>تعطيل تصنيف — Deactivates a category.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.Interfaces.Inventory.IInventoryAdjustmentService">
+            <summary>
+            Application service for inventory adjustments.
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.Interfaces.Inventory.IProductService">
+            <summary>
+            Application service for Product management.
+            Handles CRUD with multi-unit support, barcode search, etc.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Inventory.IProductService.GetAllAsync(System.Threading.CancellationToken)">
+            <summary>استرجاع جميع الأصناف — Gets all products.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Inventory.IProductService.GetByIdAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>استرجاع صنف بالمعرّف — Gets a product by ID.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Inventory.IProductService.GetByCodeAsync(System.String,System.Threading.CancellationToken)">
+            <summary>استرجاع صنف بالكود — Gets a product by its unique code.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Inventory.IProductService.GetByCategoryAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>استرجاع أصناف حسب التصنيف — Gets products by category.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Inventory.IProductService.SearchAsync(System.String,System.Threading.CancellationToken)">
+            <summary>بحث الأصناف بالاسم أو الكود أو الباركود — Searches products by name, code, or barcode.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Inventory.IProductService.GetNextCodeAsync(System.Threading.CancellationToken)">
+            <summary>استرجاع الكود التالي للأصناف — Gets the next auto-generated product code.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Inventory.IProductService.CreateAsync(MarcoERP.Application.DTOs.Inventory.CreateProductDto,System.Threading.CancellationToken)">
+            <summary>إنشاء صنف جديد — Creates a new product.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Inventory.IProductService.UpdateAsync(MarcoERP.Application.DTOs.Inventory.UpdateProductDto,System.Threading.CancellationToken)">
+            <summary>تعديل صنف — Updates an existing product.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Inventory.IProductService.ActivateAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>تفعيل صنف — Activates a product.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Inventory.IProductService.DeactivateAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>تعطيل صنف — Deactivates a product.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Inventory.IProductService.DeleteAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>حذف صنف — Soft-deletes a product.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.Interfaces.Inventory.IUnitService">
+            <summary>
+            Application service for Unit of Measure management.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Inventory.IUnitService.GetAllAsync(System.Threading.CancellationToken)">
+            <summary>استرجاع جميع الوحدات — Gets all units of measure.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Inventory.IUnitService.GetActiveAsync(System.Threading.CancellationToken)">
+            <summary>استرجاع الوحدات النشطة فقط — Gets only active units.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Inventory.IUnitService.GetByIdAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>استرجاع وحدة بالمعرّف — Gets a unit by ID.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Inventory.IUnitService.CreateAsync(MarcoERP.Application.DTOs.Inventory.CreateUnitDto,System.Threading.CancellationToken)">
+            <summary>إنشاء وحدة قياس جديدة — Creates a new unit of measure.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Inventory.IUnitService.UpdateAsync(MarcoERP.Application.DTOs.Inventory.UpdateUnitDto,System.Threading.CancellationToken)">
+            <summary>تعديل وحدة قياس — Updates an existing unit.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Inventory.IUnitService.ActivateAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>تفعيل وحدة — Activates a unit.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Inventory.IUnitService.DeactivateAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>تعطيل وحدة — Deactivates a unit.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.Interfaces.Inventory.IWarehouseService">
+            <summary>
+            Application service for Warehouse management and stock queries.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Inventory.IWarehouseService.GetAllAsync(System.Threading.CancellationToken)">
+            <summary>استرجاع جميع المخازن — Gets all warehouses.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Inventory.IWarehouseService.GetActiveAsync(System.Threading.CancellationToken)">
+            <summary>استرجاع المخازن النشطة فقط — Gets only active warehouses.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Inventory.IWarehouseService.GetByIdAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>استرجاع مخزن بالمعرّف — Gets a warehouse by ID.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Inventory.IWarehouseService.CreateAsync(MarcoERP.Application.DTOs.Inventory.CreateWarehouseDto,System.Threading.CancellationToken)">
+            <summary>إنشاء مخزن جديد — Creates a new warehouse.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Inventory.IWarehouseService.UpdateAsync(MarcoERP.Application.DTOs.Inventory.UpdateWarehouseDto,System.Threading.CancellationToken)">
+            <summary>تعديل مخزن — Updates an existing warehouse.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Inventory.IWarehouseService.SetDefaultAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>تعيين مخزن كافتراضي — Sets a warehouse as the default.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Inventory.IWarehouseService.ActivateAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>تفعيل مخزن — Activates a warehouse.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Inventory.IWarehouseService.DeactivateAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>تعطيل مخزن — Deactivates a warehouse.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Inventory.IWarehouseService.GetStockByWarehouseAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>استرجاع أرصدة مخزن معين — Gets stock balances for a specific warehouse.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Inventory.IWarehouseService.GetStockByProductAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>استرجاع أرصدة صنف عبر جميع المخازن — Gets stock balances for a product across all warehouses.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Inventory.IWarehouseService.GetBelowMinimumStockAsync(System.Threading.CancellationToken)">
+            <summary>استرجاع الأصناف تحت الحد الأدنى — Gets products below minimum stock level.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.Interfaces.IPasswordHasher">
+            <summary>
+            Interface for password hashing operations.
+            Defined in Application layer so services can depend on it.
+            Implemented in Infrastructure layer (BCrypt).
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.IPasswordHasher.HashPassword(System.String)">
+            <summary>Hashes a plain-text password.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.IPasswordHasher.VerifyPassword(System.String,System.String)">
+            <summary>Verifies a plain-text password against a hash.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.Interfaces.Purchases.IPurchaseInvoiceService">
+            <summary>
+            Application service contract for Purchase Invoice operations.
+            Handles CRUD, posting (auto-journal + WAC + stock), and cancellation.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Purchases.IPurchaseInvoiceService.GetAllAsync(System.Threading.CancellationToken)">
+            <summary>Gets all purchase invoices (list view).</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Purchases.IPurchaseInvoiceService.GetByIdAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>Gets a purchase invoice with all lines.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Purchases.IPurchaseInvoiceService.GetNextNumberAsync(System.Threading.CancellationToken)">
+            <summary>Gets the next auto-generated invoice number.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Purchases.IPurchaseInvoiceService.CreateAsync(MarcoERP.Application.DTOs.Purchases.CreatePurchaseInvoiceDto,System.Threading.CancellationToken)">
+            <summary>Creates a new draft purchase invoice.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Purchases.IPurchaseInvoiceService.UpdateAsync(MarcoERP.Application.DTOs.Purchases.UpdatePurchaseInvoiceDto,System.Threading.CancellationToken)">
+            <summary>Updates a draft purchase invoice.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Purchases.IPurchaseInvoiceService.PostAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Posts a draft invoice: generates journal entry, updates WAC, creates inventory movements.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Purchases.IPurchaseInvoiceService.CancelAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>Cancels a posted invoice (reversal journal + stock reversal).</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Purchases.IPurchaseInvoiceService.DeleteDraftAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>Deletes a draft invoice (hard delete — not yet posted).</summary>
+        </member>
+        <member name="T:MarcoERP.Application.Interfaces.Purchases.IPurchaseQuotationService">
+            <summary>
+            Application service contract for Purchase Quotation operations.
+            Handles CRUD, status transitions, and conversion to purchase invoice.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Purchases.IPurchaseQuotationService.ConvertToInvoiceAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Converts an accepted quotation to a draft purchase invoice.
+            Returns the new invoice ID.
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.Interfaces.Purchases.IPurchaseReturnService">
+            <summary>
+            Application service contract for Purchase Return operations.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Purchases.IPurchaseReturnService.GetAllAsync(System.Threading.CancellationToken)">
+            <summary>Gets all purchase returns (list view).</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Purchases.IPurchaseReturnService.GetByIdAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>Gets a purchase return with all lines.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Purchases.IPurchaseReturnService.GetNextNumberAsync(System.Threading.CancellationToken)">
+            <summary>Gets the next auto-generated return number.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Purchases.IPurchaseReturnService.CreateAsync(MarcoERP.Application.DTOs.Purchases.CreatePurchaseReturnDto,System.Threading.CancellationToken)">
+            <summary>Creates a new draft purchase return.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Purchases.IPurchaseReturnService.UpdateAsync(MarcoERP.Application.DTOs.Purchases.UpdatePurchaseReturnDto,System.Threading.CancellationToken)">
+            <summary>Updates a draft purchase return.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Purchases.IPurchaseReturnService.PostAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>Posts a return: reversal journal, stock deduction.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Purchases.IPurchaseReturnService.CancelAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>Cancels a posted return.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Purchases.IPurchaseReturnService.DeleteDraftAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>Deletes a draft return.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.Interfaces.Purchases.ISupplierService">
+            <summary>
+            Application service contract for Supplier CRUD operations.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Purchases.ISupplierService.GetAllAsync(System.Threading.CancellationToken)">
+            <summary>Gets all suppliers.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Purchases.ISupplierService.GetByIdAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>Gets a supplier by ID.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Purchases.ISupplierService.SearchAsync(System.String,System.Threading.CancellationToken)">
+            <summary>Searches suppliers by name or code.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Purchases.ISupplierService.GetNextCodeAsync(System.Threading.CancellationToken)">
+            <summary>Gets the next auto-generated supplier code.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Purchases.ISupplierService.CreateAsync(MarcoERP.Application.DTOs.Purchases.CreateSupplierDto,System.Threading.CancellationToken)">
+            <summary>Creates a new supplier.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Purchases.ISupplierService.UpdateAsync(MarcoERP.Application.DTOs.Purchases.UpdateSupplierDto,System.Threading.CancellationToken)">
+            <summary>Updates an existing supplier.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Purchases.ISupplierService.ActivateAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>Activates a supplier.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Purchases.ISupplierService.DeactivateAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>Deactivates a supplier.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Purchases.ISupplierService.DeleteAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>Soft-deletes a supplier.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.Interfaces.Reports.IReportService">
+            <summary>
+            Application service for all reporting queries.
+            Read-only — no data modifications.
+            All date-range parameters are inclusive.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Reports.IReportService.GetTrialBalanceAsync(System.DateTime,System.DateTime,System.Threading.CancellationToken)">
+            <summary>
+            Gets the Trial Balance for a date range.
+            Aggregates posted journal entry lines by account.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Reports.IReportService.GetAccountStatementAsync(System.Int32,System.DateTime,System.DateTime,System.Threading.CancellationToken)">
+            <summary>
+            Gets the Account Statement showing all movements for a specific account.
+            Includes running balance.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Reports.IReportService.GetIncomeStatementAsync(System.DateTime,System.DateTime,System.Threading.CancellationToken)">
+            <summary>
+            Gets the Income Statement (Profit &amp; Loss) for a date range.
+            Revenue - COGS = Gross Profit - Expenses + Other Income - Other Expenses = Net Profit.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Reports.IReportService.GetBalanceSheetAsync(System.DateTime,System.Threading.CancellationToken)">
+            <summary>
+            Gets the Balance Sheet as of a specific date.
+            Assets = Liabilities + Equity.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Reports.IReportService.GetSalesReportAsync(System.DateTime,System.DateTime,System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Gets a Sales Report for a date range, optionally filtered by customer.
+            Includes posted invoices only.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Reports.IReportService.GetPurchaseReportAsync(System.DateTime,System.DateTime,System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Gets a Purchase Report for a date range, optionally filtered by supplier.
+            Includes posted invoices only.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Reports.IReportService.GetProfitReportAsync(System.DateTime,System.DateTime,System.Threading.CancellationToken)">
+            <summary>
+            Gets the Profit Report per product for a date range.
+            Compares sales revenue vs cost of goods sold.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Reports.IReportService.GetInventoryReportAsync(System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Gets the Inventory Report showing current stock levels.
+            Optionally filtered by warehouse.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Reports.IReportService.GetStockCardAsync(System.Int32,System.Nullable{System.Int32},System.DateTime,System.DateTime,System.Threading.CancellationToken)">
+            <summary>
+            Gets the Stock Card for a specific product showing all movements.
+            Optionally filtered by warehouse.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Reports.IReportService.GetCashboxMovementAsync(System.Nullable{System.Int32},System.DateTime,System.DateTime,System.Threading.CancellationToken)">
+            <summary>
+            Gets the Cashbox Movement report.
+            Shows all receipts, payments, and transfers for a cashbox.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Reports.IReportService.GetAgingReportAsync(System.Threading.CancellationToken)">
+            <summary>
+            Gets the Aging Report for customer and supplier receivables/payables.
+            Grouped by 30-day buckets.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Reports.IReportService.GetVatReportAsync(System.DateTime,System.DateTime,System.Threading.CancellationToken)">
+            <summary>
+            Gets the VAT Report for a date range.
+            Shows sales VAT collected vs purchase VAT paid.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Reports.IReportService.GetDashboardSummaryAsync(System.Threading.CancellationToken)">
+            <summary>
+            Gets the Dashboard summary with key business metrics.
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.Interfaces.Sales.ICustomerService">
+            <summary>
+            Application service contract for Customer CRUD operations.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Sales.ICustomerService.GetAllAsync(System.Threading.CancellationToken)">
+            <summary>Gets all customers.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Sales.ICustomerService.GetByIdAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>Gets a customer by ID.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Sales.ICustomerService.SearchAsync(System.String,System.Threading.CancellationToken)">
+            <summary>Searches customers by name or code.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Sales.ICustomerService.GetNextCodeAsync(System.Threading.CancellationToken)">
+            <summary>Gets the next auto-generated customer code.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Sales.ICustomerService.CreateAsync(MarcoERP.Application.DTOs.Sales.CreateCustomerDto,System.Threading.CancellationToken)">
+            <summary>Creates a new customer.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Sales.ICustomerService.UpdateAsync(MarcoERP.Application.DTOs.Sales.UpdateCustomerDto,System.Threading.CancellationToken)">
+            <summary>Updates an existing customer.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Sales.ICustomerService.ActivateAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>Activates a customer.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Sales.ICustomerService.DeactivateAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>Deactivates a customer.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Sales.ICustomerService.DeleteAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>Soft-deletes a customer.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.Interfaces.Sales.IPosService">
+            <summary>
+            Application service contract for POS operations.
+            Handles session management, sale completion, cancellation, and reporting.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Sales.IPosService.OpenSessionAsync(MarcoERP.Application.DTOs.Sales.OpenPosSessionDto,System.Threading.CancellationToken)">
+            <summary>Opens a new POS session for the current user.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Sales.IPosService.GetCurrentSessionAsync(System.Threading.CancellationToken)">
+            <summary>Gets the current open session for the current user.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Sales.IPosService.CloseSessionAsync(MarcoERP.Application.DTOs.Sales.ClosePosSessionDto,System.Threading.CancellationToken)">
+            <summary>Closes a POS session with reconciliation.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Sales.IPosService.GetSessionByIdAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>Gets a session by ID.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Sales.IPosService.GetAllSessionsAsync(System.Threading.CancellationToken)">
+            <summary>Gets all sessions (for admin view).</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Sales.IPosService.LoadProductCacheAsync(System.Threading.CancellationToken)">
+            <summary>Loads all active products for POS cache (lightweight projections).</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Sales.IPosService.FindByBarcodeAsync(System.String,System.Threading.CancellationToken)">
+            <summary>Finds a product by barcode (searches both product and unit barcodes).</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Sales.IPosService.SearchProductsAsync(System.String,System.Threading.CancellationToken)">
+            <summary>Searches products by name or code.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Sales.IPosService.GetAvailableStockAsync(System.Int32,System.Int32,System.Threading.CancellationToken)">
+            <summary>Gets available stock for a product in the session warehouse.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Sales.IPosService.CompleteSaleAsync(MarcoERP.Application.DTOs.Sales.CompletePoseSaleDto,System.Threading.CancellationToken)">
+            <summary>
+            Completes a POS sale: creates invoice, posts it, deducts stock,
+            generates journals, records payments. All in one atomic transaction.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Sales.IPosService.CancelSaleAsync(System.Int32,System.Int32,System.Threading.CancellationToken)">
+            <summary>Cancels a posted POS invoice (reversal).</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Sales.IPosService.GetDailyReportAsync(System.DateTime,System.Threading.CancellationToken)">
+            <summary>Gets POS daily report.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Sales.IPosService.GetSessionReportAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>Gets POS session report.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Sales.IPosService.GetProfitReportAsync(System.DateTime,System.DateTime,System.Threading.CancellationToken)">
+            <summary>Gets POS profit report for a date range.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Sales.IPosService.GetCashVarianceReportAsync(System.DateTime,System.DateTime,System.Threading.CancellationToken)">
+            <summary>Gets cash variance report for a date range.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.Interfaces.Sales.IPriceListService">
+            <summary>
+            Application service for PriceList management.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Sales.IPriceListService.GetBestPriceForCustomerAsync(System.Int32,System.Int32,System.Decimal,System.Threading.CancellationToken)">
+            <summary>
+            Gets the best price for a product from all active price lists,
+            considering the customer's assigned price list and quantity.
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.Interfaces.Sales.ISalesInvoiceService">
+            <summary>
+            Application service contract for Sales Invoice operations.
+            Handles CRUD, posting (auto revenue journal + COGS journal + stock deduction), and cancellation.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Sales.ISalesInvoiceService.GetAllAsync(System.Threading.CancellationToken)">
+            <summary>Gets all sales invoices (list view).</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Sales.ISalesInvoiceService.GetByIdAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>Gets a sales invoice with all lines.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Sales.ISalesInvoiceService.GetNextNumberAsync(System.Threading.CancellationToken)">
+            <summary>Gets the next auto-generated invoice number.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Sales.ISalesInvoiceService.CreateAsync(MarcoERP.Application.DTOs.Sales.CreateSalesInvoiceDto,System.Threading.CancellationToken)">
+            <summary>Creates a new draft sales invoice.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Sales.ISalesInvoiceService.UpdateAsync(MarcoERP.Application.DTOs.Sales.UpdateSalesInvoiceDto,System.Threading.CancellationToken)">
+            <summary>Updates a draft sales invoice.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Sales.ISalesInvoiceService.PostAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Posts a draft invoice: generates revenue journal + COGS journal, deducts stock, creates inventory movements.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Sales.ISalesInvoiceService.CancelAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>Cancels a posted invoice (reversal journals + stock restoration).</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Sales.ISalesInvoiceService.DeleteDraftAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>Deletes a draft invoice (hard delete — not yet posted).</summary>
+        </member>
+        <member name="T:MarcoERP.Application.Interfaces.Sales.ISalesQuotationService">
+            <summary>
+            Application service contract for Sales Quotation operations.
+            Handles CRUD, status transitions, and conversion to sales invoice.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Sales.ISalesQuotationService.ConvertToInvoiceAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Converts an accepted quotation to a draft sales invoice.
+            Returns the new invoice ID.
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.Interfaces.Sales.ISalesReturnService">
+            <summary>
+            Application service contract for Sales Return operations.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Sales.ISalesReturnService.GetAllAsync(System.Threading.CancellationToken)">
+            <summary>Gets all sales returns (list view).</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Sales.ISalesReturnService.GetByIdAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>Gets a sales return with all lines.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Sales.ISalesReturnService.GetNextNumberAsync(System.Threading.CancellationToken)">
+            <summary>Gets the next auto-generated return number.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Sales.ISalesReturnService.CreateAsync(MarcoERP.Application.DTOs.Sales.CreateSalesReturnDto,System.Threading.CancellationToken)">
+            <summary>Creates a new draft sales return.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Sales.ISalesReturnService.UpdateAsync(MarcoERP.Application.DTOs.Sales.UpdateSalesReturnDto,System.Threading.CancellationToken)">
+            <summary>Updates a draft sales return.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Sales.ISalesReturnService.PostAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>Posts a return: reversal revenue journal + reversal COGS journal, stock re-addition.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Sales.ISalesReturnService.CancelAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>Cancels a posted return.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Sales.ISalesReturnService.DeleteDraftAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>Deletes a draft return.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.Interfaces.Security.IAuthenticationService">
+            <summary>
+            Application service for user authentication.
+            Handles login, password change, and session management.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Security.IAuthenticationService.LoginAsync(MarcoERP.Application.DTOs.Security.LoginDto,System.Threading.CancellationToken)">
+            <summary>
+            Authenticates a user with username and password.
+            Returns login result with user info and permissions on success.
+            Handles failed login counting and account locking per SEC-AUTH-01.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Security.IAuthenticationService.ChangePasswordAsync(System.Int32,MarcoERP.Application.DTOs.Security.ChangePasswordDto,System.Threading.CancellationToken)">
+            <summary>
+            Changes the current user's own password.
+            Validates current password before allowing change.
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.Interfaces.Security.IRoleService">
+            <summary>
+            Application service for role management (read-only for system roles).
+            Roles are seeded by the system; this service provides query access.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Security.IRoleService.GetAllAsync(System.Threading.CancellationToken)">
+            <summary>استرجاع جميع الأدوار — Gets all roles.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Security.IRoleService.GetByIdAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>استرجاع دور بالمعرّف مع الصلاحيات — Gets a role by ID with its permissions.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.Interfaces.Security.IUserService">
+            <summary>
+            Application service for user CRUD management.
+            Used by administrators to create, update, and manage user accounts.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Security.IUserService.GetAllAsync(System.Threading.CancellationToken)">
+            <summary>استرجاع جميع المستخدمين — Gets all users.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Security.IUserService.GetByIdAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>استرجاع مستخدم بالمعرّف — Gets a user by ID.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Security.IUserService.CreateAsync(MarcoERP.Application.DTOs.Security.CreateUserDto,System.Threading.CancellationToken)">
+            <summary>إنشاء مستخدم جديد — Creates a new user account.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Security.IUserService.UpdateAsync(MarcoERP.Application.DTOs.Security.UpdateUserDto,System.Threading.CancellationToken)">
+            <summary>تعديل بيانات مستخدم — Updates user profile information.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Security.IUserService.ResetPasswordAsync(MarcoERP.Application.DTOs.Security.ResetPasswordDto,System.Threading.CancellationToken)">
+            <summary>إعادة تعيين كلمة المرور — Resets a user's password (admin action).</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Security.IUserService.ActivateAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>تفعيل حساب مستخدم — Activates a user account.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Security.IUserService.DeactivateAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>تعطيل حساب مستخدم — Deactivates a user account.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Security.IUserService.UnlockAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>فتح حساب مقفل — Unlocks a locked user account.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.Interfaces.Settings.IAuditLogService">
+            <summary>
+            خدمة عرض سجل المراجعة (Audit Log Viewer).
+            Implementation: Persistence layer.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Settings.IAuditLogService.GetAllAsync(System.Threading.CancellationToken)">
+            <summary>
+            Returns all audit log records ordered by timestamp descending.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Settings.IAuditLogService.GetByEntityAsync(System.String,System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Returns audit log records for a specific entity type and entity id.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Settings.IAuditLogService.GetByDateRangeAsync(System.DateTime,System.DateTime,System.Threading.CancellationToken)">
+            <summary>
+            Returns audit log records within a date range.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Settings.IAuditLogService.GetByUserAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Returns audit log records performed by a specific user.
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.Interfaces.Settings.IBackupService">
+            <summary>
+            خدمة النسخ الاحتياطي واستعادة قاعدة البيانات.
+            Implementation: Persistence layer (uses raw SQL for BACKUP/RESTORE).
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Settings.IBackupService.BackupAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Creates a full backup of the database.
+            </summary>
+            <param name="backupPath">Target directory for the backup file. If null, uses default path.</param>
+            <param name="ct">Cancellation token.</param>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Settings.IBackupService.RestoreAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Restores the database from a backup file.
+            WARNING: This will disconnect all users and replace the current database.
+            </summary>
+            <param name="backupFilePath">Full path to the .bak file.</param>
+            <param name="ct">Cancellation token.</param>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Settings.IBackupService.GetHistoryAsync(System.Threading.CancellationToken)">
+            <summary>
+            Returns the history of backup operations ordered by date descending.
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.Interfaces.Settings.IIntegrityService">
+            <summary>
+            خدمة فحص سلامة البيانات المالية والمخزنية.
+            Implementation: Persistence layer (uses EF Core / raw SQL).
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Settings.IIntegrityService.CheckTrialBalanceAsync(System.Threading.CancellationToken)">
+            <summary>
+            Verifies total debits == total credits across all posted journal entries.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Settings.IIntegrityService.CheckJournalBalancesAsync(System.Threading.CancellationToken)">
+            <summary>
+            Verifies each posted journal entry has balanced DR/CR.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Settings.IIntegrityService.CheckInventoryReconciliationAsync(System.Threading.CancellationToken)">
+            <summary>
+            Verifies warehouse quantities match sum of inventory movements.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Settings.IIntegrityService.RunFullCheckAsync(System.Threading.CancellationToken)">
+            <summary>
+            Runs all 3 integrity checks and returns a combined report.
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.Interfaces.Settings.ISystemSettingsService">
+            <summary>
+            Application service for system settings management.
+            Reads and updates key-value configuration pairs.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Settings.ISystemSettingsService.GetAllAsync(System.Threading.CancellationToken)">
+            <summary>Gets all settings.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Settings.ISystemSettingsService.GetAllGroupedAsync(System.Threading.CancellationToken)">
+            <summary>Gets all settings organized by group.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Settings.ISystemSettingsService.GetByKeyAsync(System.String,System.Threading.CancellationToken)">
+            <summary>Gets a single setting by key.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Settings.ISystemSettingsService.UpdateAsync(MarcoERP.Application.DTOs.Settings.UpdateSystemSettingDto,System.Threading.CancellationToken)">
+            <summary>Updates a single setting value.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Settings.ISystemSettingsService.UpdateBatchAsync(System.Collections.Generic.IEnumerable{MarcoERP.Application.DTOs.Settings.UpdateSystemSettingDto},System.Threading.CancellationToken)">
+            <summary>Batch-updates multiple settings.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.Interfaces.SmartEntry.ISmartEntryQueryService">
+            <summary>
+            Read-only, performance-oriented queries used by invoice Smart Entry UX.
+            Kept separate from transactional services to avoid loading full aggregates.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.SmartEntry.ISmartEntryQueryService.GetCustomerOutstandingSalesBalanceAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Calculates the customer's outstanding sales balance as:
+            SUM(Posted SalesInvoices.NetTotal) - SUM(Posted CashReceipts.Amount linked to those invoices).
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.SmartEntry.ISmartEntryQueryService.GetBestTierSaleBaseUnitPriceForCustomerAsync(System.Int32,System.Int32,System.Decimal,System.Threading.CancellationToken)">
+            <summary>
+            Resolves the best tier price (base-unit) for a customer/product at the given base-unit quantity.
+            Priority:
+            1) Customer-specific price list (if assigned and valid)
+            2) Lowest price across all active/valid lists
+            Returns null when no applicable tier exists.
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.Interfaces.Treasury.ICashboxService">
+            <summary>
+            Application service for Cashbox management.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Treasury.ICashboxService.GetAllAsync(System.Threading.CancellationToken)">
+            <summary>استرجاع جميع الخزن — Gets all cashboxes.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Treasury.ICashboxService.GetActiveAsync(System.Threading.CancellationToken)">
+            <summary>استرجاع الخزن النشطة فقط — Gets only active cashboxes.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Treasury.ICashboxService.GetByIdAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>استرجاع خزنة بالمعرّف — Gets a cashbox by ID.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Treasury.ICashboxService.CreateAsync(MarcoERP.Application.DTOs.Treasury.CreateCashboxDto,System.Threading.CancellationToken)">
+            <summary>إنشاء خزنة جديدة — Creates a new cashbox.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Treasury.ICashboxService.UpdateAsync(MarcoERP.Application.DTOs.Treasury.UpdateCashboxDto,System.Threading.CancellationToken)">
+            <summary>تعديل خزنة — Updates an existing cashbox.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Treasury.ICashboxService.SetDefaultAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>تعيين خزنة كافتراضية — Sets a cashbox as the default.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Treasury.ICashboxService.ActivateAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>تفعيل خزنة — Activates a cashbox.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Treasury.ICashboxService.DeactivateAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>تعطيل خزنة — Deactivates a cashbox.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.Interfaces.Treasury.ICashPaymentService">
+            <summary>
+            Application service for CashPayment management.
+            Handles creation, posting (with auto-journal), cancellation, and deletion of cash payments.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Treasury.ICashPaymentService.GetAllAsync(System.Threading.CancellationToken)">
+            <summary>استرجاع جميع سندات الصرف — Gets all cash payments (list view).</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Treasury.ICashPaymentService.GetByIdAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>استرجاع سند صرف بالمعرّف — Gets a cash payment by ID.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Treasury.ICashPaymentService.GetNextNumberAsync(System.Threading.CancellationToken)">
+            <summary>استرجاع الرقم التالي لسند الصرف — Gets the next auto-generated payment number.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Treasury.ICashPaymentService.CreateAsync(MarcoERP.Application.DTOs.Treasury.CreateCashPaymentDto,System.Threading.CancellationToken)">
+            <summary>إنشاء سند صرف جديد — Creates a new draft cash payment.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Treasury.ICashPaymentService.UpdateAsync(MarcoERP.Application.DTOs.Treasury.UpdateCashPaymentDto,System.Threading.CancellationToken)">
+            <summary>تعديل سند صرف — Updates a draft cash payment.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Treasury.ICashPaymentService.PostAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>ترحيل سند صرف — Posts a cash payment (generates auto-journal).</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Treasury.ICashPaymentService.CancelAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>إلغاء سند صرف مرحّل — Cancels a posted cash payment.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Treasury.ICashPaymentService.DeleteDraftAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>حذف مسودة سند صرف — Deletes a draft cash payment.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.Interfaces.Treasury.ICashReceiptService">
+            <summary>
+            Application service for CashReceipt management.
+            Handles creation, posting (with auto-journal), cancellation, and deletion of cash receipts.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Treasury.ICashReceiptService.GetAllAsync(System.Threading.CancellationToken)">
+            <summary>استرجاع جميع سندات القبض — Gets all cash receipts (list view).</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Treasury.ICashReceiptService.GetByIdAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>استرجاع سند قبض بالمعرّف — Gets a cash receipt by ID.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Treasury.ICashReceiptService.GetNextNumberAsync(System.Threading.CancellationToken)">
+            <summary>استرجاع الرقم التالي لسند القبض — Gets the next auto-generated receipt number.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Treasury.ICashReceiptService.CreateAsync(MarcoERP.Application.DTOs.Treasury.CreateCashReceiptDto,System.Threading.CancellationToken)">
+            <summary>إنشاء سند قبض جديد — Creates a new draft cash receipt.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Treasury.ICashReceiptService.UpdateAsync(MarcoERP.Application.DTOs.Treasury.UpdateCashReceiptDto,System.Threading.CancellationToken)">
+            <summary>تعديل سند قبض — Updates a draft cash receipt.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Treasury.ICashReceiptService.PostAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>ترحيل سند قبض — Posts a cash receipt (generates auto-journal).</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Treasury.ICashReceiptService.CancelAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>إلغاء سند قبض مرحّل — Cancels a posted cash receipt.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Treasury.ICashReceiptService.DeleteDraftAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>حذف مسودة سند قبض — Deletes a draft cash receipt.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.Interfaces.Treasury.ICashTransferService">
+            <summary>
+            Application service for CashTransfer management.
+            Handles creation, posting (with auto-journal), cancellation, and deletion of cash transfers.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Treasury.ICashTransferService.GetAllAsync(System.Threading.CancellationToken)">
+            <summary>استرجاع جميع التحويلات — Gets all cash transfers (list view).</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Treasury.ICashTransferService.GetByIdAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>استرجاع تحويل بالمعرّف — Gets a cash transfer by ID.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Treasury.ICashTransferService.GetNextNumberAsync(System.Threading.CancellationToken)">
+            <summary>استرجاع الرقم التالي للتحويل — Gets the next auto-generated transfer number.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Treasury.ICashTransferService.CreateAsync(MarcoERP.Application.DTOs.Treasury.CreateCashTransferDto,System.Threading.CancellationToken)">
+            <summary>إنشاء تحويل جديد — Creates a new draft cash transfer.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Treasury.ICashTransferService.UpdateAsync(MarcoERP.Application.DTOs.Treasury.UpdateCashTransferDto,System.Threading.CancellationToken)">
+            <summary>تعديل تحويل — Updates a draft cash transfer.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Treasury.ICashTransferService.PostAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>ترحيل تحويل — Posts a cash transfer (generates auto-journal).</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Treasury.ICashTransferService.CancelAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>إلغاء تحويل مرحّل — Cancels a posted cash transfer.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Interfaces.Treasury.ICashTransferService.DeleteDraftAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>حذف مسودة تحويل — Deletes a draft cash transfer.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.Mappers.Accounting.AccountMapper">
+            <summary>
+            Manual mapper between Account domain entity and Account DTOs.
+            No AutoMapper dependency — explicit, auditable mapping.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Mappers.Accounting.AccountMapper.ToDto(MarcoERP.Domain.Entities.Accounting.Account)">
+            <summary>
+            Maps an Account entity to AccountDto.
+            Optionally includes parent info if parent is loaded.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Mappers.Accounting.AccountMapper.ToTreeNode(MarcoERP.Domain.Entities.Accounting.Account)">
+            <summary>
+            Maps an Account entity to a tree node DTO (for hierarchy display).
+            Children are NOT populated here — use BuildTree for full hierarchy.
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.Mappers.Accounting.FiscalYearMapper">
+            <summary>
+            Manual mapper between FiscalYear/FiscalPeriod domain entities and DTOs.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Mappers.Accounting.FiscalYearMapper.ToDto(MarcoERP.Domain.Entities.Accounting.FiscalYear)">
+            <summary>
+            Maps a FiscalYear entity (with periods) to FiscalYearDto.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Mappers.Accounting.FiscalYearMapper.ToPeriodDto(MarcoERP.Domain.Entities.Accounting.FiscalPeriod)">
+            <summary>
+            Maps a FiscalPeriod entity to FiscalPeriodDto.
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.Mappers.Accounting.JournalEntryMapper">
+            <summary>
+            Manual mapper between JournalEntry domain entity and JournalEntry DTOs.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Mappers.Accounting.JournalEntryMapper.ToDto(MarcoERP.Domain.Entities.Accounting.JournalEntry)">
+            <summary>
+            Maps a JournalEntry entity (with lines) to JournalEntryDto.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Mappers.Accounting.JournalEntryMapper.ToLineDto(MarcoERP.Domain.Entities.Accounting.JournalEntryLine)">
+            <summary>
+            Maps a JournalEntryLine entity to JournalEntryLineDto.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Mappers.Accounting.JournalEntryMapper.ToPostResult(MarcoERP.Domain.Entities.Accounting.JournalEntry)">
+            <summary>
+            Maps a PostJournalResultDto from a posted entry.
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.Mappers.Inventory.CategoryMapper">
+            <summary>Manual mapper for Category entity ↔ DTOs.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.Mappers.Inventory.ProductMapper">
+            <summary>Manual mapper for Product entity ↔ DTOs.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.Mappers.Inventory.UnitMapper">
+            <summary>Manual mapper for Unit entity ↔ DTOs.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.Mappers.Inventory.WarehouseMapper">
+            <summary>Manual mapper for Warehouse entity ↔ DTOs.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.Mappers.Purchases.PurchaseInvoiceMapper">
+            <summary>
+            Manual mapper for PurchaseInvoice entities ↔ DTOs.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Mappers.Purchases.PurchaseInvoiceMapper.ToDto(MarcoERP.Domain.Entities.Purchases.PurchaseInvoice)">
+            <summary>Maps PurchaseInvoice entity → PurchaseInvoiceDto (with lines).</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Mappers.Purchases.PurchaseInvoiceMapper.ToLineDto(MarcoERP.Domain.Entities.Purchases.PurchaseInvoiceLine)">
+            <summary>Maps PurchaseInvoiceLine entity → PurchaseInvoiceLineDto.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Mappers.Purchases.PurchaseInvoiceMapper.ToListDto(MarcoERP.Domain.Entities.Purchases.PurchaseInvoice)">
+            <summary>Maps to lightweight list DTO.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.Mappers.Purchases.PurchaseReturnMapper">
+            <summary>
+            Manual mapper for PurchaseReturn entities ↔ DTOs.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Mappers.Purchases.PurchaseReturnMapper.ToDto(MarcoERP.Domain.Entities.Purchases.PurchaseReturn)">
+            <summary>Maps PurchaseReturn entity → PurchaseReturnDto (with lines).</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Mappers.Purchases.PurchaseReturnMapper.ToLineDto(MarcoERP.Domain.Entities.Purchases.PurchaseReturnLine)">
+            <summary>Maps PurchaseReturnLine entity → PurchaseReturnLineDto.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Mappers.Purchases.PurchaseReturnMapper.ToListDto(MarcoERP.Domain.Entities.Purchases.PurchaseReturn)">
+            <summary>Maps to lightweight list DTO.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.Mappers.Purchases.SupplierMapper">
+            <summary>
+            Manual mapper for Supplier entity ↔ DTOs.
+            No AutoMapper — per governance ARCHITECTURE §7.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Mappers.Purchases.SupplierMapper.ToDto(MarcoERP.Domain.Entities.Purchases.Supplier)">
+            <summary>Maps Supplier entity → SupplierDto.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Mappers.Purchases.SupplierMapper.ToSearchResult(MarcoERP.Domain.Entities.Purchases.Supplier)">
+            <summary>Maps Supplier entity → SupplierSearchResultDto.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.Mappers.Sales.CustomerMapper">
+            <summary>
+            Manual mapper for Customer entity ↔ DTOs.
+            No AutoMapper — per governance ARCHITECTURE §7.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Mappers.Sales.CustomerMapper.ToDto(MarcoERP.Domain.Entities.Sales.Customer)">
+            <summary>Maps Customer entity → CustomerDto.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Mappers.Sales.CustomerMapper.ToSearchResult(MarcoERP.Domain.Entities.Sales.Customer)">
+            <summary>Maps Customer entity → CustomerSearchResultDto.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.Mappers.Sales.PosMapper">
+            <summary>
+            Manual mapper for POS entities ↔ DTOs.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Mappers.Sales.PosMapper.ToSessionDto(MarcoERP.Domain.Entities.Sales.PosSession)">
+            <summary>Maps PosSession entity → PosSessionDto.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Mappers.Sales.PosMapper.ToSessionListDto(MarcoERP.Domain.Entities.Sales.PosSession)">
+            <summary>Maps PosSession → Lightweight list DTO.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Mappers.Sales.PosMapper.ToProductLookupDto(MarcoERP.Domain.Entities.Inventory.Product)">
+            <summary>Maps Product entity → POS product lookup DTO.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.Mappers.Sales.SalesInvoiceMapper">
+            <summary>
+            Manual mapper for SalesInvoice entities ↔ DTOs.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Mappers.Sales.SalesInvoiceMapper.ToDto(MarcoERP.Domain.Entities.Sales.SalesInvoice)">
+            <summary>Maps SalesInvoice entity → SalesInvoiceDto (with lines).</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Mappers.Sales.SalesInvoiceMapper.ToLineDto(MarcoERP.Domain.Entities.Sales.SalesInvoiceLine)">
+            <summary>Maps SalesInvoiceLine entity → SalesInvoiceLineDto.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Mappers.Sales.SalesInvoiceMapper.ToListDto(MarcoERP.Domain.Entities.Sales.SalesInvoice)">
+            <summary>Maps to lightweight list DTO.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.Mappers.Sales.SalesRepresentativeMapper">
+            <summary>
+            Manual static mapper for SalesRepresentative entity ↔ DTOs.
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.Mappers.Sales.SalesReturnMapper">
+            <summary>
+            Manual mapper for SalesReturn entities ↔ DTOs.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Mappers.Sales.SalesReturnMapper.ToDto(MarcoERP.Domain.Entities.Sales.SalesReturn)">
+            <summary>Maps SalesReturn entity → SalesReturnDto (with lines).</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Mappers.Sales.SalesReturnMapper.ToLineDto(MarcoERP.Domain.Entities.Sales.SalesReturnLine)">
+            <summary>Maps SalesReturnLine entity → SalesReturnLineDto.</summary>
+        </member>
+        <member name="M:MarcoERP.Application.Mappers.Sales.SalesReturnMapper.ToListDto(MarcoERP.Domain.Entities.Sales.SalesReturn)">
+            <summary>Maps to lightweight list DTO.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.Mappers.Security.RoleMapper">
+            <summary>Manual mapper for Role entity ↔ DTOs.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.Mappers.Security.UserMapper">
+            <summary>Manual mapper for User entity ↔ DTOs.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.Mappers.Settings.SystemSettingMapper">
+            <summary>Manual mapper for SystemSetting entity ↔ DTOs.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.Mappers.Treasury.CashboxMapper">
+            <summary>Manual mapper for Cashbox entity ↔ DTOs.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.Mappers.Treasury.CashPaymentMapper">
+            <summary>Manual mapper for CashPayment entity ↔ DTOs.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.Mappers.Treasury.CashReceiptMapper">
+            <summary>Manual mapper for CashReceipt entity ↔ DTOs.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.Mappers.Treasury.CashTransferMapper">
+            <summary>Manual mapper for CashTransfer entity ↔ DTOs.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.Services.Accounting.AccountService">
+            <summary>
+            Application service for Chart of Accounts management.
+            Orchestrates CRUD operations, hierarchy validation, and tree queries.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Services.Accounting.AccountService.GetAccountTreeAsync(System.Threading.CancellationToken)">
+            <summary>
+            Builds the full Chart of Accounts as a hierarchical tree.
+            Level 1 accounts are roots; each node includes its children recursively.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Services.Accounting.AccountService.CreateAsync(MarcoERP.Application.DTOs.Accounting.CreateAccountDto,System.Threading.CancellationToken)">
+            <summary>
+            Creates a new account with full hierarchy validation.
+            Steps:
+            1. Validate DTO format (FluentValidation)
+            2. Check code uniqueness
+            3. If child: load parent, validate parent exists, validate Level=parent.Level+1
+            4. Validate child code range (HIER-03)
+            5. Create domain entity (triggers domain invariants)
+            6. If parent was a leaf, mark it as parent (HIER-05)
+            7. Persist and audit
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Services.Accounting.AccountService.UpdateAsync(MarcoERP.Application.DTOs.Accounting.UpdateAccountDto,System.Threading.CancellationToken)">
+            <summary>
+            Updates mutable fields of an account.
+            Only AccountNameAr, AccountNameEn, Description, and IsActive can be changed.
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.Services.Accounting.FiscalYearService">
+            <summary>
+            Application service for fiscal year and period management.
+            Handles year lifecycle (Setup→Active→Closed) and period lock/unlock.
+            Enforces cross-aggregate invariants that the domain cannot check alone.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Services.Accounting.FiscalYearService.CreateAsync(MarcoERP.Application.DTOs.Accounting.CreateFiscalYearDto,System.Threading.CancellationToken)">
+            <summary>
+            Creates a new fiscal year.
+            Steps:
+            1. Validate DTO
+            2. Check year doesn't already exist (FY-INV-05)
+            3. Create domain entity (auto-creates 12 periods)
+            4. Persist and audit
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Services.Accounting.FiscalYearService.ActivateAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Activates a fiscal year.
+            FY-INV-03: Only ONE year can be active at a time.
+            Application must verify no other active year exists.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Services.Accounting.FiscalYearService.CloseAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Closes a fiscal year.
+            Preconditions verified by Application layer:
+            - FY-INV-06: All 12 periods must be Locked (domain also checks)
+            - FY-INV-07: No pending draft journal entries in this year
+            - FY-INV-08: Closure is irreversible
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Services.Accounting.FiscalYearService.LockPeriodAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Locks a fiscal period.
+            FP-INV-03: Sequential locking — all prior periods must already be locked.
+            FP-INV-04: No pending drafts in this period.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Services.Accounting.FiscalYearService.UnlockPeriodAsync(System.Int32,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Unlocks a fiscal period (admin-only).
+            FP-INV-05: Only the most recent locked period can be unlocked.
+            PER-06: Mandatory justification note.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Services.Accounting.FiscalYearService.FindPeriodByIdAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Finds a FiscalPeriod by its Id by iterating through all fiscal years.
+            In a production system, this would use a dedicated IFiscalPeriodRepository.
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.Services.Accounting.JournalEntryService">
+            <summary>
+            Application service for journal entry management.
+            Implements the 15-step posting workflow (Section 3.5).
+            Application-layer validates JE-INV-07 through JE-INV-10.
+            Domain-layer validates JE-INV-01 through JE-INV-06, JE-INV-11 through JE-INV-13.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Services.Accounting.JournalEntryService.CreateDraftAsync(MarcoERP.Application.DTOs.Accounting.CreateJournalEntryDto,System.Threading.CancellationToken)">
+            <summary>
+            Creates a new draft journal entry.
+            Steps:
+            1. Validate DTO format (FluentValidation)
+            2. Resolve fiscal year and period from JournalDate
+            3. Verify year is Active (JE-INV-10)
+            4. Verify period is Open (JE-INV-09)
+            5. Validate all accounts are postable (JE-INV-06)
+            6. Create domain entity + add lines
+            7. Persist and audit
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Services.Accounting.JournalEntryService.PostAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Posts a draft journal entry — 15-step posting workflow (Section 3.5).
+            
+            Step 1:  Receive command (journal entry ID)
+            Step 2:  Load JournalEntry with all Lines
+            Step 3:  Verify Status == Draft
+            Step 4:  Load FiscalPeriod for JournalDate
+            Step 5:  Verify FiscalPeriod.Status == Open (JE-INV-09)
+            Step 6:  Load FiscalYear
+            Step 7:  Verify FiscalYear.Status == Active (JE-INV-10)
+            Step 8:  Call JournalEntry.Validate() (domain invariants JE-INV-01–06, 11–13)
+            Step 9:  If validation fails → return errors
+            Step 10: Check user authorization
+            Step 11: Generate JournalNumber via IJournalNumberGenerator
+            Step 12: Call JournalEntry.Post()
+            Step 13: Persist via IUnitOfWork (single transaction)
+            Step 14: Log to audit trail
+            Step 15: Return PostResult
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Services.Accounting.JournalEntryService.ReverseAsync(MarcoERP.Application.DTOs.Accounting.ReverseJournalEntryDto,System.Threading.CancellationToken)">
+            <summary>
+            Reverses a posted journal entry.
+            Creates a reversal entry with all debit/credit swapped.
+            Both the original (marked as Reversed) and the new reversal entry are persisted atomically.
+            The reversal entry is auto-posted.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Services.Accounting.JournalEntryService.ValidateLineAccountsAsync(System.Collections.Generic.List{MarcoERP.Application.DTOs.Accounting.CreateJournalEntryLineDto},System.Threading.CancellationToken)">
+            <summary>
+            Validates that all accounts referenced in journal lines are postable.
+            JE-INV-06: Each line must reference a valid, active, leaf account.
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.Services.Common.LineCalculationService">
+            <summary>
+            Domain-consistent calculation service for line and invoice totals.
+            Mirrors rounding behavior used by invoice line entities.
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.Services.Inventory.InventoryAdjustmentService">
+            <summary>
+            Implements inventory adjustment lifecycle: Create → Edit → Post → (Cancel).
+            On Post: creates inventory movements, updates stock, generates adjustment journal.
+            Surplus: DR Inventory / CR Adjustment (income)
+            Shortage: DR Adjustment (expense) / CR Inventory
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.Services.Purchases.PurchaseInvoiceService">
+            <summary>
+            Implements purchase invoice lifecycle: Create → Edit → Post → (Cancel).
+            On Post: auto-generates journal, updates WAC, creates stock movements.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Services.Purchases.PurchaseInvoiceService.PostAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Posts a draft purchase invoice. This triggers:
+            1. Auto journal: DR Inventory + DR VAT Input / CR AP
+            2. WAC recalculation for each product
+            3. Stock movement records + warehouse stock increase
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.Services.Purchases.PurchaseQuotationService">
+            <summary>
+            Implements purchase quotation lifecycle: Create → Send → Accept/Reject → Convert to Invoice.
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.Services.Purchases.PurchaseReturnService">
+            <summary>
+            Implements purchase return lifecycle: Create → Edit → Post → (Cancel).
+            On Post: reversal journal (CR Inventory + CR VAT / DR AP), stock deduction.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Services.Purchases.PurchaseReturnService.PostAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Posts a draft purchase return. This triggers:
+            1. Reversal journal: DR AP / CR Inventory + CR VAT Input
+            2. Stock deduction from warehouse
+            3. Inventory movement records
+            </summary>
+        </member>
+        <member name="F:MarcoERP.Application.Services.Purchases.SupplierService.AccountsPayableCode">
+            <summary>GL control account code for Accounts Payable (الدائنون).</summary>
+        </member>
+        <member name="F:MarcoERP.Application.Services.Sales.CustomerService.AccountsReceivableCode">
+            <summary>GL control account code for Accounts Receivable (المدينون).</summary>
+        </member>
+        <member name="T:MarcoERP.Application.Services.Sales.PosService">
+            <summary>
+            Implements POS operations: session management, atomic sale completion,
+            cancellation with full reversal, and POS reporting.
+            
+            Reuses existing SalesInvoice entity, JournalEntry auto-posting, and InventoryMovement.
+            Does NOT duplicate SalesInvoiceService posting logic — it follows the same pattern
+            but wraps everything in a Serializable transaction for POS atomicity.
+            
+            Revenue Journal:  DR Cash/Bank/AR  /  CR 4111 Sales  /  CR 2121 VAT Output
+            COGS Journal:     DR 5111 COGS      /  CR 1131 Inventory  (per-line at WAC)
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Services.Sales.PosService.CompleteSaleAsync(MarcoERP.Application.DTOs.Sales.CompletePoseSaleDto,System.Threading.CancellationToken)">
+            <summary>
+            Completes a POS sale in one Serializable transaction:
+              1. Validate fiscal period open
+              2. Validate stock for all lines
+              3. Create SalesInvoice (Draft) with lines
+              4. Generate Revenue Journal (DR Cash/Bank/AR, CR Sales, CR VAT Output)
+              5. Generate COGS Journal (DR COGS, CR Inventory)
+              6. Deduct stock &amp; create InventoryMovements
+              7. Post the invoice
+              8. Record POS payments
+              9. Update session totals
+              10. Commit — full rollback on any failure
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.Services.Sales.PriceListService">
+            <summary>
+            Implements PriceList CRUD and tiered pricing resolution.
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.Services.Sales.SalesInvoiceService">
+            <summary>
+            Implements sales invoice lifecycle: Create → Edit → Post → (Cancel).
+            On Post: auto-generates two journals (Revenue + COGS), validates &amp; deducts stock.
+            
+            Revenue Journal:  DR 1121 AR  /  CR 4111 Sales  /  CR 2121 VAT Output
+            COGS Journal:     DR 5111 COGS  /  CR 1131 Inventory  (per-line at WAC)
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Services.Sales.SalesInvoiceService.PostAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Posts a draft sales invoice. This triggers:
+              1. Stock validation — every line must have sufficient warehouse stock.
+              2. Revenue journal — DR AR / CR Sales / CR VAT Output.
+              3. COGS journal — DR COGS / CR Inventory (per-line at current WAC).
+              4. Warehouse stock decrease + inventory movement records.
+              5. Invoice status → Posted.
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.Services.Sales.SalesQuotationService">
+            <summary>
+            Implements sales quotation lifecycle: Create → Send → Accept/Reject → Convert to Invoice.
+            No journal entries or stock movements — those happen on the invoice.
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.Services.Sales.SalesReturnService">
+            <summary>
+            Implements sales return lifecycle: Create → Edit → Post → (Cancel).
+            On Post: reversal revenue journal + reversal COGS journal, stock re-addition.
+            
+            Revenue Reversal:  DR 4111 Sales + DR 2121 VAT Output  /  CR 1121 AR
+            COGS Reversal:     DR 1131 Inventory  /  CR 5111 COGS  (per-line at current WAC)
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Services.Sales.SalesReturnService.PostAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Posts a draft sales return. This triggers:
+              1. Revenue reversal journal — DR Sales + DR VAT Output / CR AR.
+              2. COGS reversal journal — DR Inventory / CR COGS (per-line at current WAC).
+              3. Warehouse stock increase + inventory movement records.
+              4. Return status → Posted.
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.Services.Security.AuthenticationService">
+            <summary>
+            Handles user authentication: login, password change.
+            SEC-AUTH-01: Locks account after 5 failed attempts.
+            Uses BCrypt via IPasswordHasher.
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.Services.Security.RoleService">
+            <summary>
+            Application service for role management (read-only).
+            Roles are system-seeded; this service provides query access.
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.Services.Security.UserService">
+            <summary>
+            Application service for user CRUD management.
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.Services.Settings.SystemSettingsService">
+            <summary>
+            Application service for system settings management.
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.Services.Treasury.CashboxService">
+            <summary>
+            Application service for Cashbox CRUD operations.
+            Follows the same pattern as WarehouseService.
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.Services.Treasury.CashPaymentService">
+            <summary>
+            Application service for CashPayment (سند صرف) lifecycle.
+            On Post: auto-generates journal entry:
+              DR: Contra Account (e.g. 2111 ذمم تجارية — supplier payment)
+              CR: Cashbox GL Account (e.g. 1111 الصندوق الرئيسي)
+            SourceType: CashPayment (4)
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Services.Treasury.CashPaymentService.PostAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Posts a draft cash payment. Auto-generates journal entry:
+              DR: Contra Account (payment.AccountId)
+              CR: Cashbox GL Account (via Cashbox.AccountId)
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.Services.Treasury.CashReceiptService">
+            <summary>
+            Application service for CashReceipt (سند قبض) lifecycle.
+            On Post: auto-generates journal entry:
+              DR: Cashbox GL Account (e.g. 1111 الصندوق الرئيسي)
+              CR: Contra Account (e.g. 1121 ذمم تجارية — customer payment)
+            SourceType: CashReceipt (3)
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Services.Treasury.CashReceiptService.PostAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Posts a draft cash receipt. Auto-generates journal entry:
+              DR: Cashbox GL Account (via Cashbox.AccountId)
+              CR: Contra Account (receipt.AccountId)
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.Services.Treasury.CashTransferService">
+            <summary>
+            Application service for CashTransfer (تحويل بين الخزن) lifecycle.
+            On Post: auto-generates journal entry:
+              DR: Target Cashbox GL Account (money arrives)
+              CR: Source Cashbox GL Account (money leaves)
+            SourceType: CashTransfer (6)
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Application.Services.Treasury.CashTransferService.PostAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Posts a draft cash transfer. Auto-generates journal entry:
+              DR: Target Cashbox GL Account (money arrives)
+              CR: Source Cashbox GL Account (money leaves)
+            Wrapped in a Serializable transaction.
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.Validators.Accounting.CreateAccountDtoValidator">
+            <summary>
+            FluentValidation rules for <see cref="T:MarcoERP.Application.DTOs.Accounting.CreateAccountDto"/>.
+            These are structural/format validations only.
+            Business-rule validations (code uniqueness, parent existence) are in AccountService.
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.Validators.Accounting.CreateFiscalYearDtoValidator">
+            <summary>
+            FluentValidation rules for <see cref="T:MarcoERP.Application.DTOs.Accounting.CreateFiscalYearDto"/>.
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.Validators.Accounting.CreateJournalEntryDtoValidator">
+            <summary>
+            FluentValidation rules for <see cref="T:MarcoERP.Application.DTOs.Accounting.CreateJournalEntryDto"/>.
+            Validates structural format. Cross-aggregate validations (period open, year active,
+            account postable) are performed in JournalEntryService.
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.Validators.Accounting.CreateJournalEntryLineDtoValidator">
+            <summary>
+            Validator for individual journal entry line DTOs.
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.Validators.Accounting.ReverseJournalEntryDtoValidator">
+            <summary>
+            FluentValidation rules for <see cref="T:MarcoERP.Application.DTOs.Accounting.ReverseJournalEntryDto"/>.
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.Validators.Accounting.UpdateAccountDtoValidator">
+            <summary>
+            FluentValidation rules for <see cref="T:MarcoERP.Application.DTOs.Accounting.UpdateAccountDto"/>.
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Application.Validators.Purchases.CreatePurchaseInvoiceDtoValidator">
+            <summary>Validates CreatePurchaseInvoiceDto.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.Validators.Purchases.UpdatePurchaseInvoiceDtoValidator">
+            <summary>Validates UpdatePurchaseInvoiceDto.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.Validators.Purchases.CreatePurchaseInvoiceLineDtoValidator">
+            <summary>Validates a single purchase invoice line.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.Validators.Purchases.CreatePurchaseReturnDtoValidator">
+            <summary>Validates CreatePurchaseReturnDto.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.Validators.Purchases.UpdatePurchaseReturnDtoValidator">
+            <summary>Validates UpdatePurchaseReturnDto.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.Validators.Purchases.CreatePurchaseReturnLineDtoValidator">
+            <summary>Validates a single purchase return line.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.Validators.Purchases.CreateSupplierDtoValidator">
+            <summary>Validates CreateSupplierDto.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.Validators.Purchases.UpdateSupplierDtoValidator">
+            <summary>Validates UpdateSupplierDto.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.Validators.Sales.CreateCustomerDtoValidator">
+            <summary>Validates CreateCustomerDto.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.Validators.Sales.UpdateCustomerDtoValidator">
+            <summary>Validates UpdateCustomerDto.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.Validators.Sales.OpenPosSessionDtoValidator">
+            <summary>Validates OpenPosSessionDto.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.Validators.Sales.ClosePosSessionDtoValidator">
+            <summary>Validates ClosePosSessionDto.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.Validators.Sales.CompletePosSaleDtoValidator">
+            <summary>Validates CompletePoseSaleDto.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.Validators.Sales.PosSaleLineDtoValidator">
+            <summary>Validates a POS sale line.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.Validators.Sales.PosPaymentDtoValidator">
+            <summary>Validates a POS payment entry.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.Validators.Sales.CreateSalesInvoiceDtoValidator">
+            <summary>Validates CreateSalesInvoiceDto.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.Validators.Sales.UpdateSalesInvoiceDtoValidator">
+            <summary>Validates UpdateSalesInvoiceDto.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.Validators.Sales.CreateSalesInvoiceLineDtoValidator">
+            <summary>Validates a single sales invoice line.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.Validators.Sales.CreateSalesReturnDtoValidator">
+            <summary>Validates CreateSalesReturnDto.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.Validators.Sales.UpdateSalesReturnDtoValidator">
+            <summary>Validates UpdateSalesReturnDto.</summary>
+        </member>
+        <member name="T:MarcoERP.Application.Validators.Sales.CreateSalesReturnLineDtoValidator">
+            <summary>Validates a single sales return line.</summary>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,60 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "E:\\Smart erp\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{DE569886-23B5-4063-B042-D150C4FDACEB}|src\\MarcoERP.WpfUI\\MarcoERP.WpfUI.csproj|e:\\smart erp\\src\\marcoerp.wpfui\\views\\sales\\salesinvoicedetailview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{DE569886-23B5-4063-B042-D150C4FDACEB}|src\\MarcoERP.WpfUI\\MarcoERP.WpfUI.csproj|solutionrelative:src\\marcoerp.wpfui\\views\\sales\\salesinvoicedetailview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE569886-23B5-4063-B042-D150C4FDACEB}|src\\MarcoERP.WpfUI\\MarcoERP.WpfUI.csproj|e:\\smart erp\\src\\marcoerp.wpfui\\views\\sales\\salesinvoicedetailview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DE569886-23B5-4063-B042-D150C4FDACEB}|src\\MarcoERP.WpfUI\\MarcoERP.WpfUI.csproj|solutionrelative:src\\marcoerp.wpfui\\views\\sales\\salesinvoicedetailview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "SalesInvoiceDetailView.xaml.cs",
+              "DocumentMoniker": "E:\\Smart erp\\src\\MarcoERP.WpfUI\\Views\\Sales\\SalesInvoiceDetailView.xaml.cs",
+              "RelativeDocumentMoniker": "src\\MarcoERP.WpfUI\\Views\\Sales\\SalesInvoiceDetailView.xaml.cs",
+              "ToolTip": "E:\\Smart erp\\src\\MarcoERP.WpfUI\\Views\\Sales\\SalesInvoiceDetailView.xaml.cs",
+              "RelativeToolTip": "src\\MarcoERP.WpfUI\\Views\\Sales\\SalesInvoiceDetailView.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-11T18:05:02.444Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "SalesInvoiceDetailView.xaml",
+              "DocumentMoniker": "E:\\Smart erp\\src\\MarcoERP.WpfUI\\Views\\Sales\\SalesInvoiceDetailView.xaml",
+              "RelativeDocumentMoniker": "src\\MarcoERP.WpfUI\\Views\\Sales\\SalesInvoiceDetailView.xaml",
+              "ToolTip": "E:\\Smart erp\\src\\MarcoERP.WpfUI\\Views\\Sales\\SalesInvoiceDetailView.xaml",
+              "RelativeToolTip": "src\\MarcoERP.WpfUI\\Views\\Sales\\SalesInvoiceDetailView.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-02-11T18:03:25.815Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,210 @@
+<UserControl x:Class="MarcoERP.WpfUI.Views.Inventory.InventoryAdjustmentDetailView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:common="clr-namespace:MarcoERP.WpfUI.Common"
+             FlowDirection="RightToLeft">
+
+    <Grid Margin="8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- ══════ Title + Back ══════ -->
+        <Border Grid.Row="0" Style="{StaticResource CardPanel}" Padding="12,8" Margin="0,0,0,4">
+            <DockPanel>
+                <TextBlock Text="تسوية مخزون" Style="{StaticResource PageTitle}"
+                           DockPanel.Dock="Right" Margin="0" VerticalAlignment="Center" />
+                <StackPanel Orientation="Horizontal" DockPanel.Dock="Left" HorizontalAlignment="Left">
+                    <Button Style="{StaticResource MaterialDesignOutlinedButton}"
+                            Command="{Binding BackCommand}" ToolTip="رجوع" Margin="4,0">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="ArrowRight" VerticalAlignment="Center" />
+                            <TextBlock Text="رجوع" Margin="6,0,0,0" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
+                    <TextBlock Text="{Binding AdjustmentNumber}" FontSize="16" FontWeight="Bold"
+                               VerticalAlignment="Center" Margin="12,0,0,0" />
+                    <Border Background="#E3F2FD" CornerRadius="4" Padding="8,2" Margin="8,0,0,0"
+                            VerticalAlignment="Center">
+                        <TextBlock Text="{Binding Status}" FontSize="12" Foreground="#1565C0" />
+                    </Border>
+                </StackPanel>
+            </DockPanel>
+        </Border>
+
+        <!-- ══════ Error Bar ══════ -->
+        <Border Grid.Row="1" Background="{StaticResource ErrorBackgroundBrush}" CornerRadius="4" Padding="10,6" Margin="8,2"
+                Visibility="{Binding HasError, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <StackPanel Orientation="Horizontal">
+                <materialDesign:PackIcon Kind="AlertCircle" Foreground="{StaticResource ErrorForegroundBrush}" VerticalAlignment="Center" />
+                <TextBlock Text="{Binding ErrorMessage}" Foreground="{StaticResource ErrorForegroundBrush}"
+                           Margin="8,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" />
+            </StackPanel>
+        </Border>
+
+        <!-- ══════ Header Fields ══════ -->
+        <Border Grid.Row="2" Style="{StaticResource CardPanel}" Padding="12" Margin="0,0,0,4">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Column="0" Grid.Row="0" Margin="0,0,8,8">
+                    <TextBlock Text="التاريخ" FontSize="12" Foreground="{StaticResource SubtitleBrush}" Margin="0,0,0,4" />
+                    <DatePicker SelectedDate="{Binding AdjustmentDate}"
+                                IsEnabled="{Binding IsEditable}" FontSize="12" />
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Grid.Row="0" Margin="0,0,8,8">
+                    <TextBlock Text="المخزن" FontSize="12" Foreground="{StaticResource SubtitleBrush}" Margin="0,0,0,4" />
+                    <ComboBox ItemsSource="{Binding Warehouses}"
+                              SelectedValue="{Binding WarehouseId}"
+                              SelectedValuePath="Id" DisplayMemberPath="NameAr"
+                              IsEnabled="{Binding IsEditable}" IsEditable="True"
+                              common:F1SearchBehavior.IsEnabled="True"
+                              common:F1SearchBehavior.Title="بحث مستودع"
+                              FontSize="12" />
+                </StackPanel>
+
+                <StackPanel Grid.Column="2" Grid.Row="0" Grid.ColumnSpan="2" Margin="0,0,0,8">
+                    <TextBlock Text="السبب" FontSize="12" Foreground="{StaticResource SubtitleBrush}" Margin="0,0,0,4" />
+                    <TextBox Text="{Binding Reason, UpdateSourceTrigger=PropertyChanged}"
+                             materialDesign:HintAssist.Hint="سبب التسوية"
+                             IsEnabled="{Binding IsEditable}" FontSize="12" Padding="8,6" />
+                </StackPanel>
+
+                <StackPanel Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="4">
+                    <TextBlock Text="ملاحظات" FontSize="12" Foreground="{StaticResource SubtitleBrush}" Margin="0,0,0,4" />
+                    <TextBox Text="{Binding Notes, UpdateSourceTrigger=PropertyChanged}"
+                             IsEnabled="{Binding IsEditable}" TextWrapping="Wrap" MinHeight="36"
+                             FontSize="12" Padding="8,6" AcceptsReturn="True" />
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- ══════ Lines DataGrid ══════ -->
+        <Border Grid.Row="3" Style="{StaticResource CardPanel}" Margin="0,0,0,4">
+            <DockPanel>
+                <TextBlock Text="بنود التسوية" Style="{StaticResource SectionTitle}" DockPanel.Dock="Top" />
+                <DataGrid ItemsSource="{Binding Lines}"
+                          AutoGenerateColumns="False" IsReadOnly="True"
+                          CanUserAddRows="False" CanUserDeleteRows="False"
+                          SelectionMode="Single" GridLinesVisibility="Horizontal"
+                          FontSize="12" RowHeight="32" ColumnHeaderHeight="34"
+                          BorderThickness="0"
+                          materialDesign:DataGridAssist.CellPadding="8 4">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="الصنف" Binding="{Binding ProductId}" Width="70" />
+                        <DataGridTextColumn Header="الوحدة" Binding="{Binding UnitId}" Width="60" />
+                        <DataGridTextColumn Header="كمية النظام" Binding="{Binding SystemQuantity, StringFormat=N3}" Width="90" />
+                        <DataGridTextColumn Header="الكمية الفعلية" Binding="{Binding ActualQuantity, StringFormat=N3}" Width="90" />
+                        <DataGridTextColumn Header="الفرق" Binding="{Binding DifferenceQuantity, StringFormat=N3}" Width="70" />
+                        <DataGridTextColumn Header="التحويل" Binding="{Binding ConversionFactor, StringFormat=N3}" Width="70" />
+                        <DataGridTextColumn Header="التكلفة" Binding="{Binding UnitCost, StringFormat=N2}" Width="80" />
+                        <DataGridTextColumn Header="فرق التكلفة" Binding="{Binding CostDifference, StringFormat=N2}" Width="90" />
+                        <DataGridTemplateColumn Header="" Width="40">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Style="{StaticResource MaterialDesignFlatButton}"
+                                            Padding="2" Width="28" Height="28"
+                                            Command="{Binding DataContext.RemoveLineCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                            CommandParameter="{Binding}"
+                                            Visibility="{Binding DataContext.IsEditable, RelativeSource={RelativeSource AncestorType=UserControl}, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                        <materialDesign:PackIcon Kind="Delete" Foreground="{StaticResource ErrorForegroundBrush}" Width="16" Height="16" />
+                                    </Button>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </DockPanel>
+        </Border>
+
+        <!-- ══════ Add Line Input ══════ -->
+        <Border Grid.Row="4" Style="{StaticResource CardPanel}" Padding="8" Margin="0,0,0,4"
+                Visibility="{Binding IsEditable, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBox Grid.Column="0" Text="{Binding LineProductId, UpdateSourceTrigger=PropertyChanged}"
+                         materialDesign:HintAssist.Hint="رقم الصنف" Margin="0,0,4,0" FontSize="12" />
+                <TextBox Grid.Column="1" Text="{Binding LineUnitId, UpdateSourceTrigger=PropertyChanged}"
+                         materialDesign:HintAssist.Hint="الوحدة" Margin="0,0,4,0" FontSize="12" />
+                <TextBox Grid.Column="2" Text="{Binding LineSystemQty, UpdateSourceTrigger=PropertyChanged}"
+                         materialDesign:HintAssist.Hint="كمية النظام" Margin="0,0,4,0" FontSize="12" />
+                <TextBox Grid.Column="3" Text="{Binding LineActualQty, UpdateSourceTrigger=PropertyChanged}"
+                         materialDesign:HintAssist.Hint="الكمية الفعلية" Margin="0,0,4,0" FontSize="12" />
+                <TextBox Grid.Column="4" Text="{Binding LineConversion, UpdateSourceTrigger=PropertyChanged}"
+                         materialDesign:HintAssist.Hint="التحويل" Margin="0,0,4,0" FontSize="12" />
+                <TextBox Grid.Column="5" Text="{Binding LineUnitCost, UpdateSourceTrigger=PropertyChanged}"
+                         materialDesign:HintAssist.Hint="التكلفة" Margin="0,0,4,0" FontSize="12" />
+                <Button Grid.Column="6" Style="{StaticResource MaterialDesignRaisedButton}"
+                        Background="{StaticResource PrimaryBrush}" Foreground="White"
+                        Command="{Binding AddLineCommand}" Padding="4" MinWidth="36">
+                    <materialDesign:PackIcon Kind="Plus" />
+                </Button>
+            </Grid>
+        </Border>
+
+        <!-- ══════ Action Buttons + Status ══════ -->
+        <Border Grid.Row="5" Padding="10,6" Margin="8,4,8,0">
+            <DockPanel>
+                <StackPanel Orientation="Horizontal" DockPanel.Dock="Right">
+                    <Button Style="{StaticResource MaterialDesignRaisedButton}"
+                            Background="{StaticResource PrimaryBrush}" Foreground="White"
+                            Command="{Binding SaveCommand}" Margin="4,0" MinWidth="90"
+                            Visibility="{Binding IsEditable, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="ContentSave" VerticalAlignment="Center" />
+                            <TextBlock Text="حفظ" Margin="6,0,0,0" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
+                    <Button Style="{StaticResource MaterialDesignRaisedButton}"
+                            Background="{StaticResource SuccessBrush}" Foreground="White"
+                            Command="{Binding PostCommand}" Margin="4,0" MinWidth="90">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Check" VerticalAlignment="Center" />
+                            <TextBlock Text="ترحيل" Margin="6,0,0,0" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
+                    <Button Style="{StaticResource MaterialDesignOutlinedButton}"
+                            Foreground="{StaticResource DangerBrush}"
+                            Command="{Binding CancelAdjustmentCommand}" Margin="4,0" MinWidth="80">
+                        <TextBlock Text="إلغاء التسوية" />
+                    </Button>
+                    <Button Style="{StaticResource MaterialDesignFlatButton}"
+                            Foreground="{StaticResource DangerBrush}"
+                            Command="{Binding DeleteCommand}" Margin="4,0">
+                        <TextBlock Text="حذف" />
+                    </Button>
+                </StackPanel>
+                <StackPanel>
+                    <TextBlock Text="{Binding StatusMessage}" Foreground="{StaticResource SubtitleBrush}" FontSize="12" />
+                    <ProgressBar IsIndeterminate="{Binding IsBusy}"
+                                 Visibility="{Binding IsBusy, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                 Height="3" Width="100" Margin="0,4,0,0" HorizontalAlignment="Left" />
+                </StackPanel>
+            </DockPanel>
+        </Border>
+    </Grid>
+</UserControl>

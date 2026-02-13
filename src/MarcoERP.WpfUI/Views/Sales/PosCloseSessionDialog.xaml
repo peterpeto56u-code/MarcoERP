@@ -1,0 +1,92 @@
+<Window x:Class="MarcoERP.WpfUI.Views.Sales.PosCloseSessionDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Title="إغلاق جلسة نقطة البيع" Width="460" Height="480"
+        WindowStartupLocation="CenterOwner" ResizeMode="NoResize"
+        ShowInTaskbar="False"
+        FlowDirection="RightToLeft"
+        Background="{StaticResource BackgroundBrush}">
+
+    <Grid Margin="28">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="18"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="14"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="14"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <StackPanel Grid.Row="0" HorizontalAlignment="Center">
+            <materialDesign:PackIcon Kind="CashRegister" Width="40" Height="40"
+                                     Foreground="{StaticResource WarningBrush}" HorizontalAlignment="Center"/>
+            <TextBlock Text="إغلاق الجلسة" FontSize="20" FontWeight="Bold"
+                       Foreground="{StaticResource DarkSurfaceBrush}" HorizontalAlignment="Center" Margin="0,10,0,0"/>
+            <TextBlock x:Name="SessionInfoText" FontSize="12"
+                       Foreground="{StaticResource SubtitleBrush}" HorizontalAlignment="Center"
+                       Margin="0,6,0,0" TextAlignment="Center"/>
+        </StackPanel>
+
+        <!-- Session Summary -->
+        <Border Grid.Row="2" Background="{StaticResource CardBrush}" CornerRadius="8" Padding="16,12">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="6"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="6"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="رصيد الافتتاح:" FontSize="13" Foreground="Gray"/>
+                <TextBlock Grid.Row="0" Grid.Column="1" x:Name="OpeningBalText" FontSize="13" FontWeight="SemiBold"/>
+
+                <TextBlock Grid.Row="2" Grid.Column="0" Text="إجمالي النقدي المستلم:" FontSize="13" Foreground="Gray"/>
+                <TextBlock Grid.Row="2" Grid.Column="1" x:Name="CashReceivedText" FontSize="13" FontWeight="SemiBold"/>
+
+                <TextBlock Grid.Row="4" Grid.Column="0" Text="الرصيد المتوقع:" FontSize="13" Foreground="Gray"/>
+                <TextBlock Grid.Row="4" Grid.Column="1" x:Name="ExpectedBalText" FontSize="15" FontWeight="Bold"
+                           Foreground="{StaticResource PrimaryBrush}"/>
+            </Grid>
+        </Border>
+
+        <!-- Actual Closing Balance -->
+        <TextBox Grid.Row="4" x:Name="ActualBalanceBox"
+                 materialDesign:HintAssist.Hint="الرصيد الفعلي (العد اليدوي)"
+                 materialDesign:HintAssist.IsFloating="True"
+                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                 FontSize="16" Height="48"
+                 GotFocus="NumericBox_GotFocus"/>
+
+        <!-- Notes -->
+        <TextBox Grid.Row="6" x:Name="NotesBox"
+                 materialDesign:HintAssist.Hint="ملاحظات"
+                 materialDesign:HintAssist.IsFloating="True"
+                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                 FontSize="14" Height="68"
+                 AcceptsReturn="True" TextWrapping="Wrap"
+                 VerticalScrollBarVisibility="Auto"
+                 Text="إغلاق نقطة البيع"/>
+
+        <!-- Buttons -->
+        <StackPanel Grid.Row="8" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,8,0,0">
+            <Button Content="إغلاق الجلسة" Click="Confirm_Click"
+                    Style="{StaticResource MaterialDesignRaisedButton}"
+                    Background="{StaticResource WarningBrush}" Foreground="White"
+                    Width="140" Height="42" FontSize="15" FontWeight="Bold"
+                    Margin="0,0,12,0"/>
+            <Button Content="إلغاء" Click="Cancel_Click"
+                    Style="{StaticResource MaterialDesignOutlinedButton}"
+                    Width="110" Height="42" FontSize="15"/>
+        </StackPanel>
+    </Grid>
+</Window>

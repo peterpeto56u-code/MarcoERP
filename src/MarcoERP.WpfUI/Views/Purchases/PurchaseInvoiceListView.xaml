@@ -1,0 +1,111 @@
+<UserControl x:Class="MarcoERP.WpfUI.Views.Purchases.PurchaseInvoiceListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local="clr-namespace:MarcoERP.WpfUI.Common"
+             FlowDirection="RightToLeft"
+             local:LoadedCommandBehavior.Command="{Binding LoadCommand}">
+
+    <Grid Margin="8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Row 0: Title + Toolbar -->
+        <Border Grid.Row="0" Style="{StaticResource CardPanel}" Padding="12,8" Margin="0,0,0,4">
+            <DockPanel>
+                <TextBlock Text="فواتير الشراء" Style="{StaticResource PageTitle}"
+                           DockPanel.Dock="Right" Margin="0" VerticalAlignment="Center" />
+                <StackPanel Orientation="Horizontal" DockPanel.Dock="Left" HorizontalAlignment="Left">
+                    <Button Style="{StaticResource MaterialDesignRaisedButton}"
+                            Background="{StaticResource SuccessBrush}" Foreground="White"
+                            Command="{Binding NewCommand}" Margin="4,0">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Plus" VerticalAlignment="Center" />
+                            <TextBlock Text="فاتورة جديدة" Margin="6,0,0,0" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
+                    <Button Style="{StaticResource MaterialDesignRaisedButton}"
+                            Command="{Binding RefreshCommand}" Margin="4,0">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Refresh" VerticalAlignment="Center" />
+                            <TextBlock Text="تحديث" Margin="6,0,0,0" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </DockPanel>
+        </Border>
+
+        <!-- Row 1: Error Bar -->
+        <Border Grid.Row="1" Background="{StaticResource ErrorBackgroundBrush}" CornerRadius="4" Padding="10,6" Margin="8,2"
+                Visibility="{Binding HasError, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <StackPanel Orientation="Horizontal">
+                <materialDesign:PackIcon Kind="AlertCircle" Foreground="{StaticResource ErrorForegroundBrush}" VerticalAlignment="Center" />
+                <TextBlock Text="{Binding ErrorMessage}" Foreground="{StaticResource ErrorForegroundBrush}"
+                           Margin="8,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" />
+            </StackPanel>
+        </Border>
+
+        <!-- Row 2: Invoice List -->
+        <Border Grid.Row="2" Style="{StaticResource CardPanel}">
+            <DataGrid ItemsSource="{Binding Invoices}"
+                      SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
+                      AutoGenerateColumns="False" IsReadOnly="True"
+                      CanUserAddRows="False" CanUserDeleteRows="False"
+                      SelectionMode="Single" GridLinesVisibility="Horizontal"
+                      HeadersVisibility="Column" FontSize="12"
+                      RowHeight="38" ColumnHeaderHeight="42" BorderThickness="0"
+                      materialDesign:DataGridAssist.CellPadding="12 8"
+                      materialDesign:DataGridAssist.ColumnHeaderPadding="12 10"
+                      VirtualizingPanel.IsVirtualizing="True"
+                      VirtualizingPanel.VirtualizationMode="Recycling"
+                      EnableRowVirtualization="True">
+                <DataGrid.InputBindings>
+                    <MouseBinding Gesture="LeftDoubleClick" Command="{Binding OpenDetailCommand}" />
+                </DataGrid.InputBindings>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="رقم الفاتورة" Binding="{Binding InvoiceNumber}" Width="130" />
+                    <DataGridTextColumn Header="التاريخ" Binding="{Binding InvoiceDate, StringFormat=yyyy-MM-dd}" Width="110" />
+                    <DataGridTextColumn Header="المورد" Binding="{Binding SupplierNameAr}" Width="*" MinWidth="150" />
+                    <DataGridTextColumn Header="الإجمالي" Binding="{Binding NetTotal, StringFormat=N2}" Width="120">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center" />
+                                <Setter Property="FontWeight" Value="SemiBold" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="الحالة" Binding="{Binding Status, Converter={StaticResource StatusToArabicConverter}}" Width="90">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Status}" Value="Posted">
+                                        <Setter Property="Foreground" Value="{StaticResource SuccessBrush}" />
+                                        <Setter Property="FontWeight" Value="SemiBold" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Status}" Value="Cancelled">
+                                        <Setter Property="Foreground" Value="{StaticResource DangerBrush}" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
+
+        <!-- Row 3: Status Bar -->
+        <Border Grid.Row="3" Background="#ECEFF1" CornerRadius="4" Padding="10,6" Margin="8,4,8,0">
+            <DockPanel>
+                <TextBlock Text="{Binding StatusMessage}" Foreground="{StaticResource StatusTextBrush}" VerticalAlignment="Center" DockPanel.Dock="Right" />
+                <ProgressBar IsIndeterminate="{Binding IsBusy}" Height="3"
+                             Visibility="{Binding IsBusy, Converter={StaticResource BooleanToVisibilityConverter}}"
+                             DockPanel.Dock="Left" Width="120" Margin="0,0,10,0" VerticalAlignment="Center" />
+            </DockPanel>
+        </Border>
+    </Grid>
+</UserControl>

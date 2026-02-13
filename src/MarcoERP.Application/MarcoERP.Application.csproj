@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <RootNamespace>MarcoERP.Application</RootNamespace>
+    <AssemblyName>MarcoERP.Application</AssemblyName>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>CS1591</NoWarn>
+    <Description>MarcoERP Application Layer - Use cases, DTOs, validators, service orchestration.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MarcoERP.Domain\MarcoERP.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ClosedXML" Version="0.104.2" />
+    <PackageReference Include="FluentValidation" Version="11.9.*" />
+    <PackageReference Include="QuestPDF" Version="2024.12.2" />
+  </ItemGroup>
+
+</Project>

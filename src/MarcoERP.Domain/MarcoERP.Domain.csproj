@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <RootNamespace>MarcoERP.Domain</RootNamespace>
+    <AssemblyName>MarcoERP.Domain</AssemblyName>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>CS1591</NoWarn>
+    <Description>MarcoERP Domain Layer - Core business entities, rules, and interfaces. Zero external dependencies.</Description>
+  </PropertyGroup>
+
+</Project>

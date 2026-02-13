@@ -1,0 +1,116 @@
+<UserControl x:Class="MarcoERP.WpfUI.Views.Accounting.FiscalPeriodView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local="clr-namespace:MarcoERP.WpfUI.Common"
+             FlowDirection="RightToLeft" Background="White"
+             local:LoadedCommandBehavior.Command="{Binding LoadCommand}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- ── Header ─────────────────────────────────── -->
+        <Border Grid.Row="0" Background="{StaticResource PrimaryBrush}" Padding="20,14">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="الفترات المالية" FontSize="22" FontWeight="Bold" Foreground="White"/>
+                <Button Grid.Column="1" Content="تحديث" Command="{Binding LoadCommand}"
+                        Style="{StaticResource MaterialDesignFlatLightBgButton}" Foreground="White"/>
+            </Grid>
+        </Border>
+
+        <!-- ── Year Selector ──────────────────────────── -->
+        <Border Grid.Row="1" Background="{StaticResource BackgroundBrush}" Padding="14,10">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="السنة المالية:" VerticalAlignment="Center" Margin="0,0,10,0" FontWeight="SemiBold"/>
+                <ComboBox ItemsSource="{Binding FiscalYears}"
+                          SelectedItem="{Binding SelectedYear}"
+                          DisplayMemberPath="Year"
+                          Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                          Width="200" IsEditable="True"
+                          local:F1SearchBehavior.IsEnabled="True"
+                          local:F1SearchBehavior.Title="بحث سنة مالية"
+                          materialDesign:HintAssist.Hint="اختر سنة (F1 للبحث)"/>
+                <TextBlock VerticalAlignment="Center" Margin="20,0,0,0" FontSize="12" Foreground="{StaticResource SubtitleBrush}">
+                    <Run Text="الحالة: "/>
+                    <Run Text="{Binding SelectedYear.StatusName, FallbackValue='-'}" FontWeight="SemiBold"/>
+                </TextBlock>
+            </StackPanel>
+        </Border>
+
+        <!-- ── Periods Grid ──────────────────────────── -->
+        <DataGrid Grid.Row="2" ItemsSource="{Binding Periods}" SelectedItem="{Binding SelectedPeriod}"
+                  AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False"
+                  SelectionMode="Single" Margin="14,6"
+                  materialDesign:DataGridAssist.CellPadding="12 8"
+                  HeadersVisibility="Column" GridLinesVisibility="Horizontal" SelectionChanged="DataGrid_SelectionChanged">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="رقم الفترة" Binding="{Binding PeriodNumber}" Width="80"/>
+                <DataGridTextColumn Header="الشهر" Binding="{Binding Month}" Width="60"/>
+                <DataGridTextColumn Header="السنة" Binding="{Binding Year}" Width="60"/>
+                <DataGridTextColumn Header="من تاريخ" Binding="{Binding StartDate, StringFormat='{}{0:yyyy-MM-dd}'}" Width="120"/>
+                <DataGridTextColumn Header="إلى تاريخ" Binding="{Binding EndDate, StringFormat='{}{0:yyyy-MM-dd}'}" Width="120"/>
+                <DataGridTextColumn Header="الحالة" Binding="{Binding StatusName}" Width="100">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding StatusName}" Value="مفتوحة">
+                                    <Setter Property="Foreground" Value="{StaticResource SuccessBrush}"/>
+                                    <Setter Property="FontWeight" Value="SemiBold"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding StatusName}" Value="مقفلة">
+                                    <Setter Property="Foreground" Value="{StaticResource DangerBrush}"/>
+                                    <Setter Property="FontWeight" Value="SemiBold"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="تاريخ القفل" Binding="{Binding LockedAt, StringFormat='{}{0:yyyy-MM-dd HH:mm}'}" Width="150"/>
+                <DataGridTextColumn Header="أقفلها" Binding="{Binding LockedBy}" Width="120"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!-- ── Actions Panel ─────────────────────────── -->
+        <Border Grid.Row="3" Style="{StaticResource CardPanel}" Margin="14,4" Padding="14">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" Orientation="Horizontal">
+                    <Button Content="قفل الفترة" Command="{Binding LockPeriodCommand}"
+                            Style="{StaticResource MaterialDesignRaisedButton}"
+                            Background="{StaticResource DangerBrush}" Foreground="White" Margin="0,0,10,0" Width="120"/>
+                    <TextBox materialDesign:HintAssist.Hint="سبب فتح الفترة (مطلوب)"
+                             Text="{Binding UnlockReason, UpdateSourceTrigger=PropertyChanged}"
+                             Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                             Width="300" Margin="0,0,10,0"/>
+                    <Button Content="فتح الفترة" Command="{Binding UnlockPeriodCommand}"
+                            Style="{StaticResource MaterialDesignRaisedButton}"
+                            Background="{StaticResource WarningBrush}" Foreground="White" Width="120"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- ── Status Bar ─────────────────────────────── -->
+        <Border Grid.Row="4" Background="{StaticResource BackgroundBrush}" Padding="14,8">
+            <Grid>
+                <TextBlock Text="{Binding StatusMessage}" Foreground="{StaticResource PrimaryBrush}"/>
+                <TextBlock Text="{Binding ErrorMessage}" Foreground="{StaticResource DangerBrush}"
+                           Visibility="{Binding HasError, Converter={StaticResource BooleanToVisibilityConverter}}"
+                           HorizontalAlignment="Left"/>
+                <ProgressBar IsIndeterminate="{Binding IsBusy}" HorizontalAlignment="Right" Width="120"
+                             Visibility="{Binding IsBusy, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

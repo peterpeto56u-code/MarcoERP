@@ -1,0 +1,84 @@
+<Window x:Class="MarcoERP.WpfUI.Views.Common.QuickTreasuryDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:MarcoERP.WpfUI.Common"
+        Title="{Binding TitleText}"
+        Height="360" Width="520"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize"
+        FlowDirection="RightToLeft"
+        Background="{DynamicResource MaterialDesignPaper}">
+
+    <Grid Margin="16" local:LoadedCommandBehavior.Command="{Binding LoadedCommand}">
+        <Border Style="{StaticResource CardPanel}" Padding="16">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Text="{Binding TitleText}" FontSize="18" FontWeight="Bold" />
+
+                <TextBlock Grid.Row="1" Text="الخزنة" FontSize="12" Foreground="{StaticResource SubtitleBrush}" Margin="0,14,0,4" />
+                <ComboBox Grid.Row="2"
+                          ItemsSource="{Binding Cashboxes}"
+                          SelectedValue="{Binding SelectedCashboxId}"
+                          SelectedValuePath="Id"
+                          DisplayMemberPath="NameAr"
+                          FontSize="12" Padding="8,6" />
+
+                <Grid Grid.Row="3" Margin="0,14,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="12" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0">
+                        <TextBlock Text="طريقة الدفع" FontSize="12" Foreground="{StaticResource SubtitleBrush}" Margin="0,0,0,4" />
+                        <ComboBox ItemsSource="{Binding PaymentMethods}"
+                                  SelectedItem="{Binding SelectedPaymentMethod}"
+                                  FontSize="12" Padding="8,6" />
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="2">
+                        <TextBlock Text="المبلغ" FontSize="12" Foreground="{StaticResource SubtitleBrush}" Margin="0,0,0,4" />
+                        <TextBox Text="{Binding Amount, UpdateSourceTrigger=PropertyChanged, StringFormat='{}{0:N2}'}"
+                                 FontSize="14" Padding="8,6" FlowDirection="LeftToRight" />
+                    </StackPanel>
+                </Grid>
+
+                <Border Grid.Row="4" Margin="0,14,0,0" Background="{DynamicResource MaterialDesignCardBackground}" Padding="10" CornerRadius="6">
+                    <StackPanel>
+                        <TextBlock Text="{Binding Description}" TextWrapping="Wrap" />
+                        <TextBlock Text="{Binding Notes}" Opacity="0.75" Margin="0,6,0,0" TextWrapping="Wrap" />
+                    </StackPanel>
+                </Border>
+
+                <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,18,0,0">
+                    <Button Style="{StaticResource MaterialDesignRaisedButton}"
+                            Background="{StaticResource PrimaryBrush}" Foreground="White"
+                            Command="{Binding ConfirmCommand}"
+                            IsEnabled="{Binding CanConfirm}"
+                            MinWidth="120" Margin="4,0">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Check" VerticalAlignment="Center" />
+                            <TextBlock Text="تأكيد" Margin="6,0,0,0" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
+
+                    <Button Style="{StaticResource MaterialDesignOutlinedButton}"
+                            Command="{Binding CancelCommand}"
+                            MinWidth="90" Margin="4,0">
+                        <TextBlock Text="إلغاء" />
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

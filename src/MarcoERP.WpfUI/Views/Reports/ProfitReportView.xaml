@@ -1,0 +1,67 @@
+<UserControl x:Class="MarcoERP.WpfUI.Views.Reports.ProfitReportView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             FlowDirection="RightToLeft">
+    <DockPanel Margin="16">
+        <Border DockPanel.Dock="Top" Style="{StaticResource CardPanel}" Padding="16" Margin="0,0,0,12">
+            <StackPanel>
+                <TextBlock Text="تقرير الأرباح حسب الصنف" Style="{StaticResource PageTitle}" Margin="0,0,0,12" />
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="من:" VerticalAlignment="Center" Margin="0,0,8,0" />
+                    <DatePicker SelectedDate="{Binding FromDate}" Width="140" Margin="0,0,16,0" />
+                    <TextBlock Text="إلى:" VerticalAlignment="Center" Margin="0,0,8,0" />
+                    <DatePicker SelectedDate="{Binding ToDate}" Width="140" Margin="0,0,16,0" />
+                    <Button Content="عرض" Command="{Binding GenerateCommand}"
+                            Style="{StaticResource MaterialDesignRaisedButton}"
+                            materialDesign:ButtonAssist.CornerRadius="4" Padding="16,6" />
+                    <Button Content="PDF" Command="{Binding ExportPdfCommand}" Margin="8,0,0,0"
+                            Style="{StaticResource MaterialDesignOutlinedButton}"
+                            materialDesign:ButtonAssist.CornerRadius="4" Padding="12,4" />
+                    <Button Content="Excel" Command="{Binding ExportExcelCommand}" Margin="4,0,0,0"
+                            Style="{StaticResource MaterialDesignOutlinedButton}"
+                            materialDesign:ButtonAssist.CornerRadius="4" Padding="12,4" />
+                </StackPanel>
+            </StackPanel>
+        </Border>
+        <Border DockPanel.Dock="Bottom" Style="{StaticResource CardPanel}" Padding="12" Margin="0,8,0,0">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <TextBlock Text="إجمالي المبيعات:" FontWeight="SemiBold" Margin="0,0,4,0" />
+                <TextBlock Text="{Binding TotalSales, StringFormat=N2}" Margin="0,0,24,0" />
+                <TextBlock Text="إجمالي التكلفة:" FontWeight="SemiBold" Margin="0,0,4,0" />
+                <TextBlock Text="{Binding TotalCost, StringFormat=N2}" Margin="0,0,24,0" />
+                <TextBlock Text="إجمالي الربح:" FontWeight="SemiBold" Margin="0,0,4,0" />
+                <TextBlock Text="{Binding TotalProfit, StringFormat=N2}" FontWeight="Bold"
+                           Foreground="{StaticResource SuccessBrush}" Margin="0,0,24,0" />
+                <TextBlock Text="هامش الربح:" FontWeight="SemiBold" Margin="0,0,4,0" />
+                <TextBlock FontWeight="Bold" Foreground="{StaticResource PrimaryBrush}">
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="{}{0:N1}%">
+                            <Binding Path="OverallMargin" />
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+            </StackPanel>
+        </Border>
+        <Border DockPanel.Dock="Bottom" Background="{StaticResource ErrorBackgroundBrush}" CornerRadius="4" Padding="8" Margin="0,4,0,0"
+                Visibility="{Binding HasError, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <TextBlock Text="{Binding ErrorMessage}" Foreground="{StaticResource DangerBrush}" FontSize="12" />
+        </Border>
+        <DataGrid ItemsSource="{Binding Rows}" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False"
+                  materialDesign:DataGridAssist.CellPadding="10 6" Background="White">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="كود الصنف" Binding="{Binding ProductCode}" Width="100" />
+                <DataGridTextColumn Header="اسم الصنف" Binding="{Binding ProductName}" Width="*" />
+                <DataGridTextColumn Header="الكمية المباعة" Binding="{Binding TotalSalesQuantity, StringFormat=N3}" Width="110" />
+                <DataGridTextColumn Header="إجمالي المبيعات" Binding="{Binding TotalSalesAmount, StringFormat=N2}" Width="120" />
+                <DataGridTextColumn Header="إجمالي التكلفة" Binding="{Binding TotalCostAmount, StringFormat=N2}" Width="120" />
+                <DataGridTextColumn Header="إجمالي الربح" Binding="{Binding GrossProfit, StringFormat=N2}" Width="120">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock"><Setter Property="FontWeight" Value="SemiBold" /></Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="هامش الربح %" Binding="{Binding ProfitMarginPercent, StringFormat=N1}" Width="90" />
+            </DataGrid.Columns>
+        </DataGrid>
+    </DockPanel>
+</UserControl>

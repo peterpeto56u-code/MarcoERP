@@ -1,0 +1,175 @@
+<UserControl x:Class="MarcoERP.WpfUI.Reporting.Controls.ReportViewBase"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local="clr-namespace:MarcoERP.WpfUI.Reporting.Controls"
+             FlowDirection="RightToLeft">
+
+    <UserControl.InputBindings>
+        <KeyBinding Key="Escape" Command="{Binding CancelCommand}" />
+    </UserControl.InputBindings>
+
+    <DockPanel Margin="16">
+
+        <!-- ═══ Header: Title + Complexity Toggle ═══ -->
+        <Border DockPanel.Dock="Top" Style="{StaticResource CardPanel}" Padding="16" Margin="0,0,0,8">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0">
+                    <TextBlock Text="{Binding ReportDefinition.Title}"
+                               Style="{StaticResource PageTitle}" Margin="0,0,0,4" />
+                    <TextBlock Text="{Binding ReportDefinition.Subtitle}"
+                               FontSize="12" Opacity="0.6"
+                               Visibility="{Binding ReportDefinition.Subtitle,
+                                            Converter={StaticResource NullToVisibilityConverter}}" />
+                </StackPanel>
+
+                <!-- Complexity Mode Selector -->
+                <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock Text="مستوى العرض:" VerticalAlignment="Center" Margin="0,0,8,0" FontSize="12" Opacity="0.7" />
+                    <ComboBox Width="110" SelectedIndex="{Binding ComplexityMode, Mode=TwoWay}"
+                              materialDesign:HintAssist.Hint="المستوى"
+                              Style="{StaticResource MaterialDesignOutlinedComboBox}">
+                        <ComboBoxItem Content="بسيط" />
+                        <ComboBoxItem Content="متوسط" />
+                        <ComboBoxItem Content="متقدم" />
+                    </ComboBox>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- ═══ Filter Bar ═══ -->
+        <Border DockPanel.Dock="Top" Style="{StaticResource CardPanel}" Padding="12" Margin="0,0,0,8">
+            <DockPanel>
+                <!-- Action Buttons -->
+                <StackPanel DockPanel.Dock="Left" Orientation="Horizontal" Margin="0,0,16,0">
+                    <Button Content="عرض التقرير" Command="{Binding GenerateCommand}"
+                            Style="{StaticResource MaterialDesignRaisedButton}"
+                            materialDesign:ButtonAssist.CornerRadius="4" Padding="16,6"
+                            IsEnabled="{Binding IsLoading, Converter={StaticResource InverseBoolConverter}}" />
+                    <Button Content="PDF" Command="{Binding ExportPdfCommand}" Margin="8,0,0,0"
+                            Style="{StaticResource MaterialDesignOutlinedButton}"
+                            materialDesign:ButtonAssist.CornerRadius="4" Padding="12,4" />
+                    <Button Content="Excel" Command="{Binding ExportExcelCommand}" Margin="4,0,0,0"
+                            Style="{StaticResource MaterialDesignOutlinedButton}"
+                            materialDesign:ButtonAssist.CornerRadius="4" Padding="12,4" />
+                    <Button Content="مسح الفلاتر" Command="{Binding ClearFiltersCommand}" Margin="8,0,0,0"
+                            Style="{StaticResource MaterialDesignFlatButton}"
+                            Padding="12,4" FontSize="12" />
+                </StackPanel>
+
+                <!-- Dynamic Filter Content Placeholder -->
+                <ContentPresenter Content="{Binding}" ContentTemplate="{Binding FilterTemplate,
+                    RelativeSource={RelativeSource AncestorType=local:ReportViewBase}}" />
+            </DockPanel>
+        </Border>
+
+        <!-- ═══ KPI Cards ═══ -->
+        <ItemsControl DockPanel.Dock="Top" ItemsSource="{Binding KpiCards}" Margin="0,0,0,8"
+                      Visibility="{Binding HasData, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Horizontal" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <local:KpiCardControl
+                        Title="{Binding Title}"
+                        Value="{Binding Value}"
+                        Subtitle="{Binding Subtitle}" />
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <!-- ═══ Error Banner ═══ -->
+        <Border DockPanel.Dock="Top" Background="{StaticResource ErrorBackgroundBrush}"
+                CornerRadius="4" Padding="8" Margin="0,0,0,4"
+                Visibility="{Binding HasError, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <TextBlock Text="{Binding ErrorMessage}" Foreground="{StaticResource DangerBrush}" FontSize="12" />
+        </Border>
+
+        <!-- ═══ Status Bar ═══ -->
+        <Border DockPanel.Dock="Top" Margin="0,0,0,4"
+                Visibility="{Binding StatusMessage, Converter={StaticResource NullToVisibilityConverter}}">
+            <TextBlock Text="{Binding StatusMessage}" Foreground="{StaticResource SuccessBrush}" FontSize="12" />
+        </Border>
+
+        <!-- ═══ Pagination Bar (Bottom) ═══ -->
+        <Border DockPanel.Dock="Bottom" Style="{StaticResource CardPanel}" Padding="8" Margin="0,8,0,0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <!-- Pagination Info -->
+                <TextBlock Grid.Column="0" Text="{Binding PaginationInfo}"
+                           VerticalAlignment="Center" FontSize="12" Opacity="0.7" />
+
+                <!-- Navigation Buttons -->
+                <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button Command="{Binding FirstPageCommand}" ToolTip="الصفحة الأولى"
+                            Style="{StaticResource MaterialDesignIconButton}" Width="32" Height="32">
+                        <materialDesign:PackIcon Kind="PageFirst" Width="18" Height="18" />
+                    </Button>
+                    <Button Command="{Binding PreviousPageCommand}" ToolTip="السابق"
+                            Style="{StaticResource MaterialDesignIconButton}" Width="32" Height="32">
+                        <materialDesign:PackIcon Kind="ChevronRight" Width="18" Height="18" />
+                    </Button>
+                    <TextBlock VerticalAlignment="Center" Margin="8,0" FontSize="13">
+                        <Run Text="صفحة " />
+                        <Run Text="{Binding CurrentPage, Mode=OneWay, StringFormat={}{0:N0}}" FontWeight="Bold" />
+                        <Run Text=" من " />
+                        <Run Text="{Binding TotalPages, Mode=OneWay, StringFormat={}{0:N0}}" FontWeight="Bold" />
+                    </TextBlock>
+                    <Button Command="{Binding NextPageCommand}" ToolTip="التالي"
+                            Style="{StaticResource MaterialDesignIconButton}" Width="32" Height="32">
+                        <materialDesign:PackIcon Kind="ChevronLeft" Width="18" Height="18" />
+                    </Button>
+                    <Button Command="{Binding LastPageCommand}" ToolTip="الصفحة الأخيرة"
+                            Style="{StaticResource MaterialDesignIconButton}" Width="32" Height="32">
+                        <materialDesign:PackIcon Kind="PageLast" Width="18" Height="18" />
+                    </Button>
+                </StackPanel>
+
+                <!-- Page Size Selector -->
+                <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Left">
+                    <TextBlock Text="عدد الصفوف:" VerticalAlignment="Center" Margin="0,0,8,0" FontSize="12" Opacity="0.7" />
+                    <ComboBox Width="70" SelectedValue="{Binding PageSize}"
+                              materialDesign:HintAssist.Hint="حجم"
+                              Style="{StaticResource MaterialDesignOutlinedComboBox}">
+                        <ComboBoxItem Content="25" Tag="25" />
+                        <ComboBoxItem Content="50" Tag="50" />
+                        <ComboBoxItem Content="100" Tag="100" />
+                        <ComboBoxItem Content="200" Tag="200" />
+                    </ComboBox>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- ═══ Loading Overlay ═══ -->
+        <Grid>
+            <!-- Empty State -->
+            <TextBlock Text="{Binding EmptyMessage}" HorizontalAlignment="Center" VerticalAlignment="Center"
+                       FontSize="16" Opacity="0.5"
+                       Visibility="{Binding HasData, Converter={StaticResource InverseBoolToVisConverter}}" />
+
+            <!-- Loading Spinner -->
+            <ProgressBar IsIndeterminate="True" Style="{StaticResource MaterialDesignCircularProgressBar}"
+                         Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center"
+                         Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}" />
+
+            <!-- DataGrid Content Placeholder -->
+            <ContentPresenter Content="{Binding}" ContentTemplate="{Binding GridTemplate,
+                RelativeSource={RelativeSource AncestorType=local:ReportViewBase}}"
+                Visibility="{Binding HasData, Converter={StaticResource BooleanToVisibilityConverter}}" />
+        </Grid>
+
+    </DockPanel>
+</UserControl>

@@ -1,0 +1,152 @@
+<UserControl x:Class="MarcoERP.WpfUI.Views.Settings.BackupSettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local="clr-namespace:MarcoERP.WpfUI.Common"
+             FlowDirection="RightToLeft" Background="White"
+             local:LoadedCommandBehavior.Command="{Binding LoadHistoryCommand}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- ── Header ─────────────────────────────────── -->
+        <Border Grid.Row="0" Background="{StaticResource PrimaryBrush}" Padding="20,14">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Kind="DatabaseExport" Width="28" Height="28"
+                                             Foreground="White" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                    <TextBlock Text="النسخ الاحتياطي والاستعادة" FontSize="22" FontWeight="Bold" Foreground="White"
+                               VerticalAlignment="Center"/>
+                </StackPanel>
+                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                    <Button Content="تحديث" Command="{Binding LoadHistoryCommand}"
+                            Style="{StaticResource MaterialDesignFlatLightBgButton}" Foreground="White"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- ── Actions Panel ──────────────────────────── -->
+        <Border Grid.Row="1" Background="{StaticResource BackgroundBrush}" Padding="14,14">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Backup Card -->
+                <Border Grid.Column="0" Style="{StaticResource CardPanel}" Margin="0,0,7,0" Padding="18">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                            <materialDesign:PackIcon Kind="DatabaseExport" Width="24" Height="24"
+                                                     Foreground="{StaticResource SuccessBrush}" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                            <TextBlock Text="نسخ احتياطي" FontSize="16" FontWeight="Bold"
+                                       VerticalAlignment="Center"/>
+                        </StackPanel>
+                        <TextBlock Text="إنشاء نسخة احتياطية كاملة لقاعدة البيانات"
+                                   Foreground="#666" FontSize="12" TextWrapping="Wrap" Margin="0,0,0,12"/>
+                        <TextBlock Text="{Binding LastBackupInfo}" Foreground="{StaticResource PrimaryBrush}" FontSize="12"
+                                   TextWrapping="Wrap" Margin="0,0,0,12"/>
+                        <Button Content="نسخ احتياطي الآن" Command="{Binding BackupCommand}"
+                                Style="{StaticResource MaterialDesignRaisedButton}"
+                                Background="{StaticResource SuccessBrush}" Foreground="White"
+                                HorizontalAlignment="Stretch"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Restore Card -->
+                <Border Grid.Column="1" Style="{StaticResource CardPanel}" Margin="7,0,0,0" Padding="18">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                            <materialDesign:PackIcon Kind="DatabaseImport" Width="24" Height="24"
+                                                     Foreground="{StaticResource WarningBrush}" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                            <TextBlock Text="استعادة" FontSize="16" FontWeight="Bold"
+                                       VerticalAlignment="Center"/>
+                        </StackPanel>
+                        <TextBlock Text="استعادة قاعدة البيانات من نسخة احتياطية سابقة"
+                                   Foreground="#666" FontSize="12" TextWrapping="Wrap" Margin="0,0,0,12"/>
+                        <TextBlock Text="تحذير: سيتم استبدال البيانات الحالية" Foreground="{StaticResource DangerBrush}" FontSize="12"
+                                   TextWrapping="Wrap" Margin="0,0,0,12"/>
+                        <Button Content="استعادة من ملف" Command="{Binding RestoreCommand}"
+                                Style="{StaticResource MaterialDesignRaisedButton}"
+                                Background="{StaticResource WarningBrush}" Foreground="White"
+                                HorizontalAlignment="Stretch"/>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </Border>
+
+        <!-- ── Backup History DataGrid ───────────────── -->
+        <Border Grid.Row="2" Margin="14,6">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Text="سجل النسخ الاحتياطي" FontSize="16" FontWeight="Bold"
+                           Margin="0,0,0,8"/>
+
+                <DataGrid Grid.Row="1"
+                          ItemsSource="{Binding BackupHistory}"
+                          AutoGenerateColumns="False"
+                          IsReadOnly="True"
+                          CanUserAddRows="False"
+                          CanUserDeleteRows="False"
+                          Style="{StaticResource MaterialDesignDataGrid}"
+                          VerticalScrollBarVisibility="Auto"
+                          HorizontalScrollBarVisibility="Auto">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="التاريخ" Binding="{Binding BackupDate, StringFormat='{}{0:yyyy/MM/dd HH:mm}'}"
+                                            Width="160"/>
+                        <DataGridTextColumn Header="النوع" Binding="{Binding BackupType}" Width="80"/>
+                        <DataGridTextColumn Header="المسار" Binding="{Binding FilePath}" Width="*"/>
+                        <DataGridTextColumn Header="الحجم (بايت)" Binding="{Binding FileSizeBytes, StringFormat='{}{0:N0}'}"
+                                            Width="120"/>
+                        <DataGridTextColumn Header="المستخدم" Binding="{Binding PerformedBy}" Width="120"/>
+                        <DataGridTemplateColumn Header="الحالة" Width="80">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock>
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="Text" Value="فاشل"/>
+                                                <Setter Property="Foreground" Value="{StaticResource DangerBrush}"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsSuccessful}" Value="True">
+                                                        <Setter Property="Text" Value="ناجح"/>
+                                                        <Setter Property="Foreground" Value="{StaticResource SuccessBrush}"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn Header="الخطأ" Binding="{Binding ErrorMessage}" Width="200"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </Border>
+
+        <!-- ── Status Bar ─────────────────────────────── -->
+        <Border Grid.Row="3" Background="{StaticResource BackgroundBrush}" Padding="14,8">
+            <Grid>
+                <TextBlock Text="{Binding StatusMessage}" Foreground="{StaticResource PrimaryBrush}"/>
+                <TextBlock Text="{Binding ErrorMessage}" Foreground="{StaticResource DangerBrush}"
+                           Visibility="{Binding HasError, Converter={StaticResource BooleanToVisibilityConverter}}"
+                           HorizontalAlignment="Left"/>
+                <ProgressBar IsIndeterminate="{Binding IsBusy}" HorizontalAlignment="Right" Width="120"
+                             Visibility="{Binding IsBusy, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

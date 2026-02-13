@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <RootNamespace>MarcoERP.Infrastructure</RootNamespace>
+    <AssemblyName>MarcoERP.Infrastructure</AssemblyName>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>CS1591</NoWarn>
+    <Description>MarcoERP Infrastructure Layer - Cross-cutting concerns: logging, audit, code generation, security.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MarcoERP.Domain\MarcoERP.Domain.csproj" />
+    <ProjectReference Include="..\MarcoERP.Application\MarcoERP.Application.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BCrypt.Net-Next" Version="4.0.*" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="8.0.*" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.*" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.*" />
+  </ItemGroup>
+
+</Project>

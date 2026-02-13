@@ -1,0 +1,206 @@
+<UserControl x:Class="MarcoERP.WpfUI.Views.Reports.ReportHubView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             FlowDirection="RightToLeft">
+
+    <UserControl.Resources>
+        <!-- Report Card Button Style -->
+        <Style x:Key="ReportCardButton" TargetType="Button" BasedOn="{StaticResource MaterialDesignFlatButton}">
+            <Setter Property="Height" Value="Auto" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="Margin" Value="6" />
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="VerticalContentAlignment" Value="Stretch" />
+        </Style>
+    </UserControl.Resources>
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="16">
+        <StackPanel>
+
+            <!-- Header -->
+            <TextBlock Text="التقارير" Style="{StaticResource PageTitle}" Margin="0,0,0,16" />
+
+            <!-- ═══ Accounting Reports ═══ -->
+            <TextBlock Text="التقارير المحاسبية" Style="{StaticResource SectionTitle}" Margin="0,0,0,8" />
+            <UniformGrid Columns="4" Margin="0,0,0,20">
+
+                <!-- Trial Balance -->
+                <Button Style="{StaticResource ReportCardButton}"
+                        Command="{Binding OpenReportCommand}" CommandParameter="TrialBalance">
+                    <Border Style="{StaticResource CardPanel}" Padding="16" MinHeight="100">
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <materialDesign:PackIcon Kind="Scale" Width="36" Height="36"
+                                                     HorizontalAlignment="Center" Foreground="{StaticResource PrimaryBrush}" />
+                            <TextBlock Text="ميزان المراجعة" FontSize="14" FontWeight="SemiBold"
+                                       HorizontalAlignment="Center" Margin="0,8,0,0" />
+                        </StackPanel>
+                    </Border>
+                </Button>
+
+                <!-- Account Statement -->
+                <Button Style="{StaticResource ReportCardButton}"
+                        Command="{Binding OpenReportCommand}" CommandParameter="AccountStatement">
+                    <Border Style="{StaticResource CardPanel}" Padding="16" MinHeight="100">
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <materialDesign:PackIcon Kind="FileDocumentOutline" Width="36" Height="36"
+                                                     HorizontalAlignment="Center" Foreground="{StaticResource PrimaryBrush}" />
+                            <TextBlock Text="كشف حساب" FontSize="14" FontWeight="SemiBold"
+                                       HorizontalAlignment="Center" Margin="0,8,0,0" />
+                        </StackPanel>
+                    </Border>
+                </Button>
+
+                <!-- Income Statement -->
+                <Button Style="{StaticResource ReportCardButton}"
+                        Command="{Binding OpenReportCommand}" CommandParameter="IncomeStatement">
+                    <Border Style="{StaticResource CardPanel}" Padding="16" MinHeight="100">
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <materialDesign:PackIcon Kind="ChartLine" Width="36" Height="36"
+                                                     HorizontalAlignment="Center" Foreground="{StaticResource PrimaryBrush}" />
+                            <TextBlock Text="قائمة الدخل" FontSize="14" FontWeight="SemiBold"
+                                       HorizontalAlignment="Center" Margin="0,8,0,0" />
+                        </StackPanel>
+                    </Border>
+                </Button>
+
+                <!-- Balance Sheet -->
+                <Button Style="{StaticResource ReportCardButton}"
+                        Command="{Binding OpenReportCommand}" CommandParameter="BalanceSheet">
+                    <Border Style="{StaticResource CardPanel}" Padding="16" MinHeight="100">
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <materialDesign:PackIcon Kind="ScaleBalance" Width="36" Height="36"
+                                                     HorizontalAlignment="Center" Foreground="{StaticResource PrimaryBrush}" />
+                            <TextBlock Text="الميزانية العمومية" FontSize="14" FontWeight="SemiBold"
+                                       HorizontalAlignment="Center" Margin="0,8,0,0" />
+                        </StackPanel>
+                    </Border>
+                </Button>
+            </UniformGrid>
+
+            <!-- ═══ Sales & Purchase Reports ═══ -->
+            <TextBlock Text="تقارير المبيعات والمشتريات" Style="{StaticResource SectionTitle}" Margin="0,0,0,8" />
+            <UniformGrid Columns="4" Margin="0,0,0,20">
+
+                <!-- Sales Report -->
+                <Button Style="{StaticResource ReportCardButton}"
+                        Command="{Binding OpenReportCommand}" CommandParameter="SalesReport">
+                    <Border Style="{StaticResource CardPanel}" Padding="16" MinHeight="100">
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <materialDesign:PackIcon Kind="ReceiptTextOutline" Width="36" Height="36"
+                                                     HorizontalAlignment="Center" Foreground="{StaticResource SuccessBrush}" />
+                            <TextBlock Text="تقرير المبيعات" FontSize="14" FontWeight="SemiBold"
+                                       HorizontalAlignment="Center" Margin="0,8,0,0" />
+                        </StackPanel>
+                    </Border>
+                </Button>
+
+                <!-- Purchase Report -->
+                <Button Style="{StaticResource ReportCardButton}"
+                        Command="{Binding OpenReportCommand}" CommandParameter="PurchaseReport">
+                    <Border Style="{StaticResource CardPanel}" Padding="16" MinHeight="100">
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <materialDesign:PackIcon Kind="CartOutline" Width="36" Height="36"
+                                                     HorizontalAlignment="Center" Foreground="{StaticResource WarningBrush}" />
+                            <TextBlock Text="تقرير المشتريات" FontSize="14" FontWeight="SemiBold"
+                                       HorizontalAlignment="Center" Margin="0,8,0,0" />
+                        </StackPanel>
+                    </Border>
+                </Button>
+
+                <!-- Profit Report -->
+                <Button Style="{StaticResource ReportCardButton}"
+                        Command="{Binding OpenReportCommand}" CommandParameter="ProfitReport">
+                    <Border Style="{StaticResource CardPanel}" Padding="16" MinHeight="100">
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <materialDesign:PackIcon Kind="TrendingUp" Width="36" Height="36"
+                                                     HorizontalAlignment="Center" Foreground="{StaticResource SuccessBrush}" />
+                            <TextBlock Text="تقرير الأرباح" FontSize="14" FontWeight="SemiBold"
+                                       HorizontalAlignment="Center" Margin="0,8,0,0" />
+                        </StackPanel>
+                    </Border>
+                </Button>
+
+                <!-- VAT Report -->
+                <Button Style="{StaticResource ReportCardButton}"
+                        Command="{Binding OpenReportCommand}" CommandParameter="VatReport">
+                    <Border Style="{StaticResource CardPanel}" Padding="16" MinHeight="100">
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <materialDesign:PackIcon Kind="PercentOutline" Width="36" Height="36"
+                                                     HorizontalAlignment="Center" Foreground="{StaticResource DangerBrush}" />
+                            <TextBlock Text="تقرير الضريبة" FontSize="14" FontWeight="SemiBold"
+                                       HorizontalAlignment="Center" Margin="0,8,0,0" />
+                        </StackPanel>
+                    </Border>
+                </Button>
+            </UniformGrid>
+
+            <!-- ═══ Inventory Reports ═══ -->
+            <TextBlock Text="تقارير المخزون" Style="{StaticResource SectionTitle}" Margin="0,0,0,8" />
+            <UniformGrid Columns="4" Margin="0,0,0,20">
+
+                <!-- Inventory Report -->
+                <Button Style="{StaticResource ReportCardButton}"
+                        Command="{Binding OpenReportCommand}" CommandParameter="InventoryReport">
+                    <Border Style="{StaticResource CardPanel}" Padding="16" MinHeight="100">
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <materialDesign:PackIcon Kind="PackageVariantClosed" Width="36" Height="36"
+                                                     HorizontalAlignment="Center" Foreground="#FFB300" />
+                            <TextBlock Text="جرد المخزون" FontSize="14" FontWeight="SemiBold"
+                                       HorizontalAlignment="Center" Margin="0,8,0,0" />
+                        </StackPanel>
+                    </Border>
+                </Button>
+
+                <!-- Stock Card -->
+                <Button Style="{StaticResource ReportCardButton}"
+                        Command="{Binding OpenReportCommand}" CommandParameter="StockCard">
+                    <Border Style="{StaticResource CardPanel}" Padding="16" MinHeight="100">
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <materialDesign:PackIcon Kind="CardAccountDetailsOutline" Width="36" Height="36"
+                                                     HorizontalAlignment="Center" Foreground="#FFB300" />
+                            <TextBlock Text="بطاقة صنف" FontSize="14" FontWeight="SemiBold"
+                                       HorizontalAlignment="Center" Margin="0,8,0,0" />
+                        </StackPanel>
+                    </Border>
+                </Button>
+
+            </UniformGrid>
+
+            <!-- ═══ Treasury Reports ═══ -->
+            <TextBlock Text="تقارير الخزينة" Style="{StaticResource SectionTitle}" Margin="0,0,0,8" />
+            <UniformGrid Columns="4" Margin="0,0,0,20">
+                <!-- Cashbox Movement -->
+                <Button Style="{StaticResource ReportCardButton}"
+                        Command="{Binding OpenReportCommand}" CommandParameter="CashboxMovement">
+                    <Border Style="{StaticResource CardPanel}" Padding="16" MinHeight="100">
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <materialDesign:PackIcon Kind="SafeSquareOutline" Width="36" Height="36"
+                                                     HorizontalAlignment="Center" Foreground="#26A69A" />
+                            <TextBlock Text="حركة الخزنة" FontSize="14" FontWeight="SemiBold"
+                                       HorizontalAlignment="Center" Margin="0,8,0,0" />
+                        </StackPanel>
+                    </Border>
+                </Button>
+            </UniformGrid>
+
+            <!-- ═══ Aging & Dues Reports ═══ -->
+            <TextBlock Text="تقارير الذمم" Style="{StaticResource SectionTitle}" Margin="0,0,0,8" />
+            <UniformGrid Columns="4" Margin="0,0,0,20">
+                <!-- Aging Report -->
+                <Button Style="{StaticResource ReportCardButton}"
+                        Command="{Binding OpenReportCommand}" CommandParameter="AgingReport">
+                    <Border Style="{StaticResource CardPanel}" Padding="16" MinHeight="100">
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <materialDesign:PackIcon Kind="ClockAlertOutline" Width="36" Height="36"
+                                                     HorizontalAlignment="Center" Foreground="{StaticResource DangerBrush}" />
+                            <TextBlock Text="أعمار الديون" FontSize="14" FontWeight="SemiBold"
+                                       HorizontalAlignment="Center" Margin="0,8,0,0" />
+                        </StackPanel>
+                    </Border>
+                </Button>
+            </UniformGrid>
+
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

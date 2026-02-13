@@ -1,0 +1,222 @@
+<UserControl x:Class="MarcoERP.WpfUI.Views.Settings.IntegrityCheckView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             FlowDirection="RightToLeft" Background="White">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- ── Header ─────────────────────────────────── -->
+        <Border Grid.Row="0" Background="{StaticResource PrimaryBrush}" Padding="20,14">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Kind="ShieldCheck" Width="28" Height="28"
+                                             Foreground="White" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                    <TextBlock Text="فحص سلامة البيانات" FontSize="22" FontWeight="Bold" Foreground="White"
+                               VerticalAlignment="Center"/>
+                </StackPanel>
+                <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock Text="{Binding CheckDate}" Foreground="{StaticResource SecondaryTextBrush}" FontSize="12"
+                               VerticalAlignment="Center" Margin="0,0,14,0"/>
+                    <Button Content="تشغيل الفحص الكامل" Command="{Binding RunFullCheckCommand}"
+                            Style="{StaticResource MaterialDesignFlatLightBgButton}" Foreground="White"
+                            FontSize="14"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- ── Overall Status Banner ─────────────────── -->
+        <Border Grid.Row="1" Padding="14,10"
+                Visibility="{Binding HasResults, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Border CornerRadius="6" Padding="16,10">
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Setter Property="Background" Value="{StaticResource ErrorBackgroundBrush}"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding OverallStatus}" Value="سليم ✓">
+                                <Setter Property="Background" Value="#E8F5E9"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <!-- Green check icon when healthy -->
+                    <materialDesign:PackIcon Width="24" Height="24" VerticalAlignment="Center" Margin="0,0,8,0">
+                        <materialDesign:PackIcon.Style>
+                            <Style TargetType="materialDesign:PackIcon">
+                                <Setter Property="Kind" Value="AlertCircle"/>
+                                <Setter Property="Foreground" Value="{StaticResource DangerBrush}"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding OverallStatus}" Value="سليم ✓">
+                                        <Setter Property="Kind" Value="CheckCircle"/>
+                                        <Setter Property="Foreground" Value="{StaticResource SuccessBrush}"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </materialDesign:PackIcon.Style>
+                    </materialDesign:PackIcon>
+                    <TextBlock Text="{Binding OverallStatus}" FontSize="18" FontWeight="Bold" VerticalAlignment="Center">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Foreground" Value="{StaticResource DangerBrush}"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding OverallStatus}" Value="سليم ✓">
+                                        <Setter Property="Foreground" Value="{StaticResource SuccessBrush}"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </StackPanel>
+            </Border>
+        </Border>
+
+        <!-- ── Results Area ──────────────────────────── -->
+        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" Padding="14,6">
+            <StackPanel Visibility="{Binding HasResults, Converter={StaticResource BooleanToVisibilityConverter}}">
+
+                <!-- ── Card 1: Trial Balance (ميزان المراجعة) ── -->
+                <Border Style="{StaticResource CardPanel}" Margin="0,0,0,10" Padding="18">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                            <materialDesign:PackIcon Width="22" Height="22" VerticalAlignment="Center" Margin="0,0,8,0">
+                                <materialDesign:PackIcon.Style>
+                                    <Style TargetType="materialDesign:PackIcon">
+                                        <Setter Property="Kind" Value="AlertCircle"/>
+                                        <Setter Property="Foreground" Value="{StaticResource DangerBrush}"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding TrialBalancePassed}" Value="True">
+                                                <Setter Property="Kind" Value="Check"/>
+                                                <Setter Property="Foreground" Value="{StaticResource SuccessBrush}"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </materialDesign:PackIcon.Style>
+                            </materialDesign:PackIcon>
+                            <TextBlock Text="ميزان المراجعة" FontSize="16" FontWeight="Bold" VerticalAlignment="Center"/>
+                        </StackPanel>
+                        <TextBlock Text="{Binding TrialBalanceSummary}" Foreground="#555" FontSize="12"
+                                   TextWrapping="Wrap" Margin="30,0,0,0"/>
+
+                        <!-- Detail grid shown only when there are unbalanced accounts -->
+                        <DataGrid ItemsSource="{Binding UnbalancedAccounts}"
+                                  AutoGenerateColumns="False" IsReadOnly="True"
+                                  CanUserAddRows="False" CanUserDeleteRows="False"
+                                  Style="{StaticResource MaterialDesignDataGrid}"
+                                  MaxHeight="200" Margin="0,10,0,0"
+                                  Visibility="{Binding TrialBalancePassed, Converter={StaticResource InverseBoolToVisConverter}}">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="كود الحساب" Binding="{Binding AccountCode}" Width="100"/>
+                                <DataGridTextColumn Header="اسم الحساب" Binding="{Binding AccountName}" Width="*"/>
+                                <DataGridTextColumn Header="مدين" Binding="{Binding Debit, StringFormat='{}{0:N2}'}" Width="130"/>
+                                <DataGridTextColumn Header="دائن" Binding="{Binding Credit, StringFormat='{}{0:N2}'}" Width="130"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
+                </Border>
+
+                <!-- ── Card 2: Journal Balance (توازن القيود) ── -->
+                <Border Style="{StaticResource CardPanel}" Margin="0,0,0,10" Padding="18">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                            <materialDesign:PackIcon Width="22" Height="22" VerticalAlignment="Center" Margin="0,0,8,0">
+                                <materialDesign:PackIcon.Style>
+                                    <Style TargetType="materialDesign:PackIcon">
+                                        <Setter Property="Kind" Value="AlertCircle"/>
+                                        <Setter Property="Foreground" Value="{StaticResource DangerBrush}"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding JournalBalancePassed}" Value="True">
+                                                <Setter Property="Kind" Value="Check"/>
+                                                <Setter Property="Foreground" Value="{StaticResource SuccessBrush}"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </materialDesign:PackIcon.Style>
+                            </materialDesign:PackIcon>
+                            <TextBlock Text="توازن القيود" FontSize="16" FontWeight="Bold" VerticalAlignment="Center"/>
+                        </StackPanel>
+                        <TextBlock Text="{Binding JournalBalanceSummary}" Foreground="#555" FontSize="12"
+                                   TextWrapping="Wrap" Margin="30,0,0,0"/>
+
+                        <DataGrid ItemsSource="{Binding UnbalancedEntries}"
+                                  AutoGenerateColumns="False" IsReadOnly="True"
+                                  CanUserAddRows="False" CanUserDeleteRows="False"
+                                  Style="{StaticResource MaterialDesignDataGrid}"
+                                  MaxHeight="200" Margin="0,10,0,0"
+                                  Visibility="{Binding JournalBalancePassed, Converter={StaticResource InverseBoolToVisConverter}}">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="رقم القيد" Binding="{Binding JournalNumber}" Width="130"/>
+                                <DataGridTextColumn Header="مدين" Binding="{Binding Debit, StringFormat='{}{0:N2}'}" Width="130"/>
+                                <DataGridTextColumn Header="دائن" Binding="{Binding Credit, StringFormat='{}{0:N2}'}" Width="130"/>
+                                <DataGridTextColumn Header="الفرق" Binding="{Binding Difference, StringFormat='{}{0:N2}'}" Width="130"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
+                </Border>
+
+                <!-- ── Card 3: Inventory Reconciliation (تطابق المخزون) ── -->
+                <Border Style="{StaticResource CardPanel}" Margin="0,0,0,10" Padding="18">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                            <materialDesign:PackIcon Width="22" Height="22" VerticalAlignment="Center" Margin="0,0,8,0">
+                                <materialDesign:PackIcon.Style>
+                                    <Style TargetType="materialDesign:PackIcon">
+                                        <Setter Property="Kind" Value="AlertCircle"/>
+                                        <Setter Property="Foreground" Value="{StaticResource DangerBrush}"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding InventoryPassed}" Value="True">
+                                                <Setter Property="Kind" Value="Check"/>
+                                                <Setter Property="Foreground" Value="{StaticResource SuccessBrush}"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </materialDesign:PackIcon.Style>
+                            </materialDesign:PackIcon>
+                            <TextBlock Text="تطابق المخزون" FontSize="16" FontWeight="Bold" VerticalAlignment="Center"/>
+                        </StackPanel>
+                        <TextBlock Text="{Binding InventorySummary}" Foreground="#555" FontSize="12"
+                                   TextWrapping="Wrap" Margin="30,0,0,0"/>
+
+                        <DataGrid ItemsSource="{Binding InventoryInconsistencies}"
+                                  AutoGenerateColumns="False" IsReadOnly="True"
+                                  CanUserAddRows="False" CanUserDeleteRows="False"
+                                  Style="{StaticResource MaterialDesignDataGrid}"
+                                  MaxHeight="200" Margin="0,10,0,0"
+                                  Visibility="{Binding InventoryPassed, Converter={StaticResource InverseBoolToVisConverter}}">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="كود الصنف" Binding="{Binding ProductCode}" Width="100"/>
+                                <DataGridTextColumn Header="اسم الصنف" Binding="{Binding ProductName}" Width="*"/>
+                                <DataGridTextColumn Header="المخزن" Binding="{Binding WarehouseName}" Width="120"/>
+                                <DataGridTextColumn Header="الكمية المتوقعة" Binding="{Binding ExpectedQuantity, StringFormat='{}{0:N2}'}" Width="120"/>
+                                <DataGridTextColumn Header="الكمية الفعلية" Binding="{Binding ActualQuantity, StringFormat='{}{0:N2}'}" Width="120"/>
+                                <DataGridTextColumn Header="الفرق" Binding="{Binding Difference, StringFormat='{}{0:N2}'}" Width="100"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
+                </Border>
+
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- ── Status Bar ─────────────────────────────── -->
+        <Border Grid.Row="3" Background="{StaticResource BackgroundBrush}" Padding="14,8">
+            <Grid>
+                <TextBlock Text="{Binding StatusMessage}" Foreground="{StaticResource PrimaryBrush}"/>
+                <TextBlock Text="{Binding ErrorMessage}" Foreground="{StaticResource DangerBrush}"
+                           Visibility="{Binding HasError, Converter={StaticResource BooleanToVisibilityConverter}}"
+                           HorizontalAlignment="Left"/>
+                <ProgressBar IsIndeterminate="True" HorizontalAlignment="Right" Width="120"
+                             Visibility="{Binding IsBusy, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

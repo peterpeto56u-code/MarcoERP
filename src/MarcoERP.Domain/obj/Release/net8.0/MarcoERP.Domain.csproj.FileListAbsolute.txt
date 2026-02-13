@@ -1,0 +1,13 @@
+e:\Smart erp\src\MarcoERP.Domain\bin\Release\net8.0\MarcoERP.Domain.deps.json
+e:\Smart erp\src\MarcoERP.Domain\bin\Release\net8.0\MarcoERP.Domain.dll
+e:\Smart erp\src\MarcoERP.Domain\bin\Release\net8.0\MarcoERP.Domain.pdb
+e:\Smart erp\src\MarcoERP.Domain\bin\Release\net8.0\MarcoERP.Domain.xml
+e:\Smart erp\src\MarcoERP.Domain\obj\Release\net8.0\MarcoERP.Domain.GeneratedMSBuildEditorConfig.editorconfig
+e:\Smart erp\src\MarcoERP.Domain\obj\Release\net8.0\MarcoERP.Domain.AssemblyInfoInputs.cache
+e:\Smart erp\src\MarcoERP.Domain\obj\Release\net8.0\MarcoERP.Domain.AssemblyInfo.cs
+e:\Smart erp\src\MarcoERP.Domain\obj\Release\net8.0\MarcoERP.Domain.csproj.CoreCompileInputs.cache
+e:\Smart erp\src\MarcoERP.Domain\obj\Release\net8.0\MarcoERP.Domain.dll
+e:\Smart erp\src\MarcoERP.Domain\obj\Release\net8.0\refint\MarcoERP.Domain.dll
+e:\Smart erp\src\MarcoERP.Domain\obj\Release\net8.0\MarcoERP.Domain.xml
+e:\Smart erp\src\MarcoERP.Domain\obj\Release\net8.0\MarcoERP.Domain.pdb
+e:\Smart erp\src\MarcoERP.Domain\obj\Release\net8.0\ref\MarcoERP.Domain.dll

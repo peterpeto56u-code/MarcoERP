@@ -1,0 +1,29 @@
+e:\Smart erp\governance\SOLUTION_STRUCTURE.md
+  L73: \u2502   \u2514\u2500\u2500 MarcoERP.WinUI/
+  L86: \u2502       \u2514\u2500\u2500 Program.cs
+  L123: | MarcoERP.WinUI             | WinForms App  | All UI forms, controls, view models, user interaction          |
+  L136: MarcoERP.WinUI \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25ba MarcoERP.Application
+  L137: MarcoERP.WinUI \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25ba MarcoERP.Infrastructure  (DI registration only)
+  L138: MarcoERP.WinUI \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25ba MarcoERP.Persistence     (DI registration only)
+  L148: \u2502                    MarcoERP.WinUI                     \u2502
+  L200: | Persistence           | **DI REGISTRATION ONLY**| Only in composition root (Program.cs)        |
+  L201: | Infrastructure        | **DI REGISTRATION ONLY**| Only in composition root (Program.cs)        |
+  L221: ## 6. Composition Root
+  L223: The **only** place where all layers are wired together is `MarcoERP.WinUI/Program.cs`.
+  L247: MarcoERP.WinUI.Forms.Accounting.JournalEntryForm
+  L287: 5. MarcoERP.WinUI           (depends on Application, references Persistence & Infrastructure for DI)
+e:\Smart erp\governance\ARCHITECTURE.md
+  L13: \u2502                    WinUI                         \u2502
+  L61: | DF9 | **NO** reference to Application, Persistence, Infrastructure, or WinUI       |
+  L98: | AF9 | **NO** reference to Persistence, Infrastructure, or WinUI projects       |
+  L159: | IF2 | **NO** direct database access (no DbContext, no SqlConnection)         |
+  L160: | IF3 | **NO** reference to Persistence layer                                  |
+  L162: | IF5 | **NO** reference to WinUI layer                                        |
+  L171: ### 2.5 WinUI Layer (`MarcoERP.WinUI`)
+  L189: #### What is EXPLICITLY FORBIDDEN in WinUI
+  L215: [WinUI Form]
+  L251: [WinUI Form]
+  L266: | Authentication       | WinUI + Infrastructure | UI captures, Infra validates               |
+e:\Smart erp\governance\UI_GUIDELINES.md
+  L3: **WinForms UI Standards, Patterns, and Constraints**
+  L63: | UIF-02  | No form exceeds 800 lines including designer code.                       |

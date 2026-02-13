@@ -1,0 +1,159 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MarcoERP.Infrastructure</name>
+    </assembly>
+    <members>
+        <member name="T:MarcoERP.Infrastructure.AssemblyMarker">
+            <summary>
+            Marker class for the Infrastructure layer assembly.
+            This layer contains cross-cutting concerns: logging, audit, code generation, security.
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Infrastructure.Security.PasswordHasher">
+            <summary>
+            BCrypt-based password hashing implementation.
+            Uses BCrypt.Net-Next with work factor 12 (SECURITY_POLICY compliant).
+            Implements Application.Interfaces.IPasswordHasher for clean architecture.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Infrastructure.Security.PasswordHasher.HashPassword(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:MarcoERP.Infrastructure.Security.PasswordHasher.VerifyPassword(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="T:MarcoERP.Infrastructure.Services.ActivityTracker">
+            <summary>
+            Default IActivityTracker implementation.
+            In WPF, the UI layer calls <see cref="M:MarcoERP.Infrastructure.Services.ActivityTracker.RecordActivity"/> from input hooks.
+            </summary>
+        </member>
+        <member name="P:MarcoERP.Infrastructure.Services.ActivityTracker.LastActivityUtc">
+            <inheritdoc />
+        </member>
+        <member name="M:MarcoERP.Infrastructure.Services.ActivityTracker.RecordActivity">
+            <inheritdoc />
+        </member>
+        <member name="M:MarcoERP.Infrastructure.Services.ActivityTracker.IsIdle(System.TimeSpan)">
+            <inheritdoc />
+        </member>
+        <member name="T:MarcoERP.Infrastructure.Services.AlertService">
+            <summary>
+            Thread-safe in-memory alert store.
+            Singleton — shared between background jobs and the UI.
+            </summary>
+        </member>
+        <member name="P:MarcoERP.Infrastructure.Services.AlertService.ActiveAlerts">
+            <inheritdoc />
+        </member>
+        <member name="E:MarcoERP.Infrastructure.Services.AlertService.AlertsChanged">
+            <inheritdoc />
+        </member>
+        <member name="M:MarcoERP.Infrastructure.Services.AlertService.AddAlert(System.String,System.String,MarcoERP.Application.Interfaces.AlertSeverity)">
+            <inheritdoc />
+        </member>
+        <member name="M:MarcoERP.Infrastructure.Services.AlertService.ClearAlerts(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:MarcoERP.Infrastructure.Services.AlertService.ClearAll">
+            <inheritdoc />
+        </member>
+        <member name="T:MarcoERP.Infrastructure.Services.AuditLogger">
+            <summary>
+            Implementation of IAuditLogger.
+            Writes immutable AuditLog records via the generic repository / UnitOfWork.
+            TRX-INT-05: Audit record is inserted within the same transaction as the business operation.
+            The caller (Application service) must call UoW.SaveChangesAsync to commit.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Infrastructure.Services.AuditLogger.LogAsync(System.String,System.Int32,System.String,System.String,System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="T:MarcoERP.Infrastructure.Services.BackgroundJobService">
+            <summary>
+            Lightweight background job runner for WPF desktop.
+            Uses System.Timers.Timer for periodic execution — no ASP.NET hosting required.
+            Resolves scoped services via IServiceProvider for each tick.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Infrastructure.Services.BackgroundJobService.StartAll">
+            <inheritdoc />
+        </member>
+        <member name="M:MarcoERP.Infrastructure.Services.BackgroundJobService.StopAll">
+            <inheritdoc />
+        </member>
+        <member name="M:MarcoERP.Infrastructure.Services.BackgroundJobService.Dispose">
+            <inheritdoc />
+        </member>
+        <member name="T:MarcoERP.Infrastructure.Services.CurrentUserService">
+            <summary>
+            Provides the currently authenticated user's identity.
+            In WPF, this is set after successful login and read by the audit interceptor.
+            Extended in Phase 5C with UserId, RoleId, RoleName, Permissions, HasPermission.
+            Stored in instance state to avoid static mutable state.
+            </summary>
+        </member>
+        <member name="P:MarcoERP.Infrastructure.Services.CurrentUserService.Username">
+            <inheritdoc />
+        </member>
+        <member name="P:MarcoERP.Infrastructure.Services.CurrentUserService.IsAuthenticated">
+            <inheritdoc />
+        </member>
+        <member name="P:MarcoERP.Infrastructure.Services.CurrentUserService.UserId">
+            <inheritdoc />
+        </member>
+        <member name="P:MarcoERP.Infrastructure.Services.CurrentUserService.RoleId">
+            <inheritdoc />
+        </member>
+        <member name="P:MarcoERP.Infrastructure.Services.CurrentUserService.RoleNameAr">
+            <inheritdoc />
+        </member>
+        <member name="P:MarcoERP.Infrastructure.Services.CurrentUserService.FullNameAr">
+            <inheritdoc />
+        </member>
+        <member name="P:MarcoERP.Infrastructure.Services.CurrentUserService.Permissions">
+            <inheritdoc />
+        </member>
+        <member name="M:MarcoERP.Infrastructure.Services.CurrentUserService.HasPermission(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:MarcoERP.Infrastructure.Services.CurrentUserService.SetUser(System.String)">
+            <summary>
+            Sets the current user after successful authentication (legacy overload).
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Infrastructure.Services.CurrentUserService.SetUser(System.Int32,System.String,System.String,System.Int32,System.String,System.Collections.Generic.IReadOnlyList{System.String})">
+            <summary>
+            Sets the current user with full identity after successful authentication.
+            </summary>
+        </member>
+        <member name="M:MarcoERP.Infrastructure.Services.CurrentUserService.ClearUser">
+            <summary>
+            Clears the current user on logout.
+            </summary>
+        </member>
+        <member name="T:MarcoERP.Infrastructure.Services.DateTimeProvider">
+            <summary>
+            Production implementation of IDateTimeProvider using the system clock.
+            Enables testability by abstracting DateTime.UtcNow / DateTime.Today.
+            </summary>
+        </member>
+        <member name="P:MarcoERP.Infrastructure.Services.DateTimeProvider.UtcNow">
+            <inheritdoc />
+        </member>
+        <member name="P:MarcoERP.Infrastructure.Services.DateTimeProvider.Today">
+            <inheritdoc />
+        </member>
+        <member name="T:MarcoERP.Infrastructure.Services.DefaultCompanyContext">
+            <summary>
+            Default company context — always returns CompanyId = 1.
+            This is the single-company implementation.
+            Future: replace with a context-aware implementation for Multi-Company.
+            </summary>
+        </member>
+        <member name="P:MarcoERP.Infrastructure.Services.DefaultCompanyContext.CurrentCompanyId">
+            <inheritdoc />
+        </member>
+    </members>
+</doc>
