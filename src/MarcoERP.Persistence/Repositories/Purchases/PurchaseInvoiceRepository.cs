@@ -104,13 +104,14 @@ namespace MarcoERP.Persistence.Repositories.Purchases
         /// <summary>
         /// Generates the next invoice number in format PI-YYYYMM-####.
         /// Example: PI-202602-0001, PI-202602-0002, ...
+        /// Excludes soft-deleted invoices to prevent number conflicts.
         /// </summary>
         public async Task<string> GetNextNumberAsync(CancellationToken cancellationToken = default)
         {
             var prefix = $"PI-{_dateTime.UtcNow:yyyyMM}-";
 
             var lastNumber = await _context.PurchaseInvoices
-                .Where(pi => pi.InvoiceNumber.StartsWith(prefix))
+                .Where(pi => pi.InvoiceNumber.StartsWith(prefix) && !pi.IsDeleted)
                 .OrderByDescending(pi => pi.InvoiceNumber)
                 .Select(pi => pi.InvoiceNumber)
                 .FirstOrDefaultAsync(cancellationToken);

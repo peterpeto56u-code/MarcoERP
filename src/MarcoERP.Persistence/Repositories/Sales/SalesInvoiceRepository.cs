@@ -104,13 +104,14 @@ namespace MarcoERP.Persistence.Repositories.Sales
         /// <summary>
         /// Generates the next invoice number in format SI-YYYYMM-####.
         /// Example: SI-202602-0001, SI-202602-0002, ...
+        /// Excludes soft-deleted invoices to prevent number conflicts.
         /// </summary>
         public async Task<string> GetNextNumberAsync(CancellationToken cancellationToken = default)
         {
             var prefix = $"SI-{_dateTime.UtcNow:yyyyMM}-";
 
             var lastNumber = await _context.SalesInvoices
-                .Where(si => si.InvoiceNumber.StartsWith(prefix))
+                .Where(si => si.InvoiceNumber.StartsWith(prefix) && !si.IsDeleted)
                 .OrderByDescending(si => si.InvoiceNumber)
                 .Select(si => si.InvoiceNumber)
                 .FirstOrDefaultAsync(cancellationToken);

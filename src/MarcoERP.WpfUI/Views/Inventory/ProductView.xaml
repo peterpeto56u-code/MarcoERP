@@ -408,10 +408,23 @@
                                               AutoGenerateColumns="False"
                                               CanUserAddRows="False" CanUserDeleteRows="False"
                                               GridLinesVisibility="Horizontal"
-                                              FontSize="11" RowHeight="30" ColumnHeaderHeight="28"
+                                              FontSize="11" RowHeight="30" ColumnHeaderHeight="32"
                                               BorderThickness="1" BorderBrush="#E0E0E0"
                                               materialDesign:DataGridAssist.CellPadding="4 2"
                                               MinHeight="60" MaxHeight="160">
+                                        <DataGrid.ColumnHeaderStyle>
+                                            <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
+                                                <Setter Property="Background" Value="#0277BD" />
+                                                <Setter Property="Foreground" Value="White" />
+                                                <Setter Property="FontWeight" Value="SemiBold" />
+                                                <Setter Property="FontSize" Value="11" />
+                                                <Setter Property="Height" Value="32" />
+                                                <Setter Property="Padding" Value="6,4" />
+                                                <Setter Property="BorderThickness" Value="0,0,1,0" />
+                                                <Setter Property="BorderBrush" Value="White" />
+                                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                            </Style>
+                                        </DataGrid.ColumnHeaderStyle>
                                         <DataGrid.Columns>
                                             <DataGridTemplateColumn Header="الوحدة" Width="*" MinWidth="80">
                                                 <DataGridTemplateColumn.CellTemplate>
