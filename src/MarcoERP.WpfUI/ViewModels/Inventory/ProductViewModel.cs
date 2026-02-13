@@ -636,9 +636,9 @@ namespace MarcoERP.WpfUI.ViewModels.Inventory
         {
             if (_getBasePrices == null || ConversionFactor <= 0) return;
             var (baseSale, baseCost) = _getBasePrices();
-            if (baseSale > 0 && SalePrice == 0)
+            if (baseSale > 0)
                 SalePrice = Math.Round(baseSale / ConversionFactor, 4);
-            if (baseCost > 0 && PurchasePrice == 0)
+            if (baseCost > 0)
                 PurchasePrice = Math.Round(baseCost / ConversionFactor, 4);
         }
 

@@ -50,12 +50,12 @@
 
         <Style x:Key="OpenTabButtonStyle" TargetType="Button" BasedOn="{StaticResource MaterialDesignFlatButton}">
             <Setter Property="Height" Value="34" />
-            <Setter Property="MinWidth" Value="120" />
-            <Setter Property="MaxWidth" Value="240" />
+            <Setter Property="MinWidth" Value="140" />
+            <Setter Property="MaxWidth" Value="260" />
             <Setter Property="Padding" Value="10,0,4,0" />
             <Setter Property="Margin" Value="2,0,0,0" />
             <Setter Property="Background" Value="#E8ECEF" />
-            <Setter Property="Foreground" Value="#546E7A" />
+            <Setter Property="Foreground" Value="#37474F" />
             <Setter Property="BorderThickness" Value="0" />
             <Setter Property="HorizontalContentAlignment" Value="Stretch" />
             <Setter Property="Cursor" Value="Hand" />
@@ -86,7 +86,7 @@
                             <DataTrigger Binding="{Binding IsActive}" Value="True">
                                 <Setter TargetName="TabBorder" Property="Background" Value="White" />
                                 <Setter TargetName="ActiveIndicator" Property="Visibility" Value="Visible" />
-                                <Setter Property="Foreground" Value="#263238" />
+                                <Setter Property="Foreground" Value="#1A237E" />
                             </DataTrigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -516,11 +516,10 @@
                                         </materialDesign:PackIcon>
                                         <!-- Tab Title -->
                                         <TextBlock Grid.Column="1" Text="{Binding DisplayTitle}"
-                                                   FontSize="13" FontWeight="Medium"
-                                                   Foreground="#000000"
+                                                   FontSize="13" FontWeight="SemiBold"
                                                    VerticalAlignment="Center"
                                                    TextTrimming="CharacterEllipsis"
-                                                   Margin="0,0,6,0" />
+                                                   Margin="0,0,8,0" />
                                         <!-- Close Button -->
                                         <Button Grid.Column="2"
                                                 Style="{StaticResource TabCloseButtonStyle}"
