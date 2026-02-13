@@ -20,6 +20,7 @@ using MarcoERP.Domain.Exceptions.Sales;
 using MarcoERP.Domain.Interfaces;
 using MarcoERP.Domain.Interfaces.Inventory;
 using MarcoERP.Domain.Interfaces.Sales;
+using Microsoft.EntityFrameworkCore;
 
 namespace MarcoERP.Application.Services.Sales
 {
@@ -132,59 +133,87 @@ namespace MarcoERP.Application.Services.Sales
                 return ServiceResult<SalesInvoiceDto>.Failure(
                     string.Join(" | ", vr.Errors.Select(e => e.ErrorMessage)));
 
-            try
-            {
-                SalesInvoice invoice = null;
+            const int maxRetries = 3;
+            int attempt = 0;
 
-                await _unitOfWork.ExecuteInTransactionAsync(async () =>
+            while (attempt < maxRetries)
+            {
+                attempt++;
+                
+                try
                 {
-                    var invoiceNumber = await _invoiceRepo.GetNextNumberAsync(ct);
+                    SalesInvoice invoice = null;
 
-                    invoice = new SalesInvoice(
-                        invoiceNumber,
-                        dto.InvoiceDate,
-                        dto.CustomerId,
-                        dto.WarehouseId,
-                        dto.Notes,
-                        counterpartyType: dto.CounterpartyType,
-                        supplierId: dto.SupplierId);
-
-                    foreach (var lineDto in dto.Lines)
+                    await _unitOfWork.ExecuteInTransactionAsync(async () =>
                     {
-                        var product = await _productRepo.GetByIdWithUnitsAsync(lineDto.ProductId, ct);
-                        if (product == null)
-                            throw new SalesInvoiceDomainException($"الصنف برقم {lineDto.ProductId} غير موجود.");
+                        var invoiceNumber = await _invoiceRepo.GetNextNumberAsync(ct);
 
-                        var productUnit = product.ProductUnits.FirstOrDefault(pu => pu.UnitId == lineDto.UnitId);
-                        if (productUnit == null)
-                            throw new SalesInvoiceDomainException(
-                                $"الوحدة المحددة غير مرتبطة بالصنف ({product.NameAr}).");
+                        invoice = new SalesInvoice(
+                            invoiceNumber,
+                            dto.InvoiceDate,
+                            dto.CustomerId,
+                            dto.WarehouseId,
+                            dto.Notes,
+                            counterpartyType: dto.CounterpartyType,
+                            supplierId: dto.SupplierId);
 
-                        invoice.AddLine(
-                            lineDto.ProductId,
-                            lineDto.UnitId,
-                            lineDto.Quantity,
-                            lineDto.UnitPrice,
-                            productUnit.ConversionFactor,
-                            lineDto.DiscountPercent,
-                            product.VatRate);
-                    }
+                        foreach (var lineDto in dto.Lines)
+                        {
+                            var product = await _productRepo.GetByIdWithUnitsAsync(lineDto.ProductId, ct);
+                            if (product == null)
+                                throw new SalesInvoiceDomainException($"الصنف برقم {lineDto.ProductId} غير موجود.");
 
-                    var creditError = await GetCreditControlErrorAsync(invoice.CustomerId, invoice.NetTotal, ct);
-                    if (creditError != null)
-                        throw new SalesInvoiceDomainException(creditError);
+                            var productUnit = product.ProductUnits.FirstOrDefault(pu => pu.UnitId == lineDto.UnitId);
+                            if (productUnit == null)
+                                throw new SalesInvoiceDomainException(
+                                    $"الوحدة المحددة غير مرتبطة بالصنف ({product.NameAr}).");
 
-                    await _invoiceRepo.AddAsync(invoice, ct);
-                    await _unitOfWork.SaveChangesAsync(ct);
-                }, IsolationLevel.Serializable, ct);
+                            invoice.AddLine(
+                                lineDto.ProductId,
+                                lineDto.UnitId,
+                                lineDto.Quantity,
+                                lineDto.UnitPrice,
+                                productUnit.ConversionFactor,
+                                lineDto.DiscountPercent,
+                                product.VatRate);
+                        }
 
-                var saved = await _invoiceRepo.GetWithLinesAsync(invoice.Id, ct);
-                return ServiceResult<SalesInvoiceDto>.Success(SalesInvoiceMapper.ToDto(saved));
+                        var creditError = await GetCreditControlErrorAsync(invoice.CustomerId, invoice.NetTotal, ct);
+                        if (creditError != null)
+                            throw new SalesInvoiceDomainException(creditError);
+
+                        await _invoiceRepo.AddAsync(invoice, ct);
+                        await _unitOfWork.SaveChangesAsync(ct);
+                    }, IsolationLevel.Serializable, ct);
+
+                    var saved = await _invoiceRepo.GetWithLinesAsync(invoice.Id, ct);
+                    return ServiceResult<SalesInvoiceDto>.Success(SalesInvoiceMapper.ToDto(saved));
+                }
+                catch (DbUpdateException ex) when (attempt < maxRetries && 
+                    (ex.InnerException?.Message.Contains("UNIQUE", StringComparison.OrdinalIgnoreCase) == true ||
+                     ex.InnerException?.Message.Contains("duplicate", StringComparison.OrdinalIgnoreCase) == true))
+                {
+                    // Race condition detected: another user created an invoice with the same number
+                    // Wait briefly and retry with a new number
+                    await Task.Delay(TimeSpan.FromMilliseconds(100 * attempt), ct);
+                    continue;
+                }
+                catch (DbUpdateException ex) when (
+                    ex.InnerException?.Message.Contains("UNIQUE", StringComparison.OrdinalIgnoreCase) == true ||
+                    ex.InnerException?.Message.Contains("duplicate", StringComparison.OrdinalIgnoreCase) == true)
+                {
+                    // All retries exhausted
+                    return ServiceResult<SalesInvoiceDto>.Failure(
+                        "فشل حفظ الفاتورة بسبب تعارض في رقم الفاتورة. يرجى إعادة المحاولة مرة أخرى.");
+                }
+                catch (SalesInvoiceDomainException ex)
+                {
+                    return ServiceResult<SalesInvoiceDto>.Failure(ex.Message);
+                }
             }
-            catch (SalesInvoiceDomainException ex)
-            {
-                return ServiceResult<SalesInvoiceDto>.Failure(ex.Message);
-            }
+
+            // Should never reach here
+            return ServiceResult<SalesInvoiceDto>.Failure("فشل حفظ الفاتورة بعد عدة محاولات.");
         }
 
         // ══════════════════════════════════════════════════════════
